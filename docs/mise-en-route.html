@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Mise en route</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html" aria-current="page">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#pret">Avant de commencer</a></li>
+      <li><a href="#sauvegarde">1. Sauvegarder la carte</a></li>
+      <li><a href="#flash">2. Flasher XPro</a></li>
+      <li><a href="#connexion">3. Connexion</a></li>
+      <li><a href="#reglages">4. Recoller ses réglages</a></li>
+      <li><a href="#karrmen">Les réglages de KarRmen</a></li>
+      <li><a href="#banc">5. Essais au banc</a></li>
+      <li><a href="#rapport">Le rapport de banc</a></li>
+      <li><a href="#vol">6. Premier vol en ANGLE</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Mise en route : de Betaflight à XPro</h1>
+    <p class="chapeau">Passer un drone de Betaflight à TrueGlide XPro en six étapes : sauvegarder la carte, flasher,
+      se connecter, recoller ses réglages, essayer au banc hélices retirées, puis voler en ANGLE, dehors. Chaque étape
+      se fait dans le logiciel XPro.</p>
+    <p>L'exemple suivi est celui de <b>KarRmen</b> (SpeedyBee F405 Mini, récepteur ExpressLRS, vidéo Walksnail),
+      passé de Betaflight à XPro entre le 14 et le 18 octobre 2026. Les chiffres cités sont ses mesures.</p>
+
+    <h2 id="pret">Avant de commencer</h2>
+    <ul>
+      <li>Le logiciel XPro : un seul fichier <code>.html</code>, à ouvrir dans <b>Chrome</b> ou <b>Edge</b> sur
+        ordinateur. Le firmware est inclus dans ce fichier.</li>
+      <li>Un câble USB de données, en bon état. Les coupures de liaison vues aux essais venaient du câble.</li>
+      <li>Le <code>diff all</code> de Betaflight, copié dans un fichier texte. Gardez aussi le <code>dump all</code>.</li>
+      <li><b>Hélices retirées</b> pour toutes les étapes jusqu'au premier vol.</li>
+    </ul>
+
+    <h2 id="sauvegarde">1. Sauvegarder la carte</h2>
+    <p>La sauvegarde complète est une copie exacte de toute la mémoire de la carte (1 Mo) : firmware, réglages,
+      calibrages. Elle permet de remettre la carte exactement comme avant, Betaflight compris.</p>
+    <ol class="etapes">
+      <li>Brancher la carte en USB. Dans le logiciel, ouvrir l'onglet <b>Flasher le firmware</b>.</li>
+      <li>Cadre « Sauvegarde complète de la carte » : cliquer <b>Sauvegarder la carte</b>. La carte passe en mode DFU,
+        elle est lue deux fois (les deux lectures doivent être identiques), puis redémarre telle quelle. Rien n'est
+        écrit dans la carte.</li>
+      <li>Le fichier <code>sauvegarde_complete_….bin</code> arrive dans le dossier Téléchargements. Le journal sous
+        le cadre « Flasher la carte par USB » donne son <b>empreinte SHA-256</b> : la noter.</li>
+      <li>Copier le fichier sur l'ordinateur <b>et</b> sur une clé USB.</li>
+    </ol>
+    <p>Pour vérifier plus tard que le fichier est intact, sous Windows, dans une invite de commandes :</p>
+    <p><code>certutil -hashfile sauvegarde_complete_….bin SHA256</code></p>
+    <p>La suite de chiffres affichée doit être identique à celle du journal. Pour KarRmen : fichier de 1 048 576
+      octets fait le 14/10/2026, contrôlé avec <code>certutil</code> le 18/10, empreinte identique (elle commence par
+      <code>b72c9a56</code>).</p>
+    <div class="encart">Si Chrome ne trouve pas la carte en mode DFU, maintenir le bouton <b>BOOT</b> de la carte en
+      branchant l'USB, puis recommencer. Le fichier de sauvegarde reste chez vous : ne pas le publier.</div>
+
+    <h2 id="flash">2. Flasher XPro</h2>
+    <ol class="etapes">
+      <li>Cliquer <b>Connexion</b> et choisir le port de la carte (encore sous Betaflight).</li>
+      <li>Onglet <b>Flasher le firmware</b>, cadre « Flasher la carte par USB » : laisser coché <b>Firmware
+        inclus</b>, puis <b>Flasher</b>.</li>
+      <li>Le logiciel envoie à Betaflight la demande de redémarrage en mode DFU, puis efface, écrit, relit pour
+        vérifier et redémarre la carte. Sur KarRmen, le 14/10/2026, ce passage en DFU a marché du premier coup, sans
+        bouton BOOT.</li>
+      <li>La première fois, Chrome demande de choisir « STM32 BOOTLOADER ». Si le bouton <b>Autoriser la carte
+        DFU</b> apparaît, cliquer dessus et choisir cette carte.</li>
+    </ol>
+    <p>Tous les détails (autre fichier <code>.hex</code>, bouton BOOT, restauration) : <a href="flasher.html">Flasher le
+      firmware</a>.</p>
+
+    <h2 id="connexion">3. Connexion</h2>
+    <p>Débrancher puis rebrancher l'USB. Cliquer <b>Connexion</b> et choisir le port « TrueGlide XPro » (ou COM… sous
+      Windows). Dans l'onglet <b>Ligne de commande</b>, <code>version</code> répond par exemple :</p>
+    <p><code>TRUEGLIDE 0.8.3-banc (01d85e9) SPEEDYBEEF405MINI</code></p>
+    <p>Juste après Betaflight, <code>status</code> peut afficher « Reglages : ENREGISTREMENT ILLISIBLE (autre firmware
+      ou abime) : valeurs par defaut ». C'est attendu : la place des réglages contient encore ceux de Betaflight, que
+      XPro ne lit pas. XPro part de ses valeurs par défaut.</p>
+    <p>Deux choses à faire une fois :</p>
+    <ul>
+      <li>Onglet <b>Installation</b>, drone posé à plat et immobile : <b>Calibrer l'accéléromètre</b>. Une carte qui
+        bouge pendant le calibrage est refusée, rien ne change.</li>
+      <li>Onglet <b>Blackbox</b> : <b>Effacer le journal</b>. La mémoire du journal peut contenir un ancien journal de
+        Betaflight : XPro le signale. Sur KarRmen, il occupait la mémoire au point qu'aucun vol n'était enregistré.</li>
+    </ul>
+
+    <h2 id="reglages">4. Recoller ses réglages</h2>
+    <p>Onglet <b>Ligne de commande</b> : coller tout le <code>diff all</code> de Betaflight dans le champ de saisie.
+      Le logiciel demande « Envoyer ces N commandes à la carte, une par une ? », puis envoie chaque ligne. Les lignes
+      qui commencent par <code>#</code> sont des commentaires.</p>
+    <p>Chaque ligne reçoit une réponse :</p>
+    <div class="tableau"><table>
+      <tr><th>Cas</th><th>Réponse de la carte</th></tr>
+      <tr><td>Réglage géré par XPro</td><td>La carte répète le réglage avec sa nouvelle valeur.</td></tr>
+      <tr><td>Réglage sans effet dans XPro</td><td><code>Ignore : nom sans effet dans XPro (raison)</code> : accepté, la raison
+        est donnée (pas de GPS, pas de bandeau LED…).</td></tr>
+      <tr><td>Commande de Betaflight sans équivalent</td><td><code>Ignore : … (commande de Betaflight sans effet dans XPro :
+        raison)</code>, par exemple <code>resource</code> (broches fixées par la carte) ou <code>vtxtable</code>.</td></tr>
+      <tr><td>Valeur hors plage</td><td><code>REFUSE : valeur hors plage, rien n'a change</code>. Une valeur n'est jamais
+        corrigée en silence.</td></tr>
+    </table></div>
+    <p>Terminer par <code>save</code> (refusé drone armé). La carte répond « Reglages enregistres dans la carte
+      (enregistrement N) ».</p>
+    <p>Le dump all de KarRmen compte <b>592 réglages</b>. Compte du 18/10/2026 (firmware 0.8.3) : <b>314 gérés</b>,
+      <b>278 acceptés « sans effet »</b> avec leur raison (GPS 33, OSD HD 26, journal 14, LED 13, télémétrie 11,
+      caméra 10…), <b>0 inconnu</b>. Son diff all passe donc sans aucun refus.</p>
+
+    <h3 id="karrmen">Les réglages de KarRmen en un clic</h3>
+    <p>L'onglet <b>Réglages de PID</b> contient, en bas, le cadre « Réglages de KarRmen à coller » : les 79 valeurs
+      du dump all du 14/10/2026 différentes des défauts de XPro (filtres, AIRMODE, télémétrie, props out, OSD, plages
+      des interrupteurs, profils PID 1 « LAUNCH » et 3 « 15053S »…). « Voir les lignes envoyées » les affiche.</p>
+    <p><b>Appliquer à la carte</b> envoie les lignes une par une, vérifie que la carte a pris chaque valeur, puis
+      enregistre. Le résultat s'affiche dans une fenêtre : « Réglages appliqués, vérifiés (N valeurs relues) et
+      enregistrés dans la carte », ou la liste « PAS PRIS » des lignes refusées. Sur KarRmen, le 17/10/2026 :
+      80 valeurs relues, enregistrement 9.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-mise-en-route-pid-karrmen.png" alt="Cadre Réglages de KarRmen à coller, avec le bouton Appliquer à la carte"><img class="t-clair" src="../assets/img/doc-mise-en-route-pid-karrmen-clair.png" alt="Cadre Réglages de KarRmen à coller, avec le bouton Appliquer à la carte">
+      <figcaption>Onglet Réglages de PID, cadre « Réglages de KarRmen à coller ». Ces valeurs sont celles de KarRmen :
+        pour un autre drone, coller son propre diff all.</figcaption>
+    </figure>
+
+    <h2 id="banc">5. Essais au banc, hélices retirées</h2>
+    <p>Batterie branchée, USB branché, <b>hélices retirées</b>. Tant que le logiciel est connecté, la carte refuse
+      d'armer (raison « LOGICIEL CONNECTE »). Pour l'essai au banc, onglet <b>Moteurs</b>, cocher « Autoriser
+      l'armement avec le logiciel connecté ». Cette case n'est jamais enregistrée et se coupe à la déconnexion.</p>
+    <ol class="etapes">
+      <li><b>Sens des corrections</b> : armer, gaz à 20 %. Pencher le drone nez vers le bas : dans l'onglet Moteurs,
+        les barres des moteurs avant (2 et 4) montent. Pencher le drone sur la droite : les barres des moteurs de
+        droite (1 et 2) montent. Le drone corrige dans le bon sens.</li>
+      <li><b>Failsafe</b> : toujours armé, gaz à zéro, éteindre la radio. Les moteurs s'arrêtent seuls en moins de
+        2 s et les lunettes affichent <code>!FS!</code>.</li>
+      <li><b>Pas de réarmement seul</b> : rallumer la radio, interrupteur ARM toujours en haut. Le drone ne réarme pas :
+        il faut baisser puis relever l'interrupteur, comme sous Betaflight.</li>
+    </ol>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-mise-en-route-moteurs.png" alt="Onglet Moteurs : barres des 4 moteurs, curseurs de test, case Autoriser l'armement avec le logiciel connecté"><img class="t-clair" src="../assets/img/doc-mise-en-route-moteurs-clair.png" alt="Onglet Moteurs : barres des 4 moteurs, curseurs de test, case Autoriser l'armement avec le logiciel connecté">
+      <figcaption>Onglet Moteurs, colonne de droite : une barre par moteur avec sa vitesse, le test des moteurs
+        (25 % au plus, arrêt si le logiciel n'envoie plus d'ordre pendant 1 s) et la case d'armement au banc.</figcaption>
+    </figure>
+
+    <h3 id="rapport">Le rapport de banc</h3>
+    <p>Pour vérifier la carte seule (USB seulement, sans batterie) : onglet <b>Rapport de banc</b>, <b>Lancer le
+      rapport</b>, puis tourner la carte à la main pendant les 10 secondes de mesures. Le logiciel envoie
+      <code>version</code>, <code>status</code>, 20 fois <code>gyro</code>, puis encore <code>status</code>.
+      Il enregistre le fichier <code>rapport_banc_….txt</code> et copie le texte : l'envoyer tel quel. Si la carte
+      ne répond pas, le rapport le dit et joint les derniers octets reçus.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/rapport.png" alt="Onglet Rapport de banc : trois étapes et le bouton Lancer le rapport"><img class="t-clair" src="../assets/img/onglets/rapport-clair.png" alt="Onglet Rapport de banc : trois étapes et le bouton Lancer le rapport">
+    </figure>
+
+    <h2 id="vol">6. Premier vol en ANGLE, dehors</h2>
+    <p>Terrain dégagé, herbe rase, personne à moins de 20 m, pas de vent fort. Batterie pleine. USB débranché.
+      Hélices montées dans le bon sens (KarRmen : props out).</p>
+    <ol class="etapes">
+      <li>Radio : interrupteur du mode <b>ANGLE</b> actif, ARM en bas, gaz à zéro.</li>
+      <li>ARM en haut : le drone arme, les hélices tournent au ralenti.</li>
+      <li>Monter les gaz doucement : il décolle droit, sans tourner sur lui-même.</li>
+      <li>Stationnaire à 1 ou 2 m pendant 20 s, puis petits mouvements des manches : il répond dans le bon sens.</li>
+      <li>Atterrir en descendant les gaz doucement jusqu'au sol, puis ARM en bas.</li>
+    </ol>
+    <div class="encart">Au moindre doute en vol (oscillation, drone qui penche ou part seul) : <b>ARM en bas tout de
+      suite</b>, même en l'air. À 1 m, le drone tombe sans casse.</div>
+    <p>De retour : batterie, USB, <b>Connexion</b>. Dans la Ligne de commande, <code>status</code> et
+      <code>journal</code> ; dans l'onglet Blackbox, <b>Télécharger (.bin)</b>. Le vol se relit dans le
+      <a href="visualiseur-minmax.html">Visualiseur Blackbox</a>.</p>
+    <p>Premier vol de KarRmen (V1, firmware 0.8.3, 18/10/2026, à l'intérieur) : stationnaire stable en ANGLE, 10,8 s
+      armé dont environ 9 s en l'air, 1,2 m au plus, gaz vers 26 %, 7,4 A, aucune oscillation au journal, moteurs
+      froids après le vol. L'atterrissage, gaz coupés d'un coup vers 1 m, a fini en chute et en bascule : d'où la
+      descente douce de l'étape 5.</p>
+    <p>Pour revenir à Betaflight : <a href="flasher.html#restaurer">Restaurer la sauvegarde</a>.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

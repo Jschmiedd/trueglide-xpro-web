@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Émetteur vidéo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html" aria-current="page">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#walksnail">Walksnail : réglé dans les lunettes</a></li>
+      <li><a href="#betaflight">Réglages venus de Betaflight</a></li>
+      <li><a href="#osd">Canal VTX à l'OSD</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Émetteur vidéo</h1>
+    <p class="chapeau">L'onglet <b>Émetteur vidéo</b> (groupe Vidéo et lumières) n'a pas de réglage à changer sur
+      KarRmen : son émetteur Walksnail se règle dans les lunettes. L'onglet le rappelle.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/vtx.png" alt="Onglet Émetteur vidéo : un seul cadre qui explique que le Walksnail se règle dans les lunettes"><img class="t-clair" src="../assets/img/onglets/vtx-clair.png" alt="Onglet Émetteur vidéo : un seul cadre qui explique que le Walksnail se règle dans les lunettes">
+      <figcaption>L'onglet Émetteur vidéo : boutons communs des onglets de réglages et un cadre d'explication.</figcaption>
+    </figure>
+
+    <h2 id="walksnail">Walksnail : réglé dans les lunettes</h2>
+    <p>Sur KarRmen, la table VTX de Betaflight est <b>vide</b> : le canal et la puissance de l'émetteur Walksnail se
+      règlent dans les lunettes, pas par la carte de vol. XPro ne commande donc pas l'émetteur.</p>
+    <p>La carte parle quand même à l'émetteur par MSP sur l'UART1 (OSD et état du drone) : à l'essai B9 (firmware 0.8.3,
+      17/10/2026), les lunettes de KarRmen ont lancé l'enregistrement de la vidéo à l'armement. Avant l'armement, les
+      lunettes peuvent afficher « Standby Mode, low rf power » : c'est un message des lunettes, l'émetteur reste au
+      repos tant que le drone n'est pas armé.</p>
+
+    <h2 id="betaflight">Réglages venus de Betaflight</h2>
+    <p>Les réglages <code>vtx_*</code> et la commande <code>vtxtable</code> d'un <code>diff all</code> de Betaflight
+      sont acceptés et signalés « sans effet », avec la raison : émetteur Walksnail réglé dans les lunettes. Coller un
+      diff all dans la <a href="cli.html">Ligne de commande</a> ne donne donc pas de faux refus.</p>
+
+    <h2 id="osd">Canal VTX à l'OSD</h2>
+    <p>L'élément <b>Canal VTX</b> de l'<a href="osd.html">OSD</a> existe, mais sans émetteur commandé par la carte il
+      affiche « -- » : jamais un canal inventé.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

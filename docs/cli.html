@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Ligne de commande</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html" aria-current="page">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#onglet">L'onglet</a></li>
+      <li><a href="#reponses">Les réponses</a></li>
+      <li><a href="#commandes">Les commandes</a></li>
+      <li><a href="#betaflight">Commandes de Betaflight</a></li>
+      <li><a href="#status">La sortie de status</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Ligne de commande</h1>
+    <p class="chapeau">La ligne de commande parle directement au firmware, par l'USB. Elle sert à lire l'état de la
+      carte (<code>status</code>), à changer un réglage (<code>set</code>), à copier ou recoller tous les réglages
+      (<code>diff all</code>) et à gérer le journal de vol.</p>
+
+    <h2 id="onglet">L'onglet</h2>
+    <p>Onglet <b>Ligne de commande</b> (groupe Outils), carte connectée. Taper une commande dans le champ, puis
+      <kbd>Entrée</kbd> ou <b>Envoyer</b>. Les boutons du bas envoient les commandes courantes : <b>help</b>,
+      <b>status</b>, <b>version</b>, <b>gyro</b>, <b>diff all</b>.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-cli-saisie.png" alt="Bas de l'onglet Ligne de commande : fin d'une réponse, champ de saisie, bouton Envoyer et boutons rapides"><img class="t-clair" src="../assets/img/doc-cli-saisie-clair.png" alt="Bas de l'onglet Ligne de commande : fin d'une réponse, champ de saisie, bouton Envoyer et boutons rapides">
+      <figcaption>Bas de l'onglet : la fin d'une réponse de <code>valeurs</code> (une ligne par réglage : valeur actuelle,
+        valeur enregistrée, puis « fin »), le champ de saisie et les boutons.</figcaption>
+    </figure>
+    <ul>
+      <li><b>Coller plusieurs lignes</b> (un diff all, des réglages) : le logiciel demande une confirmation, puis envoie
+        une commande par ligne, l'une après l'autre.</li>
+      <li>Une ligne qui commence par <code>#</code> est un commentaire : la carte l'ignore.</li>
+      <li>Une ligne fait au plus 127 caractères.</li>
+      <li><b>Effacer l'écran</b> vide la zone de texte. <b>Octets reçus (hexadécimal)</b> affiche et copie les derniers
+        octets reçus de la carte : utile quand elle semble muette.</li>
+      <li>Le firmware répond sans accents (<code>Reglages enregistres</code>).</li>
+    </ul>
+
+    <h2 id="reponses">Les réponses</h2>
+    <div class="tableau"><table>
+      <tr><th>Début de la réponse</th><th>Sens</th></tr>
+      <tr><td><code>REFUSE :</code></td><td>Commande refusée, avec la raison (valeur hors plage, drone armé…). Rien n'a
+        changé.</td></tr>
+      <tr><td><code>Ignore :</code></td><td>Réglage ou commande de Betaflight reconnu, sans effet dans XPro ; la raison
+        suit entre parenthèses.</td></tr>
+      <tr><td><code>Reglage inconnu :</code></td><td>Ce nom n'existe ni dans XPro ni dans la liste des réglages de
+        Betaflight reconnus. <code>get</code> donne la liste.</td></tr>
+      <tr><td><code>Commande inconnue :</code></td><td>Commande qui n'existe pas. <code>help</code> donne la liste.</td></tr>
+    </table></div>
+    <p>Une mesure inconnue ou trop ancienne s'affiche <code>--</code>, jamais un chiffre.</p>
+
+    <h2 id="commandes">Les commandes</h2>
+    <p>Liste relevée dans le firmware 0.8.4. <code>help</code> (ou <code>aide</code>) l'affiche dans la carte. Il n'y
+      a pas de commande <code>dump</code> : <code>diff all</code> donne tous les réglages.</p>
+
+    <h3>État et mesures</h3>
+    <div class="tableau"><table>
+      <tr><th>Commande</th><th>Rôle</th></tr>
+      <tr><td><code>version</code></td><td>Produit, version, commit, carte.</td></tr>
+      <tr><td><code>status</code></td><td>État complet de la carte (détaillé <a href="#status">plus bas</a>).</td></tr>
+      <tr><td><code>gyro</code></td><td>Une mesure du gyroscope (°/s), de l'accéléromètre (g), la température et l'attitude
+        (roulis, tangage, cap).</td></tr>
+      <tr><td><code>flux</code></td><td>Mesures 10 fois par seconde ; une touche pour arrêter.</td></tr>
+      <tr><td><code>flux moteurs</code></td><td>Gyroscope et moteurs 50 fois par seconde (graphiques du logiciel).</td></tr>
+      <tr><td><code>rx</code></td><td>Récepteur : état, trames par seconde, LQ, RSSI, SNR, 16 voies en µs.</td></tr>
+      <tr><td><code>bat</code></td><td>Batterie : tension, éléments, tension par élément, courant, consommation.</td></tr>
+    </table></div>
+
+    <h3>Réglages</h3>
+    <div class="tableau"><table>
+      <tr><th>Commande</th><th>Rôle</th></tr>
+      <tr><td><code>get [nom]</code></td><td>Réglages : valeur, plage, défaut, unité, valeur enregistrée. <code>get acc</code> :
+        tous ceux qui commencent par « acc ».</td></tr>
+      <tr><td><code>set nom = valeur</code></td><td>Change un réglage, appliqué tout de suite. Valeur hors plage
+        refusée.</td></tr>
+      <tr><td><code>save</code></td><td>Enregistre les réglages dans la carte. Refusé drone armé.</td></tr>
+      <tr><td><code>diff</code>, <code>diff all</code></td><td>Réglages différents du défaut, ou tous, au format de
+        Betaflight : texte à recoller tel quel.</td></tr>
+      <tr><td><code>defaults</code></td><td>Remet les réglages par défaut (gardés seulement après <code>save</code>).
+        Refusé drone armé.</td></tr>
+      <tr><td><code>valeurs [nom]</code></td><td>Pour le logiciel : nom, valeur actuelle, valeur enregistrée.</td></tr>
+      <tr><td><code>profile [0-5]</code></td><td>Profil PID actif (0 = profil 1), format de Betaflight ; sans nombre : le
+        profil actif.</td></tr>
+      <tr><td><code>rateprofile [0-5]</code></td><td>Profil de taux actif (0 = profil 1).</td></tr>
+      <tr><td><code>feature [-]AIRMODE</code></td><td>AIRMODE et TELEMETRY ; <code>feature</code> seul : la liste.</td></tr>
+      <tr><td><code>simplified_tuning apply</code> | <code>disable</code></td><td>Réglage simplifié (curseurs
+        <code>simplified_*</code>) sur le profil PID actif.</td></tr>
+      <tr><td><code>aux</code></td><td>Plages des modes, format de Betaflight (<code>aux 0 0 1 1925 2100 0 0</code> : ARM sur
+        AUX2).</td></tr>
+      <tr><td><code>serial</code></td><td>Fonction et débit des ports série, format de Betaflight ; pris en compte après
+        <code>save</code> et redémarrage.</td></tr>
+      <tr><td><code>mixer QUADX</code> | <code>CUSTOM</code>, <code>mmix</code></td><td>Mixeur Quad X ou personnalisé
+        (<code>mmix n gaz roulis tangage lacet</code>).</td></tr>
+      <tr><td><code>beeper</code></td><td>Liste des bips ; <code>beeper -NOM</code> coupe, <code>beeper NOM</code> active
+        (<code>ALL</code> : tous).</td></tr>
+    </table></div>
+
+    <h3>Journal de vol</h3>
+    <div class="tableau"><table>
+      <tr><th>Commande</th><th>Rôle</th></tr>
+      <tr><td><code>journal</code></td><td>État du journal, place utilisée.</td></tr>
+      <tr><td><code>journal_effacer</code></td><td>Efface tout le journal (une minute et plus). Refusé drone armé.</td></tr>
+      <tr><td><code>journal_lire A N</code></td><td>N octets depuis l'adresse A, en hexadécimal (65 536 au plus), pour le
+        logiciel. Refusé armé ou pendant l'effacement.</td></tr>
+    </table></div>
+
+    <h3>Moteurs, hélices retirées</h3>
+    <div class="tableau"><table>
+      <tr><th>Commande</th><th>Rôle</th></tr>
+      <tr><td><code>moteur_test on</code> | <code>off</code></td><td>Test des moteurs. Tout s'arrête sans ordre pendant 1 s.
+        Refusé drone armé.</td></tr>
+      <tr><td><code>moteur N P</code></td><td>Moteur N (1 à 4, ou <code>tous</code>) à P %, 25 au plus, pendant le test.</td></tr>
+      <tr><td><code>moteurs a b c d</code></td><td>Les 4 moteurs en une commande (test actif, 25 au plus).</td></tr>
+      <tr><td><code>armement_banc on</code> | <code>off</code></td><td>Armer avec le logiciel connecté (sinon refus
+        <code>LOGICIEL CONNECTE</code>). Jamais enregistré, coupé à la déconnexion.</td></tr>
+    </table></div>
+
+    <h3>Carte</h3>
+    <div class="tableau"><table>
+      <tr><th>Commande</th><th>Rôle</th></tr>
+      <tr><td><code>calib_acc</code></td><td>Calibrage de l'accéléromètre, carte à plat et immobile ; enregistré. Refusé si
+        la carte bouge.</td></tr>
+      <tr><td><code>beep</code></td><td>Essai du buzzer.</td></tr>
+      <tr><td><code>pinio 1 on</code> | <code>off</code></td><td>Essai : PINIO 1 au niveau armé ou désarmé.</td></tr>
+      <tr><td><code>bl</code></td><td>Redémarrage en mode DFU, pour flasher.</td></tr>
+      <tr><td><code>reboot</code></td><td>Redémarrage.</td></tr>
+      <tr><td><code>test_chien_de_garde</code></td><td>Bloque le firmware exprès : la carte doit redémarrer seule en moins
+        de 2 s.</td></tr>
+    </table></div>
+
+    <h2 id="betaflight">Commandes de Betaflight</h2>
+    <p>Un diff all de Betaflight contient des commandes sans équivalent dans XPro. Elles sont reconnues et répondent
+      <code>Ignore : … (commande de Betaflight sans effet dans XPro : raison)</code>, sans faux refus :</p>
+    <div class="tableau"><table>
+      <tr><th>Commande</th><th>Raison donnée</th></tr>
+      <tr><td><code>map</code></td><td>voies dans l'ordre AETR</td></tr>
+      <tr><td><code>resource</code>, <code>timer</code>, <code>dma</code></td><td>broches, minuteries et DMA fixés par la carte</td></tr>
+      <tr><td><code>beacon</code></td><td>bips par les moteurs : non repris</td></tr>
+      <tr><td><code>rxfail</code></td><td>liaison perdue : manches au centre, gaz en bas, AUX maintenues</td></tr>
+      <tr><td><code>rxrange</code></td><td>plages CRSF standard</td></tr>
+      <tr><td><code>vtxtable</code></td><td>table VTX vide sur KarRmen</td></tr>
+      <tr><td><code>vtx</code></td><td>émetteur Walksnail réglé dans les lunettes</td></tr>
+      <tr><td><code>vtx_info</code></td><td>pas d'émetteur commandé</td></tr>
+      <tr><td><code>board_name</code>, <code>manufacturer_id</code>, <code>mcu_id</code>, <code>signature</code></td><td>carte et
+        processeur fixes ; pas de signature</td></tr>
+      <tr><td><code>batch</code></td><td>commandes exécutées une par une</td></tr>
+      <tr><td><code>defaults nosave</code></td><td>rien n'est remis à zéro par un texte collé</td></tr>
+      <tr><td><code>smix</code>, <code>servo</code></td><td>pas de servo</td></tr>
+      <tr><td><code>adjrange</code></td><td>pas de réglage en vol par interrupteur</td></tr>
+      <tr><td><code>led</code>, <code>color</code>, <code>mode_color</code></td><td>pas de bandeau LED</td></tr>
+      <tr><td><code>gpspassthrough</code>, <code>serialpassthrough</code></td><td>pas de GPS, pas de relais série</td></tr>
+      <tr><td><code>timezone</code></td><td>pas d'horloge réelle</td></tr>
+      <tr><td><code>osd_layout</code></td><td>places OSD par les réglages <code>osd_*_pos</code></td></tr>
+    </table></div>
+    <p>De même, <code>set</code> d'un réglage de Betaflight sans effet dans XPro répond <code>Ignore : nom sans effet
+      dans XPro (raison)</code>. <code>defaults</code> seul, tapé à la main, remet bien les défauts de XPro.</p>
+
+    <h2 id="status">La sortie de status</h2>
+    <p>Exemple réel : <code>status</code> de KarRmen relevé au retour du premier vol V1 (18/10/2026, firmware 0.8.3),
+      batterie et USB branchés, drone désarmé. La sortie est copiée telle quelle, par blocs.</p>
+
+    <h3>Carte et démarrage</h3>
+    <div class="tableau"><pre style="font-family:var(--mono);font-size:13.5px;margin:0 0 10px">TRUEGLIDE 0.8.3-banc (01d85e9) SPEEDYBEEF405MINI
+Processeur : STM32F405/407, flash 1024 Ko, horloge 168 MHz
+Temps depuis le demarrage : 77 s
+Cause du demarrage : mise sous tension
+Depuis la mise sous tension : redemarrages par chien de garde 0, defauts du processeur 0</pre></div>
+    <div class="tableau"><table>
+      <tr><th>Ligne</th><th>Ce qu'elle dit</th></tr>
+      <tr><td>1</td><td>Produit, version, étape (<code>banc</code>), commit, carte : comme <code>version</code>.</td></tr>
+      <tr><td>Processeur</td><td>Horloge à 168 MHz. Sans quartz, la ligne ajoute « QUARTZ ABSENT ».</td></tr>
+      <tr><td>Cause du demarrage</td><td><code>mise sous tension</code>, <code>redemarrage demande</code> (<code>reboot</code>),
+        <code>retour du mode DFU (flash ou bl)</code>, <code>CHIEN DE GARDE</code> (firmware bloqué), <code>bouton reset</code>,
+        <code>baisse de tension</code>…</td></tr>
+      <tr><td>Depuis la mise sous tension</td><td>Redémarrages par le chien de garde et défauts du processeur : 0 attendu.</td></tr>
+    </table></div>
+
+    <h3>Gyroscope, réglages, calibrages</h3>
+    <div class="tableau"><pre style="font-family:var(--mono);font-size:13.5px;margin:0 0 10px">Gyroscope : ICM-42688-P (identifiant 0x47), SPI 10500 kHz
+Mesures : 8002 par seconde ; lues 622281, invalides 0, erreurs de bus 0
+Boucle la plus longue (derniere seconde) : 2057 us
+Reglages : enregistres dans la carte (enregistrement 9)
+Orientation de la carte : appliquee (capteur tourne de 270 deg, sens horaire)
+Calibrage de l'accelerometre : fait (decalage x 5  y 9  z 6 mg)
+Attitude : estimee (gyroscope + accelerometre), cap relatif depuis le calibrage
+Calibrage du gyroscope : fait (decalage x 0.32  y 0.03  z 0.25 deg/s) ; suivi actif (61 s immobiles prises en compte)</pre></div>
+    <div class="tableau"><table>
+      <tr><th>Ligne</th><th>Ce qu'elle dit</th></tr>
+      <tr><td>Gyroscope</td><td>Capteur reconnu et vitesse du bus. Un capteur muet affiche « ABSENT ou muet ».</td></tr>
+      <tr><td>Mesures</td><td>Mesures du gyroscope par seconde (8 000 attendues), mesures rejetées, erreurs du bus.</td></tr>
+      <tr><td>Boucle la plus longue</td><td>Tour le plus long de la boucle principale (USB, ligne de commande, récepteur,
+        OSD…) dans la dernière seconde. La boucle rapide a sa propre mesure, ligne Regulation.</td></tr>
+      <tr><td>Reglages</td><td>Numéro du dernier enregistrement. « MODIFIES, PAS ENREGISTRES (taper save) » si des valeurs
+        diffèrent de celles enregistrées ; « ENREGISTREMENT ILLISIBLE » après un autre firmware.</td></tr>
+      <tr><td>Orientation</td><td>Rotation du capteur sur la carte (<code>gyro_align</code>, 270° sur la F405 Mini).</td></tr>
+      <tr><td>Calibrage de l'accelerometre</td><td>Décalage enregistré, en mg ; « PAS FAIT » sinon.</td></tr>
+      <tr><td>Calibrage du gyroscope</td><td>Fait au démarrage, carte immobile ; « EN ATTENTE » si elle bouge. Le suivi
+        corrige ensuite la dérive due à la chauffe, pendant les secondes immobiles.</td></tr>
+    </table></div>
+
+    <h3>Récepteur, batterie, ports</h3>
+    <div class="tableau"><pre style="font-family:var(--mono);font-size:13.5px;margin:0 0 10px">Recepteur : CRSF sur UART2 (420000 bauds) ; ACTIF, 306 trames/s, LQ 99 %, RSSI -41 dBm
+  octets 617028, erreurs CRC 28, erreurs serie 28, pertes de signal 0
+Batterie : 14.89 V ; 4 elements, 3.72 V par element, OK
+  courant : 0.00 A (mesure -0.32 A : decalage du capteur, ibata_offset), consomme 0 mAh ; alimentation du processeur 3.28 V
+Buzzer : PC15, actif a l'etat bas ; joue : AUCUN
+PINIO 1 : PB11 au niveau haut (comme Betaflight desarme)
+UART1 (VIDEO_HD) : MSP 115226 bauds, octets recus 4, envoyes 450642, demandes servies 0 (dont refusees 0), erreurs de controle 0, erreurs serie 785, octets non envoyes 0
+UART2 (RECEPTEUR) : recepteur CRSF (voir Recepteur)
+UART3 (AUCUNE) : libre
+UART4 (MSP) : Bluetooth FERME (bluetooth_mode = OFF) : le module reste visible mais muet
+UART5 (AUCUNE) : libre
+UART6 (AUCUNE) : libre
+OSD MSP : ecrans envoyes 938, sautes (liaison occupee) 0</pre></div>
+    <div class="tableau"><table>
+      <tr><th>Ligne</th><th>Ce qu'elle dit</th></tr>
+      <tr><td>Recepteur</td><td>Protocole, port, état (ACTIF, SIGNAL PERDU, AUCUN OCTET RECU, AUCUNE TRAME DE VOIES), trames
+        par seconde, qualité de liaison. Puis octets reçus, trames abîmées (CRC), erreurs série, pertes de signal.</td></tr>
+      <tr><td>Batterie</td><td>Tension, nombre d'éléments, tension par élément, état (OK, FAIBLE…). « ABSENTE (USB seul) »
+        sans batterie.</td></tr>
+      <tr><td>courant</td><td>Le courant affiché n'est jamais négatif : ici la mesure brute vaut −0,32 A (décalage du
+        capteur), affichée 0,00 A. Puis la consommation et la tension d'alimentation du processeur.</td></tr>
+      <tr><td>Buzzer, PINIO 1</td><td>Bip en cours ; niveau de la sortie PINIO 1, qui suit l'armement.</td></tr>
+      <tr><td>UART1 à UART6</td><td>Une ligne par port, avec sa fonction (<code>port_N_function</code>) et ses compteurs.
+        Le Bluetooth (UART4) est fermé par défaut.</td></tr>
+      <tr><td>OSD MSP</td><td>Écrans d'OSD envoyés aux lunettes, et sautés faute de place sur la liaison.</td></tr>
+    </table></div>
+
+    <h3>Armement et régulation</h3>
+    <div class="tableau"><pre style="font-family:var(--mono);font-size:13.5px;margin:0 0 10px">Armement : DESARME ; interrupteur ARM bas ; modes : ANGLE
+  refus actuels : LOGICIEL CONNECTE
+  armements 0, refus 0, failsafes 0, temps arme 0 s
+Regulation : gyroscope 8002 mesures/s, boucle PID 4001 par seconde (pid_process_denom 2), DShot 4001 trames/s
+  boucle rapide : la plus longue 104 us, charge 70.0 % du processeur
+  temps par partie : gyroscope 15.6 us, regulation 63.6 us, reponses des ESC 69.7 us (la plus longue 82 us, pas finies a temps 0)
+  profil PID 3 (15053S), profil de taux 2 (-) ; AIRMODE ON ; moteurs props out
+  barometre : DPS310 ou SPL06 (0x76), 965.96 hPa, 12.7 C ; altitude 12.28 m, vitesse verticale -0.02 m/s ; mesures 1945, erreurs 0
+  TrueGlide : power_guard OFF (limite 100 %) ; relance moteur OFF (relances 0 0 0 0) ; secours OFF ; SPEEDER 0 deg
+  temperatures des ESC (C) : -- -- -- -- (dshot_edt OFF) ; telemetrie radio ON, trames 3024
+  filtre RPM : 4 moteurs sur 4 suivis, 3 harmoniques
+  coupe-bandes dynamiques (Hz) : roulis 156/153/180 tangage 165/136/-- lacet 102/96/--
+  consigne (deg/s) 4 / -2 / 0 ; gyroscope filtre 0 / 0 / 0 ; gaz 0 %</pre></div>
+    <div class="tableau"><table>
+      <tr><th>Ligne</th><th>Ce qu'elle dit</th></tr>
+      <tr><td>Armement</td><td>État, interrupteur, modes actifs. <b>refus actuels</b> : ce qui empêche d'armer maintenant
+        (ici le logiciel connecté). Puis les compteurs depuis le démarrage. En 0.8.4, une ligne « menu des lunettes »
+        s'ajoute (ouvert ou fermé, ouvertures, enregistrements).</td></tr>
+      <tr><td>Regulation</td><td>Fréquences mesurées : gyroscope à 8 kHz, boucle PID à 8 kHz divisé par
+        <code>pid_process_denom</code>, trames DShot.</td></tr>
+      <tr><td>boucle rapide</td><td>Tour le plus long (sous 125 µs à 8 kHz) et charge du processeur.</td></tr>
+      <tr><td>temps par partie</td><td>Temps du gyroscope, de la régulation et du décodage des réponses des ESC ; « pas
+        finies à temps » doit rester à 0. Ici, batterie branchée, les 4 ESC répondent : 69,7 µs (14 µs sur USB seul en
+        B9).</td></tr>
+      <tr><td>profils</td><td>Profil PID et profil de taux actifs avec leur nom, AIRMODE, sens des moteurs.</td></tr>
+      <tr><td>barometre</td><td>Capteur détecté, pression, température, altitude (remise à 0 à chaque armement).</td></tr>
+      <tr><td>TrueGlide</td><td>État des fonctions TrueGlide : power_guard, relance moteur, télémétrie de secours,
+        SPEEDER.</td></tr>
+      <tr><td>temperatures des ESC</td><td><code>--</code> : la télémétrie DShot étendue est coupée, aucune température n'est
+        inventée.</td></tr>
+      <tr><td>filtre RPM, coupe-bandes</td><td>Moteurs suivis par le filtre RPM ; fréquences des coupe-bandes dynamiques
+        par axe (<code>--</code> : pas de pic trouvé).</td></tr>
+      <tr><td>consigne</td><td>Consigne et gyroscope filtré par axe (°/s), gaz.</td></tr>
+    </table></div>
+
+    <h3>Journal et moteurs</h3>
+    <div class="tableau"><pre style="font-family:var(--mono);font-size:13.5px;margin:0 0 10px">Journal de vol : pret (enregistre seulement arme) ; flash 8192 Ko (identifiant 0xEF4017), utilise 3017984 octets (35 %)
+  place libre : 70 s de vol a 1000 mesures/s (flash vide : 110 s)
+  depuis le demarrage : vols 0, mesures 0, perdues 0, pages ecrites 0, erreurs 0
+Moteurs : DSHOT300, arret : M1 0.0% M2 0.0% M3 0.0% M4 0.0%
+  trames envoyees 311188, sautees 0, tests arretes faute d'ordre 0
+  DShot bidirectionnel : ON (signal inverse), 14 poles ; captures coupees par la trame suivante 1
+  M1 : 0 tr/min, erreurs 0.9 % (derniere seconde) ; reponses valides 44055, absentes 267132, codage faux 0, controle faux 0
+  M2 : 0 tr/min, erreurs 0.3 % (derniere seconde) ; reponses valides 44253, absentes 266934, codage faux 0, controle faux 0
+  M3 : 0 tr/min, erreurs 7.1 % (derniere seconde) ; reponses valides 41544, absentes 269644, codage faux 0, controle faux 0
+  M4 : 0 tr/min, erreurs 9.3 % (derniere seconde) ; reponses valides 40148, absentes 271040, codage faux 0, controle faux 0
+Octets USB perdus : 0 (envoi 0, reception 0)</pre></div>
+    <div class="tableau"><table>
+      <tr><th>Ligne</th><th>Ce qu'elle dit</th></tr>
+      <tr><td>Journal de vol</td><td>État, taille et place utilisée de la mémoire du journal ; place libre en secondes de
+        vol. Puis, depuis le démarrage : vols, mesures, mesures perdues (0 attendu).</td></tr>
+      <tr><td>Moteurs</td><td>Protocole, ordre envoyé à chaque moteur ; trames envoyées et sautées (0 attendu) ; arrêts du
+        test faute d'ordre.</td></tr>
+      <tr><td>DShot bidirectionnel</td><td>Réglage <code>dshot_bidir</code>, pôles des moteurs ; captures de réponse coupées
+        par la trame suivante.</td></tr>
+      <tr><td>M1 à M4</td><td>Vitesse en tr/min (<code>--</code> sans réponse valide récente), part de réponses manquées dans
+        la dernière seconde, compteurs. « codage faux » et « controle faux » doivent rester à 0.</td></tr>
+      <tr><td>Octets USB perdus</td><td>Octets perdus entre la carte et le PC, dans chaque sens : 0 attendu.</td></tr>
+    </table></div>
+    <div class="encart">Points relevés dans cet exemple et notés au journal des essais : réponses absentes des moteurs
+      3 et 4 (7,1 % et 9,3 %), 28 erreurs CRC du récepteur en 77 s, 785 erreurs série sur l'UART1. Les deux premiers
+      sont au programme de la 0.8.5. Le journal était à 35 % : à effacer avant l'essai suivant.</div>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

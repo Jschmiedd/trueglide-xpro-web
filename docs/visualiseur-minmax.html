@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Min / Max des courbes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html" aria-current="page">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#changer">Changer les valeurs</a></li>
+      <li><a href="#menu">Le menu principal</a></li>
+      <li><a href="#actions">Les actions</a></li>
+      <li><a href="#courbe">Une seule courbe</a></li>
+      <li><a href="#graphe">Menu d'un graphe</a></li>
+      <li><a href="#etendu">Le mode étendu</a></li>
+      <li><a href="#exemples">Exemples</a></li>
+      <li><a href="#espaces">Espaces de travail</a></li>
+      <li><a href="#clavier">Clavier et souris</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Visualiseur Blackbox : Min / Max des courbes</h1>
+    <p class="chapeau">Chaque courbe du visualiseur a son échelle : une valeur <b>Minimum</b> (le bas de son graphe) et une
+      valeur <b>Maximum</b> (le haut). Les régler permet de lire en un coup d'œil un écart de 2 °/s comme un crash à
+      700 °/s, de superposer le gyroscope et la consigne, ou de centrer le P, I, D et F d'un axe.</p>
+    <p>Le visualiseur est l'onglet <b>Visualiseur Blackbox</b> du logiciel XPro (groupe Analyse), à partir de la version
+      0.8.4. Il ouvre le fichier <code>.bin</code> téléchargé dans l'onglet Blackbox, ou lit directement le journal de la
+      carte branchée en USB. Chaque armement est un vol, choisi dans la liste.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-vue.png" alt="Visualiseur Blackbox : six graphes (roulis, tangage, lacet, PID du roulis, moteurs, gaz) du premier vol de KarRmen"><img class="t-clair" src="../assets/img/bbe-vue-clair.png" alt="Visualiseur Blackbox : six graphes (roulis, tangage, lacet, PID du roulis, moteurs, gaz) du premier vol de KarRmen">
+      <figcaption>Premier vol de KarRmen en 0.8.3 (18/10/2026), espace « Réglage du PID ». À droite de chaque graphe :
+        le nom de chaque courbe, sa valeur sous la souris et son échelle [minimum ; maximum].</figcaption>
+    </figure>
+
+    <h2 id="changer">Changer les valeurs</h2>
+    <p>Les échelles actuelles sont dans le dialogue <b>Configurer les courbes</b>, colonnes <b>Minimum</b> et
+      <b>Maximum</b>. On les change de trois façons :</p>
+    <ul>
+      <li><b>À la main</b> : taper la valeur dans la case.</li>
+      <li><b>Double-clic</b> sur une case : elle reprend sa valeur par défaut.</li>
+      <li><b>Clic droit</b> sur une case : le menu des échelles, décrit plus bas.</li>
+    </ul>
+    <p>Rien ne change à l'écran avant <b>Appliquer</b> ; <b>Annuler</b> (ou un clic à côté du dialogue) oublie tout.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-dialogue.png" alt="Dialogue Configurer les courbes : un tableau par graphe avec Minimum et Maximum de chaque courbe"><img class="t-clair" src="../assets/img/bbe-dialogue-clair.png" alt="Dialogue Configurer les courbes : un tableau par graphe avec Minimum et Maximum de chaque courbe">
+      <figcaption>Un tableau par graphe : couleur et unité de chaque courbe, Minimum, Maximum. On y ajoute aussi des
+        courbes (liste « + Ajouter une courbe ») et des graphes.</figcaption>
+    </figure>
+
+    <h2 id="menu">Le menu principal</h2>
+    <p>Clic droit sur la case Minimum ou Maximum de la courbe voulue. Le menu a trois parties :</p>
+    <ol class="etapes">
+      <li><b>Toutes les courbes</b> : les actions qui changent l'échelle de toutes les courbes du dialogue.</li>
+      <li><b>Cette courbe</b> : les mêmes actions pour la seule courbe du clic (ici « Gyro tangage »).</li>
+      <li>Le rappel du <b>mode étendu</b> : <kbd>Maj</kbd> + clic droit.</li>
+    </ol>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-menu.png" alt="Menu du clic droit sur la case Minimum de Gyro tangage"><img class="t-clair" src="../assets/img/bbe-menu-clair.png" alt="Menu du clic droit sur la case Minimum de Gyro tangage">
+      <figcaption>Clic droit sur le Minimum de « Gyro tangage ».</figcaption>
+    </figure>
+
+    <h2 id="actions">Les actions</h2>
+    <div class="tableau"><table>
+      <tr><th>Action</th><th>Ce qu'elle fait</th></tr>
+      <tr><td><b>Comme celle-ci</b></td><td>Donne à toutes les courbes le Minimum et le Maximum de la courbe du clic.</td></tr>
+      <tr><td><b>Pleine échelle</b></td><td>Règle chaque courbe sur ses propres valeurs les plus basse et la plus haute, sur tout le journal du vol.</td></tr>
+      <tr><td><b>Même échelle</b></td><td>Met toutes les courbes à une seule échelle : le plus petit Minimum et le plus grand Maximum d'entre elles.</td></tr>
+      <tr><td><b>Centrées</b></td><td>Centre chaque courbe sur zéro : son échelle devient symétrique, de −M à +M.</td></tr>
+      <tr><td><b>Zoom +</b>, <b>Zoom −</b></td><td>Resserre ou élargit l'échelle de 15 % autour de son milieu.</td></tr>
+      <tr><td><b>Défaut</b></td><td>Remet les échelles d'origine (gyroscope et consigne ±500 °/s, P I D F ±30 %, moteurs 0 à 100 %…).</td></tr>
+    </table></div>
+
+    <h2 id="courbe">Une seule courbe</h2>
+    <p>« <b>Cette courbe : …</b> » ouvre les mêmes actions pour la seule courbe du clic : Pleine échelle, Centrée,
+      Zoom +, Zoom −, Défaut. « ‹ Retour » revient au menu principal.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-menu-courbe.png" alt="Sous-menu d'une seule courbe"><img class="t-clair" src="../assets/img/bbe-menu-courbe-clair.png" alt="Sous-menu d'une seule courbe">
+      <figcaption>Les actions pour « Gyro tangage » seulement.</figcaption>
+    </figure>
+
+    <h2 id="graphe">Menu d'un graphe</h2>
+    <p>Sans ouvrir le dialogue : <b>clic droit sur un graphe</b>. Le menu court agit sur les courbes de ce graphe, et
+      l'écran change tout de suite.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-menu-graphe.png" alt="Menu court du clic droit sur le graphe Roulis"><img class="t-clair" src="../assets/img/bbe-menu-graphe-clair.png" alt="Menu court du clic droit sur le graphe Roulis">
+      <figcaption>Clic droit sur le graphe « Roulis : gyro et consigne ».</figcaption>
+    </figure>
+
+    <h2 id="etendu">Le mode étendu</h2>
+    <p>Tenir <kbd>Maj</kbd> pendant le clic droit : chaque action ouvre alors un panneau où l'on <b>choisit les
+      courbes</b> (cases à cocher, toutes cochées au départ) et, selon l'action, une valeur. Dans chaque panneau :
+      la ligne en capitales applique, « ‹ Retour » revient au menu, « Fermer » le ferme. <b>Appliquer</b> ou
+      <b>Annuler</b> dans le dialogue ferment tout de suite le menu et le dialogue.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-etendu.png" alt="Menu principal en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-clair.png" alt="Menu principal en mode étendu">
+      <figcaption>Mode étendu : chaque action ouvre son panneau (flèche ▸).</figcaption>
+    </figure>
+
+    <h3>Comme celle-ci</h3>
+    <p>Minimum et Maximum à saisir (au départ ceux de la courbe du clic), courbes à cocher, puis
+      <b>APPLIQUER CES MIN / MAX</b>.</p>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-comme.png" alt="Panneau Comme celle-ci en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-comme-clair.png" alt="Panneau Comme celle-ci en mode étendu"></figure>
+
+    <h3>Pleine échelle</h3>
+    <p>Courbes à cocher, puis la période où chercher les valeurs extrêmes :</p>
+    <ul>
+      <li><b>Sur tout le journal</b> : tout le vol ;</li>
+      <li><b>Sur la fenêtre affichée</b> : seulement le temps visible à l'écran ;</li>
+      <li><b>Entre les marqueurs (I / O)</b> : entre les marqueurs posés avec <kbd>I</kbd> et <kbd>O</kbd> ; sans
+        marqueurs, tout le vol.</li>
+    </ul>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-plein.png" alt="Panneau Pleine échelle en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-plein-clair.png" alt="Panneau Pleine échelle en mode étendu"></figure>
+
+    <h3>Même échelle</h3>
+    <p>Courbes à cocher, puis <b>METTRE À LA MÊME ÉCHELLE</b>.</p>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-echelle.png" alt="Panneau Même échelle en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-echelle-clair.png" alt="Panneau Même échelle en mode étendu"></figure>
+
+    <h3>Centrées</h3>
+    <p>Courbes à cocher, puis <b>CENTRER SUR ZÉRO</b>.</p>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-centre.png" alt="Panneau Centrées en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-centre-clair.png" alt="Panneau Centrées en mode étendu"></figure>
+
+    <h3>Zoom + et Zoom −</h3>
+    <p>Pourcentage du zoom (15 % au départ), courbes à cocher, puis <b>ZOOM +</b> ou <b>ZOOM −</b>.</p>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-zoom.png" alt="Panneau Zoom en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-zoom-clair.png" alt="Panneau Zoom en mode étendu"></figure>
+
+    <h3>Défaut</h3>
+    <p>Courbes à cocher, puis <b>REMETTRE LES VALEURS PAR DÉFAUT</b>.</p>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-defaut.png" alt="Panneau Défaut en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-defaut-clair.png" alt="Panneau Défaut en mode étendu"></figure>
+
+    <h3>Une seule courbe</h3>
+    <p>Dans « Cette courbe », le mode étendu ajoute à <b>Pleine échelle</b> les trois périodes (tout le journal, fenêtre
+      affichée, entre les marqueurs), pour cette courbe seulement.</p>
+    <figure><img class="t-sombre" src="../assets/img/bbe-etendu-courbe.png" alt="Pleine échelle d'une seule courbe en mode étendu"><img class="t-clair" src="../assets/img/bbe-etendu-courbe-clair.png" alt="Pleine échelle d'une seule courbe en mode étendu"></figure>
+
+    <h2 id="exemples">Exemples</h2>
+    <ol class="etapes">
+      <li><b>On connaît l'échelle voulue</b> : la taper dans les cases d'une courbe, puis clic droit sur cette courbe et
+        <b>Comme celle-ci</b> pour toutes les autres. Pour des échelles différentes selon les courbes : le panneau
+        étendu « Comme celle-ci », courbes cochées à la main.</li>
+      <li><b>On veut le détail d'un passage</b> : poser <kbd>I</kbd> et <kbd>O</kbd> autour, <b>Pleine échelle</b> entre
+        les marqueurs, puis <b>Même échelle</b> et <b>Centrées</b> pour aligner les courbes.</li>
+    </ol>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-exemple.png" alt="Exemple : gyroscope et consigne à une même échelle, PID à une autre, tous centrés"><img class="t-clair" src="../assets/img/bbe-exemple-clair.png" alt="Exemple : gyroscope et consigne à une même échelle, PID à une autre, tous centrés">
+      <figcaption>Stationnaire de KarRmen, fenêtre de 2,5 à 7,5 s, marqueurs I et O autour du passage le plus agité :
+        gyroscope et consigne des trois axes à une même pleine échelle prise entre les marqueurs (±93,6 °/s), le P, I,
+        D, F du roulis à la sienne (±5,89 %), le tout centré sur zéro. Les petites corrections du stationnaire deviennent
+        lisibles.</figcaption>
+    </figure>
+
+    <h2 id="espaces">Espaces de travail</h2>
+    <p>Un espace de travail garde les graphes, leurs courbes et <b>toutes leurs échelles</b>. Le dernier espace utilisé
+      est retenu par le navigateur. <kbd>Maj</kbd>+<kbd>W</kbd> (ou le bouton « Espaces de travail ») ouvre le choix :</p>
+    <ul>
+      <li><b>Espace 1 : Réglage du PID</b> (préréglé) : gyroscope et consigne des trois axes, PID du roulis, moteurs, gaz ;</li>
+      <li><b>Espace 2 : Moteurs et batterie</b> (préréglé) : gyroscope brut et filtré, vitesse et sortie des moteurs, tension et courant ;</li>
+      <li><b>Mon espace</b> : celui qu'on a enregistré avec « Enregistrer l'espace actuel ».</li>
+    </ul>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-espaces.png" alt="Menu des espaces de travail"><img class="t-clair" src="../assets/img/bbe-espaces-clair.png" alt="Menu des espaces de travail">
+    </figure>
+
+    <h2 id="clavier">Clavier et souris</h2>
+    <div class="tableau"><table>
+      <tr><th>Geste</th><th>Effet</th></tr>
+      <tr><td>Molette sur les courbes</td><td>Zoom sur le temps, autour de la souris</td></tr>
+      <tr><td>Glisser</td><td>Déplacer la fenêtre dans le temps</td></tr>
+      <tr><td><kbd>I</kbd> / <kbd>O</kbd></td><td>Marqueur de début / de fin à la position de la souris</td></tr>
+      <tr><td><kbd>Échap</kbd></td><td>Effacer les marqueurs, fermer le menu</td></tr>
+      <tr><td>Clic droit sur un graphe</td><td>Échelles des courbes de ce graphe</td></tr>
+      <tr><td><kbd>Maj</kbd> + clic droit</td><td>Mode étendu</td></tr>
+      <tr><td>Double-clic sur une case Min / Max</td><td>Valeur par défaut</td></tr>
+      <tr><td><kbd>Maj</kbd>+<kbd>W</kbd></td><td>Espaces de travail</td></tr>
+      <tr><td>« Tout le vol »</td><td>Revoir le vol entier</td></tr>
+    </table></div>
+    <div class="encart">Les courbes viennent du journal de la carte : 1 000 mesures par seconde au plus, seulement drone
+      armé. Une valeur que la carte ne connaît pas (vitesse d'un moteur sans réponse de son ESC, tension sans mesure)
+      n'est pas dessinée : la courbe s'interrompt, elle ne montre jamais un chiffre inventé.</div>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

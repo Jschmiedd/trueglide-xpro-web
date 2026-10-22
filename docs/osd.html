@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>OSD</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html" aria-current="page">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#elements">Les éléments</a></li>
+      <li><a href="#apercu">L'aperçu</a></li>
+      <li><a href="#reglages">Les réglages</a></li>
+      <li><a href="#alertes">Alarmes et alertes</a></li>
+      <li><a href="#walksnail">Lunettes Walksnail</a></li>
+      <li><a href="#stats">Statistiques après le vol</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>OSD</h1>
+    <p class="chapeau">L'onglet <b>OSD</b> (groupe Vidéo et lumières) choisit ce que les lunettes affichent et où. Trois
+      colonnes : la liste des <b>éléments</b> à gauche, l'<b>aperçu</b> de l'image au centre, les <b>réglages</b> à
+      droite.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-osd-haut.png" alt="Onglet OSD : liste des éléments, aperçu en grille HD 53 × 20, réglages de l'OSD et des minuteurs"><img class="t-clair" src="../assets/img/doc-osd-haut-clair.png" alt="Onglet OSD : liste des éléments, aperçu en grille HD 53 × 20, réglages de l'OSD et des minuteurs">
+      <figcaption>Capture faite avec une fausse carte. Les textes de l'aperçu (tensions, LQ, FAILSAFE…) sont des valeurs
+        d'exemple, pas des mesures.</figcaption>
+    </figure>
+    <p>Comme dans les autres onglets de réglages : <b>Lire la carte</b>, <b>Tout revenir</b>, <b>Enregistrer dans la
+      carte</b> ; un réglage changé est encadré en orange, avec un bouton <b>revenir</b>, tant qu'il diffère de la
+      valeur enregistrée.</p>
+
+    <h2 id="elements">Les éléments</h2>
+    <ul>
+      <li>La liste suit l'ordre alphabétique. La case <b>Rechercher un élément…</b> filtre la liste pendant la
+        frappe.</li>
+      <li><b>P1</b>, <b>P2</b>, <b>P3</b> : cocher l'élément pour l'afficher dans les profils OSD 1, 2 ou 3.</li>
+      <li><b>Col.</b> (0 à 52) et <b>Lig.</b> (0 à 19) : sa place. Sous le nom, « enr. » rappelle la place et les
+        profils enregistrés (« caché » s'il n'est dans aucun profil).</li>
+      <li>Un nom suivi de <b>*</b> est dessiné par les lunettes elles-mêmes : XPro ne l'envoie pas (éléments
+        <code>osd_sys_*</code>, <code>camera_frame</code>…).</li>
+    </ul>
+    <p>Les minuteurs 1 et 2 se placent comme les autres éléments (<b>Minuteur 1</b>, <b>Minuteur 2</b>). Sans GPS,
+      boussole, VTX commandé ni horloge, les éléments qui en dépendent affichent « -- ».</p>
+
+    <h2 id="apercu">L'aperçu</h2>
+    <p>L'aperçu montre la <b>grille HD 53 × 20</b> des lunettes, avec un trait toutes les 5 cases. Les boutons
+      <b>Profil 1</b>, <b>Profil 2</b>, <b>Profil 3</b> choisissent le profil dessiné.</p>
+    <ol class="etapes">
+      <li>Carte connectée, <b>glisser</b> un élément dans l'aperçu.</li>
+      <li>Au lâcher, la nouvelle place est envoyée à la carte (case orange dans la liste).</li>
+      <li><b>Enregistrer dans la carte</b> pour la garder.</li>
+    </ol>
+    <p>Les éléments en gris dans l'aperçu sont ceux que les lunettes dessinent elles-mêmes.</p>
+
+    <h2 id="reglages">Les réglages</h2>
+    <div class="tableau"><table>
+      <tr><th>Cadre</th><th>Réglages</th></tr>
+      <tr><td><b>OSD des lunettes</b></td><td>OSD par MSP DisplayPort (NONE ou MSP), grille (SD = 30 × 16, HD = 53 × 20),
+        profil OSD affiché (1 à 3), unités (METRIC ou IMPERIAL), écrans par seconde (12 par défaut, limités par la
+        liaison à 115 200 bauds).</td></tr>
+      <tr><td><b>Minuteurs</b></td><td>Pour chaque minuteur : la source (Temps de fonctionnement, Temps total armé,
+        Dernier armement, Marche, puis armé) et une alarme en minutes (0 = sans). L'élément clignote quand l'alarme est
+        dépassée.</td></tr>
+      <tr><td><b>Alarmes</b></td><td>LQ en dessous (%), RSSI en dessous (% et dBm), signal/bruit en dessous (dB),
+        consommation au-dessus (mAh), altitude au-dessus (m).</td></tr>
+      <tr><td><b>Horizon et voie AUX</b></td><td>Tangage et roulis maximaux de l'horizon artificiel, horizon inversé,
+        voie et échelle de l'élément AUX.</td></tr>
+    </table></div>
+    <p>Le centre de l'onglet rappelle aussi le geste du <a href="menu-lunettes.html">menu des lunettes</a>.</p>
+
+    <h2 id="alertes">Alarmes et alertes</h2>
+    <p>Une <b>alarme</b> dépassée fait clignoter son élément. Les <b>alertes</b> s'affichent dans la zone des
+      avertissements, au centre de l'image : en plus des alertes de liaison et d'armement (par exemple
+      <code>PAS DE RADIO</code>, <code>SIGNAL PERDU</code>, <code>LOGICIEL CONNECTE</code>), XPro affiche LAUNCH, CRASH, VRILLE,
+      ATTERRISSAGE et les alertes des <a href="protections.html">protections</a> TrueGlide : <code>ESC HOT nn%</code>,
+      <code>AMP LIM nn%</code>, <code>M1 RESTART</code> à <code>M8 RESTART</code>.</p>
+
+    <h2 id="walksnail">Lunettes Walksnail</h2>
+    <p>Sur KarRmen, l'OSD part vers des lunettes <b>Walksnail Avatar HD Goggles X</b> par <b>MSP DisplayPort</b>, sur
+      l'UART1 (port réglé en Vidéo HD dans l'onglet <a href="ports.html">Ports</a>, <code>osd_displayport_device</code> =
+      MSP). La grille HD 53 × 20 est le défaut. Le firmware s'annonce « XPRO » aux lunettes, qui l'acceptent.</p>
+    <p>Essais sur KarRmen : OSD affiché sur tout l'écran, alerte au centre exact de l'image (essai B3-7, 15/10/2026) ;
+      les deux dernières lignes passent sur la barre d'état des lunettes, comme l'OSD de KarRmen sous Betaflight (choix
+      de Johann).</p>
+
+    <h2 id="stats">Statistiques après le vol</h2>
+    <p>Après le désarmement, les lunettes montrent l'écran <b>STATISTIQUES</b> pendant 10 s : temps de vol, tension
+      minimale, courant maximal, consommation, LQ minimal, altitude maximale. Une valeur inconnue s'affiche « -- ».
+      L'écran a été vu correctement dans les lunettes de KarRmen à la fin de l'essai B9 (17/10/2026).</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

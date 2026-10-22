@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Protections TrueGlide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html" aria-current="page">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#power-guard">Anti-surchauffe et surintensité (power_guard)</a></li>
+      <li><a href="#relance">Relance d'un moteur calé</a></li>
+      <li><a href="#secours">Télémétrie de secours</a></li>
+      <li><a href="#autres">Autres protections, dans d'autres onglets</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Protections</h1>
+    <p class="chapeau">L'onglet <b>Protections</b> regroupe trois fonctions TrueGlide : la limitation des gaz quand les
+      ESC chauffent ou que le courant monte (<b>power_guard</b>), la <b>relance d'un moteur calé</b> et la
+      <b>télémétrie de secours</b>. Toutes sont coupées par défaut.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/protections.png" alt="Onglet Protections : power_guard, relance d'un moteur calé, télémétrie de secours"><img class="t-clair" src="../assets/img/onglets/protections-clair.png" alt="Onglet Protections : power_guard, relance d'un moteur calé, télémétrie de secours">
+      <figcaption>Onglet Protections avec les valeurs par défaut (capture faite avec une fausse carte).</figcaption>
+    </figure>
+
+    <h2 id="power-guard">Anti-surchauffe et surintensité (power_guard)</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th><th>Plage</th></tr>
+      <tr><td><code>power_guard_esc_temp</code></td><td>Gaz limités au-delà de cette température de l'ESC le plus chaud (°C).</td><td>0 (sans)</td><td>0 à 150</td></tr>
+      <tr><td><code>power_guard_current</code></td><td>Gaz limités au-delà de ce courant batterie (A).</td><td>0 (sans)</td><td>0 à 1000</td></tr>
+      <tr><td><code>power_guard_min_throttle</code></td><td>Gaz toujours laissés pendant la limitation (%).</td><td>50</td><td>20 à 100</td></tr>
+    </table></div>
+    <p>La protection limite les <b>gaz collectifs</b>, jamais les corrections de la régulation : le drone reste
+      pilotable. Elle n'agit que drone armé, 100 fois par seconde.</p>
+    <ul>
+      <li><b>Température</b> : au-dessus du seuil, la limite part des gaz du moment et baisse d'autant plus vite que
+        l'ESC dépasse le seuil. Elle remonte quand la température est redescendue 3 °C sous le seuil. La température
+        vient de la télémétrie DShot étendue : <code>dshot_edt</code> sur ON (onglet <a href="moteurs.html">Moteurs</a>)
+        et un ESC qui l'envoie.</li>
+      <li><b>Courant</b> : au-dessus du seuil, la limite baisse d'autant plus vite que le courant dépasse le seuil. Elle
+        remonte quand le courant est repassé sous 90 % du seuil.</li>
+    </ul>
+    <p>La limite ne descend jamais sous <code>power_guard_min_throttle</code>. Pendant la limitation, les lunettes
+      affichent <b>ESC HOT nn%</b> (température) ou <b>AMP LIM nn%</b> (courant), où nn est la part des gaz laissée.</p>
+
+    <h2 id="relance">Relance d'un moteur calé</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th><th>Plage</th></tr>
+      <tr><td><code>motor_desync_recovery</code></td><td>Relance d'un moteur calé ou désynchronisé.</td><td>OFF</td><td>OFF / ON</td></tr>
+      <tr><td><code>motor_desync_threshold</code></td><td>Moteur jugé décroché sous cette part de la vitesse attendue (%).</td><td>40</td><td>10 à 80</td></tr>
+    </table></div>
+    <p>La fonction demande le DShot bidirectionnel (<code>dshot_bidir</code> ON) : elle compare la vitesse de chaque
+      moteur à celle des autres. Drone armé, un moteur est jugé décroché quand :</p>
+    <ul>
+      <li>sa commande est d'au moins 30 % et deux autres moteurs au moins donnent leur vitesse ;</li>
+      <li>sa vitesse est sous <code>motor_desync_threshold</code> % de la vitesse attendue d'après les autres moteurs
+        (au moins 1 500 tr/min attendus), et sous la moitié du plus lent des autres ;</li>
+      <li>cela dure 10 ms.</li>
+    </ul>
+    <p>Le moteur est alors coupé au ralenti pendant 50 ms, puis ramené à sa commande en 100 ms. Les lunettes affichent <b>M2 RESTART</b>
+      (avec le numéro du moteur) pendant 3 secondes.</p>
+
+    <h2 id="secours">Télémétrie de secours</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th></tr>
+      <tr><td><code>dshot_telemetry_fallback</code></td><td>Vitesse estimée si la télémétrie d'un moteur se perd.</td><td>OFF</td></tr>
+    </table></div>
+    <p>Quand un moteur ne donne plus sa vitesse, la carte l'estime : dernière vitesse reçue, multipliée par la variation
+      de la vitesse des autres moteurs depuis la perte (entre 0,5 et 2 fois). La vitesse estimée ne sert qu'au filtre
+      RPM et au ralenti dynamique. Dès que le moteur répond à nouveau, sa vraie vitesse reprend.</p>
+
+    <h2 id="autres">Autres protections, dans d'autres onglets</h2>
+    <p>Ces fonctions protègent aussi le drone. Elles portent les noms et les défauts de Betaflight.</p>
+    <div class="tableau"><table>
+      <tr><th>Fonction</th><th>Ce qu'elle fait</th><th>Où la régler</th></tr>
+      <tr><td><b>Anti-emballement au décollage</b> <code>runaway_takeoff_prevention</code> (ON)</td><td>Désarme si la
+        régulation sature (90 % de sa limite) avec une rotation de plus de 600 °/s pendant 1 s, avant le décollage. Elle
+        se coupe après 500 ms de gaz au-dessus de 20 % (<code>runaway_takeoff_deactivate_delay</code>,
+        <code>runaway_takeoff_deactivate_throttle_percent</code>).</td><td><a href="configuration.html">Configuration</a>, cadre Armement</td></tr>
+      <tr><td><b>Sortie de crash</b> <code>crash_recovery</code> (OFF)</td><td>Après un choc (le gyroscope ne suit plus
+        la consigne), remet le drone à plat (ON) ou désarme (DISARM). Les lunettes affichent <b>CRASH</b>.</td><td><a href="pid.html">Réglages de PID</a>, profil PID</td></tr>
+      <tr><td><b>Sortie de vrille en lacet</b> <code>yaw_spin_recovery</code> (AUTO)</td><td>Sort le drone d'une vrille en lacet, au-delà
+        d'un seuil de rotation. En AUTO, le seuil vient du taux maximal du lacet ; en ON, c'est
+        <code>yaw_spin_threshold</code> (1 950 °/s par défaut). Les lunettes affichent <b>VRILLE</b>.</td><td><a href="configuration.html">Configuration</a>, Autres fonctionnalités</td></tr>
+    </table></div>
+    <p>Le failsafe (perte de la radio) a son onglet : <a href="failsafe.html">Failsafe</a>. Les alarmes de la batterie
+      sont dans <a href="alimentation.html">Alimentation et batterie</a>.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

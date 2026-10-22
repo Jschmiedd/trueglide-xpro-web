@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Onglet Récepteur</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html" aria-current="page">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#liaison">La liaison</a></li>
+      <li><a href="#interrupteurs">Interrupteurs de KarRmen</a></li>
+      <li><a href="#manches">Ce que commandent les manches</a></li>
+      <li><a href="#voies">Les voies</a></li>
+      <li><a href="#reglages">Réglages du récepteur</a></li>
+      <li><a href="#probleme">Aucune trame ?</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Onglet Récepteur</h1>
+    <p class="chapeau">L'onglet <b>Récepteur</b> montre ce que la carte reçoit de la radio : état de la liaison,
+      trames par seconde, qualité, les 16 voies en µs, et un drone 3D qui bouge avec les manches. En bas : zones mortes
+      et lissage.</p>
+    <p>XPro lit un récepteur <b>CRSF</b> (ExpressLRS) branché sur l'UART2 (plots T2 / R2), à 420 000 bauds. Le port se
+      règle dans l'onglet Ports (colonne Serial Rx). Pour un essai sur USB seul, le récepteur est alimenté par l'USB.</p>
+
+    <h2 id="liaison">La liaison</h2>
+    <p>Le cadre <b>Liaison</b> donne l'<b>État</b>, les <b>Trames par seconde</b>, la <b>Qualité (LQ)</b>, le
+      <b>RSSI</b> et le <b>Rapport signal/bruit</b>. Une valeur absente, ou vieille de plus d'une seconde, s'affiche
+      « -- ».</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-recepteur-liaison.png" alt="Cadre Liaison : état Aucune trame, valeurs en tirets"><img class="t-clair" src="../assets/img/doc-recepteur-liaison-clair.png" alt="Cadre Liaison : état Aucune trame, valeurs en tirets">
+      <figcaption>Capture faite sans radio : état « Aucune trame », valeurs « -- », et le rappel de ce qu'il faut
+        vérifier.</figcaption>
+    </figure>
+    <p>Mesures de KarRmen le 14/10/2026 (firmware 0.3.1, USB seul, radio allumée) : état « Active », 308 trames par
+      seconde, LQ 100 % (99 %), RSSI −28 dBm, rapport signal/bruit 11 dB. Radio éteinte : « SIGNAL PERDU » et bip de
+      perte radio ; rallumée : retour à « ACTIF », 314 trames par seconde, LQ 98 %.</p>
+    <p>Le nombre de trames par seconde suit le débit choisi dans ExpressLRS. Ce débit, la puissance et la phrase de
+      liaison se règlent dans le récepteur et la radio, pas dans XPro. La phrase de liaison est un secret : ne jamais
+      l'envoyer ni la publier.</p>
+
+    <h2 id="interrupteurs">Interrupteurs de KarRmen</h2>
+    <p>Le cadre <b>Interrupteurs de KarRmen sous Betaflight</b> rappelle ses plages (relevé du <code>diff all</code>
+      Betaflight 2025.12.2 du 14/10/2026), pour vérifier les interrupteurs de la radio :</p>
+    <div class="tableau"><table>
+      <tr><th>Voie</th><th>Position</th></tr>
+      <tr><td>AUX1 (voie 5)</td><td>haut (1900 à 2100) : LAUNCH CONTROL</td></tr>
+      <tr><td>AUX2 (voie 6)</td><td>haut (1925 à 2100) : armement</td></tr>
+      <tr><td>AUX3 (voie 7)</td><td>bas (900 à 1075) : ANGLE · milieu (1400 à 1600) : HORIZON · haut : acro</td></tr>
+      <tr><td>AUX4 (voie 8)</td><td>haut (1900 à 2100) : ALTHOLD</td></tr>
+    </table></div>
+    <p>Les plages que la carte utilise vraiment se règlent dans l'onglet <a href="modes.html">Modes</a>.</p>
+
+    <h2 id="manches">Ce que commandent les manches</h2>
+    <p>Le drone 3D obéit aux manches, comme en mode ANGLE :</p>
+    <ul>
+      <li>roulis et tangage : jusqu'à 45° d'inclinaison, manche en butée ;</li>
+      <li>lacet : rotation jusqu'à 180 °/s ;</li>
+      <li>gaz : hauteur du drone.</li>
+    </ul>
+    <p>C'est une image des ordres de la radio, pas l'attitude mesurée (celle-ci est dans l'onglet
+      <a href="installation.html">Installation</a>). Signal perdu ou absent : le drone revient à plat, au sol.</p>
+    <p>Les boutons <b>Vue</b> choisissent l'angle de vue : <b>3/4</b>, <b>Arrière (Betaflight)</b> (derrière le drone,
+      presque à l'horizontale, comme on le pilote) ou <b>Face</b> (nez vers l'écran). Le navigateur retient le choix,
+      qui vaut aussi pour l'onglet Installation.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-recepteur-manches.png" alt="Cadre Ce que commandent les manches : drone 3D en vue 3/4, boutons 3/4, Arrière (Betaflight) et Face"><img class="t-clair" src="../assets/img/doc-recepteur-manches-clair.png" alt="Cadre Ce que commandent les manches : drone 3D en vue 3/4, boutons 3/4, Arrière (Betaflight) et Face">
+      <figcaption>Vue 3/4, sans radio : « Aucune trame de la radio : radio allumée ? », drone posé à plat.</figcaption>
+    </figure>
+
+    <h2 id="voies">Les voies</h2>
+    <p>Le cadre <b>Voies (µs)</b> a une barre par voie, de 1 à 16. Ordre AETR (celui d'ExpressLRS par défaut) :
+      1 roulis (A), 2 tangage (E), 3 gaz (T), 4 lacet (R), puis AUX1 à AUX12 (voies 5 à 16). La plage CRSF va de 988 à
+      2011 µs, milieu 1500. Une voie inconnue s'affiche « -- ». La commande <code>rx</code> de la ligne de commande
+      donne les mêmes informations.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-recepteur-voies.png" alt="Cadre Voies : 16 barres de voies, puis Réglages du récepteur"><img class="t-clair" src="../assets/img/doc-recepteur-voies-clair.png" alt="Cadre Voies : 16 barres de voies, puis Réglages du récepteur">
+      <figcaption>Les 16 voies (« -- » : capture faite sans radio), puis les réglages du récepteur à leurs valeurs par
+        défaut.</figcaption>
+    </figure>
+
+    <h2 id="reglages">Réglages du récepteur</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Ce qu'il fait</th><th>Défaut</th></tr>
+      <tr><td><b>Milieu des manches</b><br><code>mid_rc</code></td><td>Valeur du manche au centre, en µs.</td><td>1500</td></tr>
+      <tr><td><b>Zone morte roulis et tangage</b><br><code>deadband</code></td><td>Autour du milieu, en µs, le manche
+        ne commande rien.</td><td>0</td></tr>
+      <tr><td><b>Zone morte lacet</b><br><code>yaw_deadband</code></td><td>Même chose pour le lacet.</td><td>0</td></tr>
+      <tr><td><b>Lissage des consignes</b><br><code>rc_smoothing</code></td><td>Lisse les ordres de la radio entre deux
+        trames.</td><td>ON</td></tr>
+      <tr><td><b>Lissage automatique</b><br><code>rc_smoothing_auto_factor</code></td><td>Plus grand = plus lisse. La
+        coupure vaut le débit des trames divisé par (1 + facteur / 10).</td><td>30</td></tr>
+      <tr><td><b>Coupure du lissage</b><br><code>rc_smoothing_setpoint_cutoff</code></td><td>En Hz ; 0 = automatique.</td><td>0</td></tr>
+      <tr><td><b>Lissage automatique des gaz</b><br><code>rc_smoothing_auto_factor_throttle</code></td><td>Même chose
+        pour les gaz.</td><td>30</td></tr>
+      <tr><td><b>Coupure du lissage des gaz</b><br><code>rc_smoothing_throttle_cutoff</code></td><td>En Hz ; 0 = automatique.</td><td>0</td></tr>
+    </table></div>
+    <p>Sous Betaflight, KarRmen avait <code>deadband = 10</code> et <code>yaw_deadband = 15</code> (relevé du
+      14/10/2026). <b>Enregistrer dans la carte</b> garde les changements.</p>
+
+    <h2 id="probleme">Aucune trame ?</h2>
+    <ol class="etapes">
+      <li>La radio est-elle allumée ? Le récepteur est-il appairé (LED fixe) ?</li>
+      <li>L'UART2 est-il bien en Serial Rx dans l'onglet Ports ?</li>
+      <li>Le détail (octets reçus, erreurs) est dans <code>status</code>, onglet Ligne de commande.</li>
+    </ol>
+    <div class="encart">Le 15/10/2026, KarRmen restait sur « PAS DE RADIO » alors que le firmware n'avait pas changé :
+      la carte était restée sous tension 51 minutes. Après une remise sous tension complète, radio allumée d'abord, la
+      LED rouge du récepteur est restée fixe et les voies sont revenues. La cause venait de la liaison entre la radio et
+      le récepteur, pas du firmware.</div>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

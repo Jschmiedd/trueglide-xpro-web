@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Failsafe radio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html" aria-current="page">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#reglages">Les réglages</a></li>
+      <li><a href="#deroulement">Ce qui se passe à la perte de la radio</a></li>
+      <li><a href="#gaz-bas">Coupure immédiate gaz en bas</a></li>
+      <li><a href="#rearmement">Retour de la radio et réarmement</a></li>
+      <li><a href="#essai">Essayer le failsafe</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Failsafe</h1>
+    <p class="chapeau">Le failsafe dit ce que fait le drone armé quand la liaison radio se perd : attendre un court délai,
+      puis couper les moteurs (<b>DROP</b>) ou descendre à plat (<b>AUTO-LAND</b>). Les moteurs ne repartent jamais
+      seuls : réarmer demande de baisser puis relever l'interrupteur ARM.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/failsafe.png" alt="Onglet Failsafe : délai, liaison retrouvée, procédure, gaz et durée de l'AUTO-LAND, coupure gaz en bas"><img class="t-clair" src="../assets/img/onglets/failsafe-clair.png" alt="Onglet Failsafe : délai, liaison retrouvée, procédure, gaz et durée de l'AUTO-LAND, coupure gaz en bas">
+      <figcaption>Onglet Failsafe avec les valeurs par défaut (capture faite avec une fausse carte). En gris à côté de
+        chaque case : la valeur enregistrée dans la carte.</figcaption>
+    </figure>
+
+    <h2 id="reglages">Les réglages</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th></tr>
+      <tr><td><b>Délai avant l'arrêt des moteurs</b> <code>failsafe_delay</code></td><td>Temps de liaison perdue avant le failsafe, en 0,1 s.</td><td>15 (1,5 s)</td></tr>
+      <tr><td><b>Liaison retrouvée depuis</b> <code>failsafe_recovery_delay</code></td><td>Temps de liaison retrouvée avant de lever le failsafe, en 0,1 s.</td><td>5 (0,5 s)</td></tr>
+      <tr><td><b>Procédure</b> <code>failsafe_procedure</code></td><td><b>DROP</b> ou <b>AUTO-LAND</b>.</td><td>DROP</td></tr>
+      <tr><td><b>AUTO-LAND : gaz de descente</b> <code>failsafe_throttle</code></td><td>Gaz pendant la descente, en µs.</td><td>1000</td></tr>
+      <tr><td><b>AUTO-LAND : durée avant la coupure</b> <code>failsafe_landing_time</code></td><td>Durée de la descente, en secondes.</td><td>60</td></tr>
+      <tr><td><b>Gaz en bas depuis … : coupure immédiate</b> <code>failsafe_throttle_low_delay</code></td><td>Si les gaz étaient en bas depuis ce temps quand la liaison se perd : coupure sans attendre, en 0,1 s (0 = sans).</td><td>100 (10 s)</td></tr>
+    </table></div>
+    <p>Mêmes noms et mêmes défauts que Betaflight. <b>Lire la carte</b> relit les valeurs, <b>Tout revenir</b> annule
+      les changements, <b>Enregistrer dans la carte</b> les garde.</p>
+
+    <h2 id="deroulement">Ce qui se passe à la perte de la radio</h2>
+    <p>La carte juge la liaison perdue après 0,2 s sans voies du récepteur. Ensuite :</p>
+    <ol class="etapes">
+      <li><b>Pendant le délai</b> (<code>failsafe_delay</code>) : manches au centre, gaz en bas. Les interrupteurs
+        (modes, ARM) gardent leur dernière position.</li>
+      <li><b>À la fin du délai</b>, drone armé : le failsafe se déclenche. Les lunettes affichent <b>FAILSAFE</b>, le
+        buzzer bipe tant que la radio est perdue.</li>
+      <li><b>DROP</b> : moteurs arrêtés, drone désarmé.<br><b>AUTO-LAND</b> : le drone se met à plat, les gaz passent à
+        <code>failsafe_throttle</code> pendant <code>failsafe_landing_time</code>, puis les moteurs sont coupés. Les
+        lunettes affichent <b>ATTERRISSAGE</b>.</li>
+    </ol>
+
+    <h2 id="gaz-bas">Coupure immédiate gaz en bas</h2>
+    <p>Si les gaz étaient en bas (sous <code>min_check</code>) depuis au moins <code>failsafe_throttle_low_delay</code>
+      (10 s par défaut) au moment de la perte, la carte juge le drone posé. Elle coupe tout de suite, sans attendre le
+      délai, et désarme, même avec la procédure AUTO-LAND.</p>
+    <div class="encart">Mesure de KarRmen au premier vol (V1, 18/10/2026, firmware 0.8.3) : au journal de vol, la liaison
+      perdue gaz en bas a désarmé le drone immédiatement (vol 6).</div>
+
+    <h2 id="rearmement">Retour de la radio et réarmement</h2>
+    <ol class="etapes">
+      <li>La liaison revient. Après <code>failsafe_recovery_delay</code> (0,5 s par défaut) de liaison continue, le
+        failsafe est levé.</li>
+      <li>Le drone ne réarme pas seul. Les lunettes affichent la raison <b>INTERRUPTEUR ARM A BAISSER</b>.</li>
+      <li>Baisser l'interrupteur ARM, puis le relever : le drone réarme si aucune autre raison ne l'empêche (gaz en bas,
+        inclinaison…).</li>
+    </ol>
+    <p>C'est voulu, comme sous Betaflight. Au premier vol, Johann a constaté que les moteurs repartent après ARM baissé
+      puis relevé : c'est le réarmement normal.</p>
+
+    <h2 id="essai">Essayer le failsafe</h2>
+    <p><b>Hélices retirées</b>, drone armé sur le banc (voir <a href="moteurs.html#banc">l'armement sur banc</a>) :
+      éteindre la radio et vérifier que les moteurs s'arrêtent après le délai, puis qu'ils ne repartent pas quand la
+      radio revient, tant que l'interrupteur ARM n'a pas été baissé puis relevé.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

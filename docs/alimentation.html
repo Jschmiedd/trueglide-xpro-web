@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Alimentation et batterie</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html" aria-current="page">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#mesures">Les mesures</a></li>
+      <li><a href="#elements">Éléments détectés</a></li>
+      <li><a href="#seuils">Seuils et alarmes</a></li>
+      <li><a href="#courant">Capteur de courant</a></li>
+      <li><a href="#capacite">Capacité et BAT %</a></li>
+      <li><a href="#karrmen">Réglages de KarRmen à coller</a></li>
+      <li><a href="#bips">Les bips</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Alimentation et batterie</h1>
+    <p class="chapeau">L'onglet <b>Alimentation et batterie</b> montre ce que la carte mesure sur la batterie : tension,
+      nombre d'éléments, tension par élément, courant et consommation. Il règle aussi les bips du buzzer. Une valeur que
+      la carte ne connaît pas s'affiche « -- » : jamais un chiffre inventé.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/alimentation.png" alt="Onglet Alimentation et batterie : cadres Batterie, Réglages de KarRmen à coller et Buzzer"><img class="t-clair" src="../assets/img/onglets/alimentation-clair.png" alt="Onglet Alimentation et batterie : cadres Batterie, Réglages de KarRmen à coller et Buzzer">
+      <figcaption>Capture faite avec une fausse carte, sans batterie : l'état est « Pas de mesure » et toutes les
+        valeurs restent à « -- ». Les bips sont ceux que la fausse carte renvoie (tous actifs).</figcaption>
+    </figure>
+
+    <h2 id="mesures">Les mesures</h2>
+    <p>Le cadre <b>Batterie</b> se met à jour deux fois par seconde quand la carte est branchée. La tension arrive sur
+      la broche PC0, le courant sur PC1. Une mesure de plus d'une seconde s'affiche « -- ».</p>
+    <div class="tableau"><table>
+      <tr><th>Case</th><th>Ce qu'elle montre</th></tr>
+      <tr><td><b>État</b></td><td><b>Pas de mesure</b> (source de la tension sur NONE), <b>Absente (USB seul)</b>,
+        <b>Détection…</b> (batterie branchée, éléments pas encore comptés), <b>OK</b>, <b>FAIBLE</b>, <b>CRITIQUE</b>.</td></tr>
+      <tr><td><b>Tension</b></td><td>Tension totale de la batterie, lissée pour l'affichage.</td></tr>
+      <tr><td><b>Éléments</b></td><td>Nombre d'éléments détecté (1S à 12S).</td></tr>
+      <tr><td><b>Par élément</b></td><td>Tension totale divisée par le nombre d'éléments.</td></tr>
+      <tr><td><b>Courant</b></td><td>Courant du capteur de l'ESC, en ampères.</td></tr>
+      <tr><td><b>Consommé</b></td><td>mAh consommés depuis le branchement de la batterie.</td></tr>
+    </table></div>
+    <p>La source de la tension est le réglage <code>battery_meter</code> : <b>ADC</b> par défaut sur la SpeedyBee F405
+      Mini, comme sous Betaflight ; <b>NONE</b> coupe la mesure. La source du courant est <code>current_meter</code>
+      (NONE, ADC ou VIRTUAL). VIRTUAL n'est pas encore pris en charge : le courant reste alors inconnu.</p>
+
+    <h2 id="elements">Éléments détectés</h2>
+    <p>Sous la tension totale <code>vbat_detect_cell_voltage</code> (3,00 V par défaut), la carte considère qu'il n'y a pas
+      de batterie : elle n'est alimentée que par l'USB. L'état est <b>Absente (USB seul)</b> et la consommation repart
+      de zéro.</p>
+    <ol class="etapes">
+      <li>La batterie est branchée : état <b>Détection…</b>.</li>
+      <li>La carte attend une tension stable (à ±3 % près) pendant 1 seconde. Le nombre d'éléments n'est jamais compté
+        pendant le branchement, quand les contacts rebondissent.</li>
+      <li>Elle compte les éléments d'après <code>vbat_max_cell_voltage</code> (4,30 V par défaut) : le plus petit nombre
+        d'éléments qui ne dépasse pas cette tension par élément.</li>
+      <li>Si la tension par élément dépasse ensuite <code>vbat_max_cell_voltage</code> de plus de 0,3 V, le comptage était
+        faux : la carte recompte.</li>
+    </ol>
+
+    <h2 id="seuils">Seuils et alarmes</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th><th>KarRmen</th></tr>
+      <tr><td><code>vbat_max_cell_voltage</code></td><td>Tension maximale d'un élément ; sert à compter les éléments.</td><td>430 (4,30 V)</td><td>défaut</td></tr>
+      <tr><td><code>vbat_warning_cell_voltage</code></td><td>Alarme <b>FAIBLE</b> sous cette tension par élément.</td><td>350 (3,50 V)</td><td>370</td></tr>
+      <tr><td><code>vbat_min_cell_voltage</code></td><td>Alarme <b>CRITIQUE</b> sous cette tension par élément.</td><td>330 (3,30 V)</td><td>350</td></tr>
+      <tr><td><code>vbat_detect_cell_voltage</code></td><td>Sous cette tension totale : pas de batterie (USB seul).</td><td>300 (3,00 V)</td><td>défaut</td></tr>
+    </table></div>
+    <p>Les tensions se règlent en centièmes de volt. Une alarme se déclenche quand la tension par élément reste sous le
+      seuil pendant 2 secondes. Pour en sortir, la tension doit remonter de 0,05 V par élément au-dessus du seuil. Les
+      alarmes s'affichent dans les lunettes (<b>BATTERIE FAIBLE</b>, <b>BATTERIE CRITIQUE</b>) et font biper le buzzer.</p>
+    <div class="encart">Mesure de KarRmen au premier vol (V1, 18/10/2026, firmware 0.8.3) : <b>BATTERIE FAIBLE</b> s'est
+      affiché à 3,64 V par élément sous charge, avec le seuil de 3,70 V de KarRmen. La tension baisse quand les moteurs
+      tirent du courant.</div>
+
+    <h2 id="courant">Capteur de courant</h2>
+    <p>Le courant vient du capteur de l'ESC. La carte le calcule ainsi : courant (mA) = tension de la broche (mV) ×
+      10 000 ÷ <code>ibata_scale</code> + <code>ibata_offset</code>.</p>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut de la carte</th></tr>
+      <tr><td><code>ibata_scale</code></td><td>Échelle du capteur, en 0,1 mV par ampère.</td><td>250</td></tr>
+      <tr><td><code>ibata_offset</code></td><td>Décalage du capteur, en mA.</td><td>−500</td></tr>
+      <tr><td><code>vbat_scale</code></td><td>Échelle du pont diviseur de la tension (avec <code>vbat_divider</code> 10 et <code>vbat_multiplier</code> 1).</td><td>110</td></tr>
+    </table></div>
+    <p>Ce sont les défauts de Betaflight pour cette carte. Pour vérifier la tension : la comparer à un voltmètre posé
+      sur la prise de la batterie. Si elle diffère, ajuster <code>vbat_scale</code>.</p>
+    <p><b>Le courant affiché n'est jamais négatif</b> (depuis la 0.8.3). La batterie ne se recharge pas en vol : une
+      mesure sous zéro vient du décalage du capteur. À l'essai B8, KarRmen affichait −0,23 A au repos (« -0.3A » dans
+      les lunettes) ; la carte affiche maintenant 0. Sur l'USB seul, le capteur n'est pas alimenté et sa broche ne donne
+      qu'un décalage (−0,22 A relevé sur KarRmen) : la carte ne l'affiche pas comme un courant. Le courant et les mAh ne
+      s'affichent que quand la batterie est reconnue.</p>
+
+    <h2 id="capacite">Capacité et BAT %</h2>
+    <p><code>bat_capacity</code> donne la capacité de la batterie en mAh (0 = inconnue, défaut). KarRmen vole avec
+      1 550 mAh.</p>
+    <p>Depuis la 0.8.4, <b>BAT %</b> (batterie restante, dans les lunettes et à la radio) se calcule en deux temps :</p>
+    <ol class="etapes">
+      <li>Au branchement, une fois les éléments comptés, la carte estime la charge de départ d'après la tension au repos
+        d'un élément, sur la courbe de décharge publique d'une LiPo (3,27 V = 0 %, 4,20 V = 100 %).</li>
+      <li>Ensuite, elle retire la part consommée : BAT % = charge de départ − mAh consommés × 100 ÷ <code>bat_capacity</code>.</li>
+    </ol>
+    <p>Exemple réel : au premier vol V1, la batterie de KarRmen partait à 3,72 V par élément. La 0.8.3 affichait
+      <code>BAT 99 %</code>, car elle ne comptait que les mAh. La 0.8.4 part d'environ 18 %. Le temps de vol restant
+      estimé tient compte de cette charge de départ.</p>
+    <p>Sans courant mesuré ou sans <code>bat_capacity</code>, BAT % n'est pas calculé : les lunettes affichent
+      « -- ».</p>
+
+    <h2 id="karrmen">Réglages de KarRmen à coller</h2>
+    <p>Le cadre <b>Réglages de KarRmen à coller</b> reprend les trois réglages batterie que KarRmen avait changés sous
+      Betaflight (<code>diff all</code> du 14/10/2026) :</p>
+    <pre><code>set bat_capacity = 1550
+set vbat_min_cell_voltage = 350
+set vbat_warning_cell_voltage = 370
+save</code></pre>
+    <p><b>Appliquer à la carte</b> les envoie. <b>Essai du buzzer</b> fait biper la carte.</p>
+
+    <h2 id="bips">Les bips</h2>
+    <p>Le cadre <b>Buzzer</b> liste les bips que ce firmware sait jouer, avec un interrupteur pour chacun :</p>
+    <div class="tableau"><table>
+      <tr><th>Bip</th><th>Quand</th></tr>
+      <tr><td><code>GYRO_CALIBRATED</code></td><td>après le calibrage du gyroscope au démarrage</td></tr>
+      <tr><td><code>RX_LOST</code></td><td>perte du signal radio, répété jusqu'au retour du signal</td></tr>
+      <tr><td><code>BAT_CRIT_LOW</code></td><td>batterie critique (répété)</td></tr>
+      <tr><td><code>BAT_LOW</code></td><td>batterie faible (répété)</td></tr>
+      <tr><td><code>ACC_CALIBRATION</code></td><td>calibrage de l'accéléromètre réussi</td></tr>
+      <tr><td><code>ACC_CALIBRATION_FAIL</code></td><td>calibrage de l'accéléromètre refusé</td></tr>
+      <tr><td><code>SYSTEM_INIT</code></td><td>mise sous tension</td></tr>
+      <tr><td><code>USB</code></td><td>bips aussi quand la carte n'est alimentée que par l'USB</td></tr>
+    </table></div>
+    <p>Un changement agit tout de suite. <b>Enregistrer dans la carte</b> le garde après un redémarrage.
+      <b>Tout activer</b> et <b>Tout couper</b> agissent sur toute la liste. Le bip d'essai n'est jamais coupé. Les bips
+      coupés sont gardés dans <code>beeper_off_flags</code> (0 = tous actifs, défaut). En ligne de commande :
+      <code>beeper</code> pour la liste, <code>beeper -RX_LOST</code> pour couper un bip, <code>beeper RX_LOST</code> pour
+      le remettre, puis <code>save</code>.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

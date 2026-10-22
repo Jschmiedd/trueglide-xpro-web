@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Flasher le firmware</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html" aria-current="page">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#inclus">Le firmware inclus</a></li>
+      <li><a href="#autre">Un autre fichier .hex</a></li>
+      <li><a href="#dfu">Passage en mode DFU</a></li>
+      <li><a href="#autoriser">Autoriser la carte DFU</a></li>
+      <li><a href="#sauvegarde">Sauvegarde complète</a></li>
+      <li><a href="#restaurer">Restauration</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Flasher le firmware</h1>
+    <p class="chapeau">L'onglet <b>Flasher le firmware</b> écrit XPro dans la carte, ou un autre firmware pour revenir
+      en arrière. Il fait aussi la sauvegarde complète de la carte et sa restauration. Tout passe par l'USB, dans
+      Chrome ou Edge sur ordinateur, sans autre programme.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/flasher.png" alt="Onglet Flasher le firmware : cadre Sauvegarde complète de la carte, puis cadre Flasher la carte par USB"><img class="t-clair" src="../assets/img/onglets/flasher-clair.png" alt="Onglet Flasher le firmware : cadre Sauvegarde complète de la carte, puis cadre Flasher la carte par USB">
+      <figcaption>En haut, la sauvegarde complète et la restauration. En bas, le flash : firmware inclus (ici
+        <code>trueglide_0.8.4_STM32F405_SPEEDYBEEF405MINI.hex</code>), autre fichier, effacement complet, et le
+        journal des opérations.</figcaption>
+    </figure>
+
+    <h2 id="inclus">Le firmware inclus</h2>
+    <p>Le fichier du logiciel XPro contient le firmware de sa version : son nom s'affiche à côté de « Firmware
+      inclus ». Un nouveau fichier du logiciel apporte donc le nouveau firmware.</p>
+    <ol class="etapes">
+      <li>Brancher la carte en USB, cliquer <b>Connexion</b>.</li>
+      <li>Onglet <b>Flasher le firmware</b>, cadre « Flasher la carte par USB » : laisser coché <b>Firmware
+        inclus</b>.</li>
+      <li>Cliquer <b>Flasher</b> et confirmer. La carte passe seule en mode DFU, sans bouton BOOT.</li>
+      <li>Le logiciel efface, écrit, <b>relit pour vérifier</b>, puis redémarre la carte. Le journal suit chaque
+        étape.</li>
+      <li>Si la carte ne revient pas seule : débrancher et rebrancher l'USB, puis <b>Connexion</b>.</li>
+    </ol>
+    <p>Sans la case <b>Effacement complet</b>, les réglages enregistrés dans la carte sont gardés : seul le programme est
+      effacé et réécrit. Lors des essais de KarRmen, le flash de la 0.8.3 a effacé 4 secteurs, avec une écriture et
+      une vérification à 100 %.</p>
+    <p>La case <b>Effacement complet</b> efface aussi les réglages, calibrage de l'accéléromètre compris.</p>
+
+    <h2 id="autre">Un autre fichier .hex</h2>
+    <p>Choisir « Autre fichier .hex » et le fichier, puis <b>Flasher</b>. Si le fichier est un XPro plus ancien que le
+      firmware inclus, le logiciel demande une confirmation.</p>
+    <p><b>Revenir à Betaflight</b> : flasher le <code>.hex</code> Betaflight de la carte avec <b>Effacement complet</b>,
+      puis recoller son <code>dump all</code> dans la ligne de commande de Betaflight. Pour retrouver la carte
+      exactement comme avant, réglages et calibrages compris, la <a href="#restaurer">restauration</a> est plus
+      simple.</p>
+    <div class="encart">Le <code>.hex</code> et le logiciel XPro laissent les réglages intacts. Le <code>.bin</code> du
+      firmware, écrit par un autre outil, couvre aussi la place des réglages : il les efface.</div>
+
+    <h2 id="dfu">Passage en mode DFU</h2>
+    <p>Le mode DFU est le chargeur intégré au processeur. Il est en mémoire morte : un flash raté ne peut pas abîmer
+      la carte, on recommence. Le logiciel y fait entrer la carte de plusieurs façons :</p>
+    <div class="tableau"><table>
+      <tr><th>La carte a…</th><th>Ce que fait le logiciel</th></tr>
+      <tr><td>XPro, connectée</td><td>Envoie <code>bl</code> dans sa ligne de commande : la carte redémarre en DFU.</td></tr>
+      <tr><td>Betaflight ou INAV, connectée</td><td>Envoie la demande publique « redémarrer dans le chargeur » (MSP),
+        puis, si la carte est toujours là, ouvre sa ligne de commande et envoie <code>bl</code>. Le journal dit ce que
+        la carte a répondu. Sur KarRmen sous Betaflight, la demande MSP a suffi.</td></tr>
+      <tr><td>ArduPilot</td><td>Rien : la carte ne passe pas seule en DFU. Utiliser le bouton BOOT.</td></tr>
+      <tr><td>Aucune réponse</td><td>Message « La carte n'est pas passée en DFU » : utiliser le bouton BOOT.</td></tr>
+    </table></div>
+    <p><b>Bouton BOOT</b> : débrancher la carte, maintenir son bouton BOOT en branchant l'USB, puis cliquer
+      <b>Flasher</b> <b>sans cliquer Connexion</b>. Chrome propose alors la carte en mode DFU.</p>
+    <p>Le bouton <b>Redémarrer en DFU</b> fait seulement passer la carte connectée en mode DFU, sans flasher.</p>
+
+    <h2 id="autoriser">Autoriser la carte DFU dans Chrome</h2>
+    <p>Chrome ne donne accès à un appareil USB qu'après un choix de l'utilisateur. La première fois, il demande de
+      choisir « <b>STM32 BOOTLOADER</b> » ; ensuite, il ne pose plus la question.</p>
+    <p>Quand la carte passe en DFU après le clic sur Flasher et que Chrome ne l'a encore jamais autorisée, le journal
+      dit « Carte DFU pas encore autorisée dans Chrome » et le bouton <b>Autoriser la carte DFU</b> apparaît : cliquer
+      dessus, choisir « STM32 BOOTLOADER », et le flash continue. Sur KarRmen, il a fallu le faire une fois, au flash de
+      la 0.5.1.</p>
+    <p>Si Chrome ne propose aucune carte, elle n'est pas en DFU : bouton BOOT. Sous Windows, si Chrome ne propose
+      toujours rien, le pilote WinUSB du mode DFU manque : l'installer une fois avec « ImpulseRC Driver Fixer » ou
+      Zadig.</p>
+
+    <h2 id="sauvegarde">Sauvegarde complète</h2>
+    <p>À faire <b>avant tout flash</b>, surtout le premier. Elle marche avec n'importe quel firmware (Betaflight, INAV,
+      XPro…).</p>
+    <ol class="etapes">
+      <li>Cliquer <b>Sauvegarder la carte</b> et confirmer. La carte passe en DFU comme pour un flash.</li>
+      <li>Le logiciel lit toute la mémoire (1 Mo) <b>deux fois</b>. Si les deux lectures diffèrent, la sauvegarde est
+        refusée : recommencer avec un autre câble ou un autre port USB.</li>
+      <li>Le fichier <code>sauvegarde_complete_<i>firmware</i>_<i>date-heure</i>.bin</code> est enregistré dans le
+        dossier Téléchargements. Le journal donne le firmware reconnu, la taille (1 048 576 octets), « deux lectures
+        identiques » et l'<b>empreinte SHA-256</b>.</li>
+      <li>La carte redémarre telle quelle : rien n'a été écrit.</li>
+    </ol>
+    <p>Garder le fichier sur l'ordinateur <b>et</b> sur une clé USB. Pour vérifier plus tard qu'il est intact, sous
+      Windows : <code>certutil -hashfile sauvegarde_complete_….bin SHA256</code>. Le résultat doit être identique à
+      l'empreinte notée. Celle de KarRmen, faite le 14/10/2026 et contrôlée ainsi le 18/10, n'avait pas changé.</p>
+
+    <h2 id="restaurer">Restauration</h2>
+    <ol class="etapes">
+      <li>« Fichier de sauvegarde à restaurer » : choisir le fichier <code>.bin</code>.</li>
+      <li>Cliquer <b>Restaurer la sauvegarde</b>. Le logiciel vérifie le fichier (1 Mo, début d'un firmware STM32F405)
+        et affiche son empreinte SHA-256 : la comparer à celle notée à la sauvegarde.</li>
+      <li>Confirmer. <b>Tout</b> le contenu actuel de la carte est effacé, la sauvegarde est écrite puis relue.</li>
+      <li>La carte redémarre dans l'état de la sauvegarde. Si besoin, débrancher et rebrancher l'USB.</li>
+    </ol>
+    <p>Après une restauration de Betaflight, puis un nouveau flash de XPro, les réglages XPro ont disparu :
+      <code>status</code> affiche « ENREGISTREMENT ILLISIBLE » et XPro repart de ses défauts. Recoller ses réglages et
+      refaire le calibrage de l'accéléromètre (voir <a href="mise-en-route.html#reglages">Mise en route</a>).</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

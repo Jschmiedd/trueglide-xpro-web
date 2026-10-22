@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Visualiseur Blackbox</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html" aria-current="page">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#ouvrir">Ouvrir un journal</a></li>
+      <li><a href="#lire">Lire les courbes</a></li>
+      <li><a href="#espaces">Espaces de travail</a></li>
+      <li><a href="#clavier">Souris et clavier</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Visualiseur Blackbox</h1>
+    <p class="chapeau">L'onglet <b>Visualiseur Blackbox</b> (groupe Analyse) trace les courbes d'un journal de vol
+      XPro : gyroscope, consignes, PID, moteurs, vitesse des moteurs, voies radio, batterie. Tout se fait dans le
+      logiciel, sans autre programme.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/bbe-vue.png" alt="Visualiseur Blackbox : graphes du premier vol de KarRmen"><img class="t-clair" src="../assets/img/bbe-vue-clair.png" alt="Visualiseur Blackbox : graphes du premier vol de KarRmen">
+      <figcaption>Premier vol de KarRmen (18/10/2026), espace de travail « Réglage du PID ».</figcaption>
+    </figure>
+
+    <h2 id="ouvrir">Ouvrir un journal</h2>
+    <ul>
+      <li><b>Ouvrir un journal (.bin)</b> : un fichier téléchargé dans l'onglet <a href="blackbox.html">Blackbox</a>.</li>
+      <li><b>Lire le journal de la carte</b> : lit le journal par USB et l'ouvre directement (même chose que le bouton
+        « Voir dans le visualiseur » de l'onglet Blackbox).</li>
+      <li>Un journal peut contenir plusieurs vols (un par armement) : la liste à côté donne <b>Vol n° · durée</b> ; le
+        dernier vol est ouvert d'abord.</li>
+    </ul>
+
+    <h2 id="lire">Lire les courbes</h2>
+    <p>Chaque graphe a son titre et ses courbes, avec leur couleur et leur unité. Au passage de la souris, une ligne
+      verticale marque l'instant, et la légende de chaque graphe donne la valeur de chaque courbe à cet instant
+      (« -- » si la mesure manque) et son échelle [min ; max]. <b>Tout le vol</b> remet le zoom sur le vol entier.
+      Pour régler l'échelle d'une courbe (Min / Max), voir <a href="visualiseur-minmax.html">Visualiseur Blackbox :
+      Min / Max des courbes</a> ; <b>Configurer les courbes</b> ouvre le même dialogue pour tous les graphes.</p>
+
+    <h2 id="espaces">Espaces de travail</h2>
+    <p>Un espace de travail est un ensemble de graphes avec leurs échelles, gardé par le navigateur. Deux espaces sont
+      préréglés :</p>
+    <ul>
+      <li><b>Réglage du PID</b> : gyro et consigne sur chaque axe, P, I, D et F du roulis, sorties des moteurs, gaz.</li>
+      <li><b>Moteurs et batterie</b> : gyroscope brut et filtré, vitesse des moteurs, sorties des moteurs, tension et
+        courant.</li>
+    </ul>
+    <p>Le bouton <b>Espaces de travail</b> (ou <b>Maj+W</b>) choisit l'espace 1, l'espace 2 ou « Mon espace », et
+      <b>Enregistrer l'espace actuel comme « Mon espace »</b> garde vos graphes et vos échelles pour les prochains
+      journaux.</p>
+
+    <h2 id="clavier">Souris et clavier</h2>
+    <table>
+      <tr><th>Geste</th><th>Effet</th></tr>
+      <tr><td>Molette</td><td>zoom sur le temps</td></tr>
+      <tr><td>Glisser</td><td>déplacer la fenêtre de temps</td></tr>
+      <tr><td><b>I</b> / <b>O</b></td><td>marqueur de début / de fin à la position de la souris (Échap : les effacer)</td></tr>
+      <tr><td>Clic droit sur un graphe</td><td>échelle de ses courbes</td></tr>
+      <tr><td>Maj + clic droit</td><td>mode étendu</td></tr>
+      <tr><td>Maj+W</td><td>espaces de travail</td></tr>
+    </table>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

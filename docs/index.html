@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Documentation XPro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  .pages { display: grid; gap: 14px; margin-top: 18px; }
+  .pages a, .pages div { display: block; background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 16px 18px; text-decoration: none; color: var(--texte); }
+  .pages a:hover { border-color: var(--accent); }
+  .pages span { display: block; color: var(--doux); font-size: 15px; margin-top: 4px; }
+  .pages .prevue { color: var(--tres-doux); }
+  .pages .prevue b::after { content: " · à venir"; font-weight: 400; }
+</style>
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html" aria-current="page">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+  </aside>
+  <article>
+    <h1>Documentation</h1>
+    <p class="chapeau">Les modes d'emploi du logiciel et du firmware XPro, en français, avec des captures prises sur les
+      vols de KarRmen.</p>
+    <h2>Premiers pas</h2>
+    <div class="pages">
+      <a href="mise-en-route.html"><b>Mise en route</b><span>De Betaflight à XPro : sauvegarde de la carte, flash, réglages collés, essais au banc puis premier vol.</span></a>
+      <a href="tableau-de-bord.html"><b>Tableau de bord</b><span>État de la carte dès la connexion : firmware, gyroscope, démarrage, batterie, armement.</span></a>
+      <a href="flasher.html"><b>Flasher le firmware</b><span>Firmware intégré au logiciel, passage en DFU, sauvegarde et retour à Betaflight.</span></a>
+      <a href="notes-de-version.html"><b>Notes de version</b><span>Ce qui change d'une version à l'autre, de la 0.8.0 à la 0.8.4.</span></a>
+    </div>
+    <h2>Installation du drone</h2>
+    <div class="pages">
+      <a href="installation.html"><b>Installation</b><span>Vue 3D de l'attitude, vues 3/4, Arrière et Face, calibrage de l'accéléromètre.</span></a>
+      <a href="ports.html"><b>Ports</b><span>Rôle de chaque UART : MSP, récepteur, émetteur vidéo.</span></a>
+      <a href="configuration.html"><b>Configuration</b><span>Boucle, noms, caméra, armement, fonctions, bips.</span></a>
+      <a href="recepteur.html"><b>Récepteur</b><span>Liaison CRSF, voies, aperçu des manches en 3D.</span></a>
+      <a href="modes.html"><b>Modes</b><span>Plages des interrupteurs : ARM, ANGLE, HORIZON, ALTHOLD, SPEEDER…</span></a>
+      <a href="alimentation.html"><b>Alimentation et batterie</b><span>Tension, éléments, courant, batterie restante estimée.</span></a>
+      <a href="moteurs.html"><b>Moteurs</b><span>Test des moteurs, sens de rotation, mixeur, DShot bidirectionnel.</span></a>
+      <a href="failsafe.html"><b>Failsafe</b><span>Perte de liaison : délai, procédure, réarmement.</span></a>
+    </div>
+    <h2>Fonctions TrueGlide</h2>
+    <div class="pages">
+      <a href="protections.html"><b>Protections</b><span>power_guard, relance d'un moteur, télémétrie de secours.</span></a>
+      <a href="speeder.html"><b>Speeder</b><span>Transition du stationnaire à la croisière.</span></a>
+      <a href="camera.html"><b>Caméra</b><span>Angle de la caméra et FPV ANGLE MIX.</span></a>
+      <a href="telemetrie.html"><b>Télémétrie radio</b><span>Ce que la radio reçoit du drone.</span></a>
+    </div>
+    <h2>Réglage du vol</h2>
+    <div class="pages">
+      <a href="pid.html"><b>Réglages de PID et presets</b><span>PID, taux, filtres, presets ; échelles mesurées sur les vols Betaflight.</span></a>
+      <a href="assistant.html"><b>Assistant de réglage</b><span>Contrôle du KV des moteurs, hélices retirées.</span></a>
+    </div>
+    <h2>Vidéo</h2>
+    <div class="pages">
+      <a href="osd.html"><b>OSD</b><span>Éléments, aperçu, alarmes et statistiques dans les lunettes.</span></a>
+      <a href="menu-lunettes.html"><b>Menu des lunettes</b><span>Choisir les profils PID et de taux aux manches, sans PC.</span></a>
+      <a href="vtx.html"><b>Émetteur vidéo</b><span>Réglages de l'émetteur.</span></a>
+    </div>
+    <h2>Analyse</h2>
+    <div class="pages">
+      <a href="capteurs.html"><b>Capteurs</b><span>Gyroscope et accéléromètre en direct.</span></a>
+      <a href="blackbox.html"><b>Blackbox (journal de vol)</b><span>Télécharger, effacer, convertir le journal de la carte.</span></a>
+      <a href="visualiseur.html"><b>Visualiseur Blackbox</b><span>Ouvrir un journal, lire les courbes, espaces de travail, souris et clavier.</span></a>
+      <a href="visualiseur-minmax.html"><b>Visualiseur Blackbox : Min / Max des courbes</b><span>Régler l'échelle de chaque courbe du journal.</span></a>
+    </div>
+    <h2>Outils</h2>
+    <div class="pages">
+      <a href="cli.html"><b>Ligne de commande</b><span>Commandes de la carte et lecture de status.</span></a>
+      <a href="rapport-de-banc.html"><b>Rapport de banc</b><span>L'état complet de la carte dans un fichier, en un clic.</span></a>
+      <a href="memo.html"><b>Mémo</b><span>Règles, voyant bleu de la carte, produits.</span></a>
+    </div>
+  </article>
+</div>
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

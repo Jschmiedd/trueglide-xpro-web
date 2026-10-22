@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Onglet Configuration</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html" aria-current="page">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#page">La page</a></li>
+      <li><a href="#systeme">Configuration du système</a></li>
+      <li><a href="#noms">Personnalisation et caméra</a></li>
+      <li><a href="#armement">Armement</a></li>
+      <li><a href="#fonctions">Autres fonctionnalités</a></li>
+      <li><a href="#autres">Les autres cadres</a></li>
+      <li><a href="#beeper">Le beeper</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Onglet Configuration</h1>
+    <p class="chapeau">L'onglet <b>Configuration</b> rassemble les réglages généraux de la carte : fréquence de la
+      boucle, noms affichés dans les lunettes, angle de la caméra, conditions d'armement, AIRMODE et autres fonctions,
+      bips du buzzer.</p>
+
+    <h2 id="page">La page</h2>
+    <p>Les cadres de réglages sont à gauche ; la <b>Configuration du beeper (buzzer)</b> est à droite. Chaque réglage
+      montre son nom de Betaflight (par exemple <code>small_angle</code>), la valeur à changer, et à côté, en gris, la
+      valeur enregistrée dans la carte.</p>
+    <ul>
+      <li><b>Lire la carte</b> : relit toutes les valeurs.</li>
+      <li><b>Tout revenir</b> : oublie les changements pas encore enregistrés.</li>
+      <li><b>Enregistrer dans la carte</b> : garde les changements après un redémarrage.</li>
+    </ul>
+    <p>Sous les boutons, une ligne dit si les valeurs de l'onglet sont celles enregistrées, ou combien diffèrent
+      (repère orange).</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-configuration-haut.png" alt="Cadres Configuration du système, Personnalisation et Caméra à gauche, Configuration du beeper à droite"><img class="t-clair" src="../assets/img/doc-configuration-haut-clair.png" alt="Cadres Configuration du système, Personnalisation et Caméra à gauche, Configuration du beeper à droite">
+      <figcaption>Le haut de l'onglet, avec les noms de KarRmen et l'angle de sa caméra. Capture faite avec une carte
+        simulée.</figcaption>
+    </figure>
+
+    <h2 id="systeme">Configuration du système</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Ce qu'il fait</th><th>Défaut</th></tr>
+      <tr><td><b>Fréquence de la boucle PID</b><br><code>pid_process_denom</code></td><td>Le gyroscope ICM-42688-P est
+        lu à 8 kHz (fixe). La boucle PID et les sorties DShot tournent à 8 kHz divisé par ce nombre : 4 kHz, 2,67 kHz…
+        jusqu'à 1 kHz. La liste commence à 4 kHz, le plus rapide sur ce processeur F405 avec le DShot
+        bidirectionnel.</td><td>2 (4 kHz)</td></tr>
+      <tr><td><b>Orientation du gyroscope</b><br><code>gyro_align</code></td><td>Rotation du capteur sur la carte, en
+        degrés, sens horaire vu de dessus : 0, 90, 180 ou 270.</td><td>celle de la carte (270 sur la SpeedyBee F405 Mini)</td></tr>
+      <tr><td><b>Suivi du décalage du gyroscope</b><br><code>gyro_cal_tracking</code></td><td>Ajuste le décalage du
+        gyroscope quand la carte est immobile, pour suivre la température. Réduit la dérive du cap.</td><td>ON</td></tr>
+    </table></div>
+
+    <h2 id="noms">Personnalisation et caméra</h2>
+    <ul>
+      <li><b>Nom du drone</b> (<code>craft_name</code>) et <b>Nom du pilote</b> (<code>pilot_name</code>) : 16 lettres
+        au plus, affichés par l'OSD des lunettes. KarRmen : <code>KarRmen</code> et <code>SLAYER</code>.</li>
+      <li><b>Angle de la caméra FPV</b> (<code>fpv_mix_degrees</code>) : de 0 à 90°, 0 par défaut. Il sert au mode FPV
+        ANGLE MIX (onglet Caméra). KarRmen sous Betaflight : 21°.</li>
+    </ul>
+
+    <h2 id="armement">Armement</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-configuration-armement.png" alt="Cadres Armement et Autres fonctionnalités"><img class="t-clair" src="../assets/img/doc-configuration-armement-clair.png" alt="Cadres Armement et Autres fonctionnalités">
+      <figcaption>Cadres Armement et Autres fonctionnalités. Capture faite avec une carte simulée : les valeurs ne sont
+        pas toutes celles de KarRmen.</figcaption>
+    </figure>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Ce qu'il fait</th><th>Défaut</th></tr>
+      <tr><td><b>Inclinaison maximale pour armer</b><br><code>small_angle</code></td><td>Au-delà de cet angle, en
+        degrés, l'armement est refusé. 180 : pas de contrôle (réglage de KarRmen).</td><td>25</td></tr>
+      <tr><td><b>Gaz au minimum en dessous de</b><br><code>min_check</code></td><td>Les gaz doivent être sous cette
+        valeur, en µs, pour armer.</td><td>1050</td></tr>
+      <tr><td><b>Armement aux manches</b><br><code>enable_stick_arming</code></td><td>Armer gaz en bas, lacet à droite
+        pendant 1 s, s'il n'y a pas de plage ARM dans l'onglet Modes.</td><td>OFF</td></tr>
+      <tr><td><b>Désarmement auto gaz en bas</b><br><code>auto_disarm_delay</code></td><td>Armé aux manches : désarme
+        seul après ce temps gaz en bas, en secondes (0 = jamais).</td><td>5</td></tr>
+      <tr><td><b>Anti-emballement au décollage</b><br><code>runaway_takeoff_prevention</code></td><td>Désarme si la
+        régulation sature longtemps au décollage. Coupé après 500 ms de gaz au-dessus de 20 % (réglages
+        <code>runaway_takeoff_deactivate_delay</code> et <code>…_throttle_percent</code>).</td><td>ON</td></tr>
+    </table></div>
+    <div class="encart">Comme sous Betaflight, la carte refuse d'armer tant que le logiciel est connecté par USB. Pour
+      un essai au banc, hélices retirées, l'onglet Moteurs lève ce refus jusqu'à la déconnexion.</div>
+
+    <h2 id="fonctions">Autres fonctionnalités</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Ce qu'il fait</th><th>Défaut</th></tr>
+      <tr><td><b>AIRMODE</b><br><code>airmode</code></td><td>La régulation garde la main gaz en bas. Même effet que
+        <code>feature AIRMODE</code>. KarRmen vole avec AIRMODE.</td><td>OFF</td></tr>
+      <tr><td><b>AIRMODE : intégrale après…</b><br><code>airmode_start_throttle_percent</code></td><td>L'intégrale ne
+        s'active qu'après un passage des gaz au-dessus de ce pourcentage.</td><td>25</td></tr>
+      <tr><td><b>TELEMETRY</b><br><code>telemetry</code></td><td>Télémétrie CRSF vers la radio (onglet Télémétrie
+        radio).</td><td>OFF</td></tr>
+      <tr><td><b>OSD des lunettes HD</b><br><code>osd_displayport_device</code></td><td>OSD par MSP DisplayPort sur le
+        port vidéo HD. KarRmen : MSP.</td><td>NONE</td></tr>
+      <tr><td><b>Journal de vol</b><br><code>blackbox_device</code></td><td>Journal dans la flash de la carte
+        (SPIFLASH) ou aucun.</td><td>SPIFLASH</td></tr>
+      <tr><td><b>Baromètre</b><br><code>baro_hardware</code></td><td>AUTO : détecté au démarrage ; NONE : pas de
+        baromètre.</td><td>AUTO</td></tr>
+      <tr><td><b>Sortie de vrille en lacet</b><br><code>yaw_spin_recovery</code></td><td>OFF, ON ou AUTO (seuil tiré du
+        taux maximal du lacet). En ON, seuil réglé par <code>yaw_spin_threshold</code>.</td><td>AUTO ; seuil 1950 °/s</td></tr>
+    </table></div>
+
+    <h2 id="autres">Les autres cadres</h2>
+    <ul>
+      <li><b>Capteurs et horizon</b> : correction de l'horizon en roulis et en tangage (<code>acc_trim_roll</code>,
+        <code>acc_trim_pitch</code>, en dixièmes de degré), manche de lacet inversé, gaz ajoutés en virage en mode
+        ANGLE (<code>thr_corr_value</code>, <code>thr_corr_angle</code>). Le calibrage de l'accéléromètre se fait dans
+        l'onglet Installation.</li>
+      <li><b>ALTHOLD (baromètre)</b> : vitesse de montée, zone morte du manche des gaz, gaz du stationnaire, gaz
+        minimaux et maximaux, inclinaison maximale, P, I, D, F de l'altitude, lissage. L'altitude est remise à 0 à
+        chaque armement.</li>
+      <li><b>Profils et journal</b> : profil PID actif et profil de taux actif (1 à 6), part des boucles PID
+        enregistrées dans le journal (1 kHz au plus).</li>
+    </ul>
+
+    <h2 id="beeper">Le beeper</h2>
+    <p>Le cadre <b>Configuration du beeper (buzzer)</b>, à droite, a un interrupteur par bip, avec son nom et sa
+      description : GYRO_CALIBRATED, RX_LOST, BAT_CRIT_LOW, BAT_LOW, ACC_CALIBRATION, ACC_CALIBRATION_FAIL, SYSTEM_INIT,
+      USB. Seuls les bips que le firmware sait jouer sont listés.</p>
+    <ul>
+      <li><b>Tout activer</b> et <b>Tout couper</b> agissent sur tous les bips.</li>
+      <li>Un bip coupé agit tout de suite ; <b>Enregistrer dans la carte</b> le garde.</li>
+    </ul>
+    <p>En ligne de commande : <code>beeper</code> liste les bips, <code>beeper -RX_LOST</code> en coupe un,
+      <code>beeper RX_LOST</code> le remet, <code>beeper -ALL</code> / <code>beeper ALL</code> pour tous, puis
+      <code>save</code>. Par défaut, tous les bips sont actifs, comme sur KarRmen.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Onglet Ports</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html" aria-current="page">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#tableau">Le tableau des ports</a></li>
+      <li><a href="#fonctions">Les fonctions</a></li>
+      <li><a href="#karrmen">Les ports de KarRmen</a></li>
+      <li><a href="#enregistrer">Enregistrer et redémarrer</a></li>
+      <li><a href="#bluetooth">Bluetooth et OSD</a></li>
+      <li><a href="#cli">En ligne de commande</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Onglet Ports</h1>
+    <p class="chapeau">L'onglet <b>Ports</b> dit à quoi sert chaque port série (UART) de la carte : récepteur radio,
+      vidéo HD, MSP ou rien. Il reprend le tableau de Betaflight, une ligne par port.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/ports.png" alt="Onglet Ports : tableau USB VCP et UART1 à UART6, cadre Bluetooth et OSD"><img class="t-clair" src="../assets/img/onglets/ports-clair.png" alt="Onglet Ports : tableau USB VCP et UART1 à UART6, cadre Bluetooth et OSD">
+      <figcaption>Les ports de la SpeedyBee F405 Mini réglés comme KarRmen. Capture faite sans carte réelle : la
+        colonne « Maintenant » affiche « libre » partout.</figcaption>
+    </figure>
+
+    <h2 id="tableau">Le tableau des ports</h2>
+    <p>Une ligne par port : <b>USB VCP</b> (la prise USB), puis <b>UART1</b> à <b>UART6</b>, avec les plots de la
+      carte sous chaque nom. Le tableau ne liste que les ports que la carte annonce. Les colonnes :</p>
+    <div class="tableau"><table>
+      <tr><th>Colonne</th><th>Rôle</th></tr>
+      <tr><td><b>Configuration / MSP</b></td><td>MSP : le logiciel, une application, le Bluetooth.</td></tr>
+      <tr><td><b>Serial Rx</b></td><td>Récepteur radio série (CRSF / ExpressLRS).</td></tr>
+      <tr><td><b>Sortie télémétrie</b></td><td>« CRSF (par le récepteur) » sur le port Serial Rx : la télémétrie passe
+        par le même port. Ailleurs : « Désactivé ».</td></tr>
+      <tr><td><b>Entrée capteur</b></td><td>« Désactivé » (GPS sur UART6 : à venir).</td></tr>
+      <tr><td><b>Périphériques</b></td><td>« Désactivé » ou <b>VTX (MSP + Displayport)</b> : vidéo HD, OSD des lunettes
+        et MSP.</td></tr>
+      <tr><td><b>Débit</b></td><td>Débit du port en bauds, de 9600 à 1000000 (115200 par défaut). Le récepteur CRSF
+        est toujours à 420000.</td></tr>
+      <tr><td><b>Maintenant</b></td><td>Ce que la carte fait du port en ce moment (lu dans <code>status</code>).
+        Survoler la case donne le rôle du port sur KarRmen.</td></tr>
+    </table></div>
+
+    <h2 id="fonctions">Les fonctions</h2>
+    <p>Dans XPro, un port n'a <b>qu'une fonction</b> : cocher une colonne décoche les autres. Les quatre fonctions
+      possibles (réglage <code>port_N_function</code>) :</p>
+    <ul>
+      <li><code>AUCUNE</code> : port libre ;</li>
+      <li><code>MSP</code> : logiciel, application ;</li>
+      <li><code>RECEPTEUR</code> : récepteur CRSF (colonne Serial Rx) ;</li>
+      <li><code>VIDEO_HD</code> : MSP + OSD des lunettes (Périphériques : VTX (MSP + Displayport)).</li>
+    </ul>
+    <p>Le port USB garde toujours MSP : c'est par lui que le logiciel parle à la carte. Le logiciel prévient sous le
+      tableau s'il n'y a aucun port Serial Rx (la radio ne serait plus lue après le redémarrage), ou s'il y en a
+      plusieurs (seul le premier sert). De même pour plusieurs ports VTX.</p>
+
+    <h2 id="karrmen">Les ports de KarRmen</h2>
+    <p>Ce sont aussi les fonctions par défaut de la SpeedyBee F405 Mini dans XPro :</p>
+    <div class="tableau"><table>
+      <tr><th>Port</th><th>Plots</th><th>Fonction</th><th>Branché</th></tr>
+      <tr><td><b>USB VCP</b></td><td>prise USB</td><td>MSP (toujours)</td><td>logiciel XPro</td></tr>
+      <tr><td><b>UART1</b></td><td>T1 · R1 (PA9 · PA10)</td><td>VTX (MSP + Displayport), 115200</td><td>vidéo HD Walksnail : OSD et VTX</td></tr>
+      <tr><td><b>UART2</b></td><td>T2 · R2 (PA2 · PA3)</td><td>Serial Rx, 420000 (CRSF)</td><td>récepteur ExpressLRS (R2 marqué SBUS sur la carte)</td></tr>
+      <tr><td><b>UART4</b></td><td>interne (PA0 · PA1)</td><td>MSP, 115200</td><td>Bluetooth de la carte</td></tr>
+      <tr><td>UART3, UART5, UART6</td><td>—</td><td>aucune</td><td>libres</td></tr>
+    </table></div>
+    <p>Sous Betaflight, KarRmen avait la même répartition (relevé du 14/10/2026). L'UART5 y servait autrefois au
+      capteur des ESC : inutile, l'ESC BLS 35A V2 n'a pas de télémétrie série.</p>
+
+    <h2 id="enregistrer">Enregistrer et redémarrer</h2>
+    <p>Un port ne change de fonction qu'au démarrage de la carte. Après un changement :</p>
+    <ol class="etapes">
+      <li>Cliquer <b>Enregistrer et redémarrer la carte</b> sous le tableau.</li>
+      <li>Confirmer. Le logiciel enregistre les réglages (<code>save</code>), puis redémarre la carte. La liaison USB se
+        coupe quelques secondes.</li>
+      <li>Reconnecter la carte si elle ne revient pas seule.</li>
+    </ol>
+    <p>Les boutons du haut, <b>Lire la carte</b>, <b>Tout revenir</b> et <b>Enregistrer dans la carte</b>, sont ceux de
+      tous les onglets de réglages. Un réglage changé mais pas encore enregistré porte un repère orange.</p>
+
+    <h2 id="bluetooth">Bluetooth et OSD</h2>
+    <p>Le cadre sous le tableau a deux réglages :</p>
+    <ul>
+      <li><b>Bluetooth de la carte (UART4 en MSP)</b>, <code>bluetooth_mode</code> : <code>OFF</code> par défaut. Le
+        module reste visible mais muet, car il n'y a pas encore de code d'appairage. <code>LECTURE</code> sert aux
+        essais : la carte répond en MSP, en lecture seule, à tout téléphone proche.</li>
+      <li><b>OSD des lunettes sur le port VIDEO_HD</b>, <code>osd_displayport_device</code> : <code>NONE</code> par
+        défaut, comme Betaflight ; <code>MSP</code> sur KarRmen.</li>
+    </ul>
+    <div class="encart">Sur KarRmen sous Betaflight, le Bluetooth était coupé une fois le drone armé, et revenait au
+      désarmement (PINIO 1, très probablement). Dans XPro, la PINIO 1 suit aussi l'armement.</div>
+
+    <h2 id="cli">En ligne de commande</h2>
+    <p>Chaque port a deux réglages, pris au redémarrage : <code>port_N_function</code> et <code>port_N_baudrate</code>
+      (N de 1 à 6). La commande <code>serial</code> de Betaflight est acceptée : un <code>diff all</code> de Betaflight
+      collé dans l'onglet Ligne de commande règle aussi les ports.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

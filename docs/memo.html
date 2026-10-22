@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Mémo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html" aria-current="page">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#regles">Règles</a></li>
+      <li><a href="#voyant">Voyant bleu</a></li>
+      <li><a href="#produits">Produits</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Mémo</h1>
+    <p class="chapeau">L'onglet <b>Mémo</b> (groupe Outils) rassemble ce qu'il faut avoir en tête en permanence avec
+      XPro : les règles du logiciel, le voyant de la carte, les produits.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/memo.png" alt="Onglet Mémo : règles, voyant bleu de la carte, produits"><img class="t-clair" src="../assets/img/onglets/memo-clair.png" alt="Onglet Mémo : règles, voyant bleu de la carte, produits">
+      <figcaption>Trois cadres, toujours les mêmes.</figcaption>
+    </figure>
+
+    <h2 id="regles">Règles</h2>
+    <ul>
+      <li><b>Rien ne change par défaut</b> : une nouvelle version ne modifie pas le comportement d'un drone déjà réglé.</li>
+      <li><b>Jamais de chiffre faux</b> : une valeur inconnue s'affiche « -- », jamais une valeur supposée.</li>
+      <li><b>Hélices retirées</b> pour tout essai au banc.</li>
+      <li>Une valeur hors plage est <b>refusée</b>, jamais corrigée en silence.</li>
+    </ul>
+
+    <h2 id="voyant">Voyant bleu de la carte</h2>
+    <table>
+      <tr><th>Clignotement</th><th>Signification</th></tr>
+      <tr><td>1 par seconde</td><td>tout va bien</td></tr>
+      <tr><td>5 par seconde</td><td>gyroscope muet</td></tr>
+      <tr><td>10 par seconde</td><td>horloge dégradée (quartz absent)</td></tr>
+    </table>
+    <p>Dans les deux derniers cas, faire un <a href="rapport-de-banc.html">rapport de banc</a>.</p>
+
+    <h2 id="produits">Produits</h2>
+    <table>
+      <tr><th>Produit</th><th>Pour</th></tr>
+      <tr><td><b>TRUEGLIDE</b></td><td>la base : course, freestyle, cinéma</td></tr>
+      <tr><td><b>TRUENAV</b></td><td>TRUEGLIDE + navigation GPS</td></tr>
+      <tr><td><b>TRUENAV_LIGHT</b></td><td>TRUENAV sans les fonctions de course</td></tr>
+    </table>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

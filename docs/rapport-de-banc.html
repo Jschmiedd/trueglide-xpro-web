@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Rapport de banc</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html" aria-current="page">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#faire">Faire un rapport</a></li>
+      <li><a href="#contenu">Ce qu'il contient</a></li>
+      <li><a href="#muette">Carte qui ne répond pas</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Rapport de banc</h1>
+    <p class="chapeau">L'onglet <b>Rapport de banc</b> (groupe Outils) enregistre en un clic l'état complet de la carte
+      dans un fichier texte, à envoyer tel quel pour un diagnostic. C'est le premier réflexe quand quelque chose ne va
+      pas au banc.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/rapport.png" alt="Onglet Rapport de banc : trois étapes et le bouton Lancer le rapport"><img class="t-clair" src="../assets/img/onglets/rapport-clair.png" alt="Onglet Rapport de banc : trois étapes et le bouton Lancer le rapport">
+      <figcaption>Trois étapes, un bouton.</figcaption>
+    </figure>
+
+    <h2 id="faire">Faire un rapport</h2>
+    <ol>
+      <li>Carte branchée en <b>USB seulement</b>, sans batterie, <b>hélices retirées</b>.</li>
+      <li>Cliquer <b>Lancer le rapport</b>, puis tourner la carte à la main dans tous les sens pendant les 10 secondes de
+        mesures.</li>
+      <li>Le fichier <code>rapport_banc_&lt;date&gt;.txt</code> est enregistré et son texte est copié : l'envoyer tel
+        quel, sans le retoucher.</li>
+    </ol>
+
+    <h2 id="contenu">Ce qu'il contient</h2>
+    <ul>
+      <li>Date, navigateur, port USB et compteurs de la liaison (octets reçus, dernier octet reçu).</li>
+      <li>Les réponses de la carte à <code>version</code> et <code>status</code> (voir <a href="cli.html">Ligne de
+        commande</a>), au début et à la fin.</li>
+      <li>20 relevés du gyroscope pris pendant que la carte est tournée à la main : ils montrent si le capteur répond
+        sur les trois axes.</li>
+    </ul>
+    <p>Le rapport ne contient que ce que la carte répond à ces commandes et l'état de la liaison USB.</p>
+
+    <h2 id="muette">Carte qui ne répond pas</h2>
+    <p>Si la carte ne répond à aucune commande, le rapport le dit en tête (« LA CARTE NE RÉPOND PAS AUX COMMANDES ») et
+      ajoute les 200 derniers octets reçus en hexadécimal. Le fichier est enregistré quand même : c'est justement le
+      cas où il est le plus utile.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

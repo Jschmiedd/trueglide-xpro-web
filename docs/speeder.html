@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Mode Speeder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html" aria-current="page">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#reglages">Les réglages</a></li>
+      <li><a href="#interrupteur">L'interrupteur</a></li>
+      <li><a href="#transition">La transition</a></li>
+      <li><a href="#roulis-lacet">Roulis et lacet tournés</a></li>
+      <li><a href="#gaz">Gaz augmentés</a></li>
+      <li><a href="#calculs">Calculs du speeder</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Speeder</h1>
+    <p class="chapeau">Le mode <b>SPEEDER</b> fait passer le drone du stationnaire au vol rapide, progressivement, sur un
+      interrupteur. Il penche le drone vers l'avant jusqu'à l'inclinaison de croisière <b>A</b>, à vitesse réglée, puis
+      le ramène au stationnaire quand on coupe l'interrupteur. Il ne marche qu'en mode ANGLE.</p>
+
+    <h2 id="reglages">Les réglages</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-speeder-reglages.png" alt="Cadre Mode SPEEDER : inclinaison de croisière, vitesse de la transition, roulis et lacet tournés, gaz augmentés"><img class="t-clair" src="../assets/img/doc-speeder-reglages-clair.png" alt="Cadre Mode SPEEDER : inclinaison de croisière, vitesse de la transition, roulis et lacet tournés, gaz augmentés">
+      <figcaption>Valeurs par défaut (capture faite avec une fausse carte, sans interrupteur SPEEDER réglé : d'où
+        l'alerte « Aucun interrupteur SPEEDER »).</figcaption>
+    </figure>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th><th>Plage</th></tr>
+      <tr><td><b>Inclinaison vers l'avant en croisière</b> <code>speeder_cruise_angle</code></td><td>Angle A atteint en fin de transition (°).</td><td>60</td><td>10 à 80</td></tr>
+      <tr><td><b>Vitesse de la transition</b> <code>speeder_transition_rate</code></td><td>Vitesse à laquelle l'inclinaison change (°/s).</td><td>30</td><td>5 à 180</td></tr>
+      <tr><td><b>Roulis et lacet tournés avec la transition</b> <code>speeder_fpv_mix</code></td><td>Tourne les commandes de roulis et de lacet de l'angle A.</td><td>OFF</td><td>OFF / ON</td></tr>
+      <tr><td><b>Gaz augmentés pendant la transition</b> <code>speeder_throttle_comp</code></td><td>Garde mieux l'altitude pendant la transition.</td><td>OFF</td><td>OFF / ON</td></tr>
+    </table></div>
+
+    <h2 id="interrupteur">L'interrupteur</h2>
+    <p>Le SPEEDER se met sur un interrupteur dans l'onglet <a href="modes.html">Modes</a> : choisir le mode
+      <b>SPEEDER</b> sur une plage d'une voie AUX. En ligne de commande, c'est le mode 120 de la commande
+      <code>aux</code>. L'onglet Speeder rappelle la plage réglée, ou affiche « Aucun interrupteur SPEEDER ».</p>
+    <p>La transition ne démarre que si tout est réuni : drone armé, mode <b>ANGLE</b> actif, attitude connue, liaison
+      radio présente, pas d'atterrissage du failsafe. Pendant la transition, les lunettes et la radio affichent le mode
+      <b>SPEEDER</b>.</p>
+
+    <h2 id="transition">La transition</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-speeder-schema.png" alt="Speeder V4V vu de côté : fuselage vertical au stationnaire, penché de 60 degrés en croisière"><img class="t-clair" src="../assets/img/doc-speeder-schema-clair.png" alt="Speeder V4V vu de côté : fuselage vertical au stationnaire, penché de 60 degrés en croisière">
+      <figcaption>Dessin de l'onglet, d'après le modèle 3D du speeder V4V de Johann : au stationnaire le fuselage est
+        vertical, nez en haut ; en croisière, il est penché vers l'avant de l'angle A (ici 60°). Hélices propulsives en
+        vert.</figcaption>
+    </figure>
+    <ol class="etapes">
+      <li><b>Interrupteur sur SPEEDER</b> : l'inclinaison ajoutée A monte de 0 à <code>speeder_cruise_angle</code>, à
+        <code>speeder_transition_rate</code> degrés par seconde.</li>
+      <li><b>En croisière</b>, le manche de tangage ajoute ou retire de l'inclinaison autour de A. L'inclinaison totale
+        est bornée à 80°.</li>
+      <li><b>Interrupteur coupé</b>, ou <b>failsafe</b> : A redescend à 0 à la même vitesse. C'est le retour progressif
+        au stationnaire.</li>
+      <li><b>ALTHOLD</b> ou <b>désarmement</b> : A revient à 0 tout de suite.</li>
+    </ol>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-speeder-courbe.png" alt="Courbe de l'inclinaison ajoutée A dans le temps : montée de 0 à 60 degrés en 2 s, palier, descente en 2 s"><img class="t-clair" src="../assets/img/doc-speeder-courbe-clair.png" alt="Courbe de l'inclinaison ajoutée A dans le temps : montée de 0 à 60 degrés en 2 s, palier, descente en 2 s">
+      <figcaption>Courbe tracée par l'onglet avec les valeurs par défaut : 60° atteints en 2,0 s (60 ÷ 30), retour au
+        stationnaire en 2,0 s.</figcaption>
+    </figure>
+
+    <h2 id="roulis-lacet">Roulis et lacet tournés</h2>
+    <p>Penché de A, le drone ne tourne plus autour des mêmes axes vus par le pilote. Avec
+      <code>speeder_fpv_mix</code> sur ON, la carte tourne les commandes de roulis et de lacet de l'angle A :</p>
+    <ul>
+      <li>roulis appliqué = roulis × cos A − lacet × sin A ;</li>
+      <li>lacet appliqué = lacet × cos A + roulis × sin A.</li>
+    </ul>
+    <p>À A = 0 (stationnaire), rien ne change. C'est la même rotation que le mode FPV ANGLE MIX de l'onglet
+      <a href="camera.html">Caméra</a>, mais avec l'angle de la transition au lieu de l'angle fixe de la caméra.</p>
+
+    <h2 id="gaz">Gaz augmentés</h2>
+    <p>Penché de A, le drone ne garde que cos A de sa poussée vers le haut. Avec <code>speeder_throttle_comp</code> sur
+      ON, les gaz sont divisés par cos A pendant la transition :</p>
+    <div class="tableau"><table>
+      <tr><th>Inclinaison A</th><th>cos A</th><th>Gaz multipliés par</th></tr>
+      <tr><td>0°</td><td>1</td><td>× 1 (sans effet)</td></tr>
+      <tr><td>30°</td><td>0,87</td><td>× 1,15</td></tr>
+      <tr><td>48° et plus</td><td>0,67 et moins</td><td>× 1,5 (au plus)</td></tr>
+    </table></div>
+    <p>La hausse est bornée à × 1,5 et les gaz à 100 %. Elle ne s'applique qu'en mode ANGLE, et jamais pendant
+      l'atterrissage du failsafe.</p>
+
+    <h2 id="calculs">Calculs du speeder</h2>
+    <p>Le cadre <b>Calculs du speeder (vitesse, traînée, centre de gravité)</b> aide à préparer un speeder. Les cases se
+      changent à la main ; les résultats se recalculent.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-speeder-calculs.png" alt="Cadre Calculs du speeder : vitesse de rotation, vitesse théorique, traînée, puissance, centre de gravité"><img class="t-clair" src="../assets/img/doc-speeder-calculs-clair.png" alt="Cadre Calculs du speeder : vitesse de rotation, vitesse théorique, traînée, puissance, centre de gravité">
+      <figcaption>Valeurs de départ du calculateur (KV 1960 lu dans la carte, batterie 14,8 V, hélice de pas 5,
+        150 km/h visés, 40 cm², Cx 0,6). Ce sont des exemples à remplacer par les vôtres, pas des mesures.</figcaption>
+    </figure>
+    <div class="tableau"><table>
+      <tr><th>Calcul</th><th>Formule</th><th>Avec les valeurs de départ</th></tr>
+      <tr><td>Vitesse de rotation en charge</td><td>N = KV × U × η</td><td>21 756 tr/min</td></tr>
+      <tr><td>Vitesse théorique du flux d'air</td><td>V = pas × N × 0,001524</td><td>166 km/h</td></tr>
+      <tr><td>Traînée</td><td>F = ½ ρ V² S Cx</td><td>2,6 N à 150 km/h</td></tr>
+      <tr><td>Puissance contre la traînée</td><td>P = F × V</td><td>106 W (851 W à 300 km/h)</td></tr>
+      <tr><td>Centre de gravité</td><td>CG = Σ(m × d) ÷ Σm</td><td>3,4 mm derrière la carte, 385 g</td></tr>
+    </table></div>
+    <ul>
+      <li>Au-delà de la vitesse théorique du flux d'air, l'hélice ne pousse plus le drone : pour aller vite, un grand
+        pas.</li>
+      <li>La puissance suit le cube de la vitesse : deux fois plus vite demande huit fois plus de puissance. Seules la
+        surface frontale S et le Cx (fuselage fin et profilé) la font baisser.</li>
+      <li>Le centre de gravité doit être au centre des 4 moteurs : déplacer la batterie, surtout en pusher. Si le
+        châssis n'est pas un X régulier, le <a href="moteurs.html#perso">mixeur personnalisé</a> de l'onglet Moteurs
+        utilise ce décalage.</li>
+    </ul>
+    <div class="encart">Avant le premier essai du SPEEDER : vérifier le sens des moteurs et le mixeur dans l'onglet
+      <a href="moteurs.html">Moteurs</a>, <b>hélices retirées</b>.</div>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

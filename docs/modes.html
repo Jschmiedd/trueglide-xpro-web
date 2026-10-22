@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Onglet Modes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html" aria-current="page">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#principe">Le principe</a></li>
+      <li><a href="#carte">Une carte par mode</a></li>
+      <li><a href="#regle">La règle et le curseur</a></li>
+      <li><a href="#plages">Ajouter, supprimer</a></li>
+      <li><a href="#liste">Les modes XPro</a></li>
+      <li><a href="#karrmen">Les plages de KarRmen</a></li>
+      <li><a href="#aux">La commande aux</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Onglet Modes</h1>
+    <p class="chapeau">L'onglet <b>Modes</b> relie les modes de vol aux interrupteurs de la radio. Chaque mode reçoit
+      une ou plusieurs plages d'une voie AUX ; le mode est actif quand la voie est dans une de ses plages.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/modes.png" alt="Onglet Modes : cartes ARM, ANGLE, HORIZON, ALTHOLD, LAUNCH CONTROL avec leurs plages, SPEEDER et FPV ANGLE MIX sans plage"><img class="t-clair" src="../assets/img/onglets/modes-clair.png" alt="Onglet Modes : cartes ARM, ANGLE, HORIZON, ALTHOLD, LAUNCH CONTROL avec leurs plages, SPEEDER et FPV ANGLE MIX sans plage">
+      <figcaption>Les plages de KarRmen. Capture faite sans radio : « voie : -- », pas de curseur ni de mode ACTIF.
+        5 plages libres sur 10.</figcaption>
+    </figure>
+
+    <h2 id="principe">Le principe</h2>
+    <p>Comme l'onglet Modes de Betaflight : une plage, c'est une voie (AUX 1 à AUX 12) et un intervalle en µs, entre
+      900 et 2100, par pas de 25 µs. Quand la voie entre dans l'intervalle, le mode s'active. Un mode peut avoir
+      plusieurs plages. La carte a <b>10 plages</b> en tout, partagées entre les modes.</p>
+    <p>Sans plage ARM, l'armement est refusé (sauf armement aux manches, onglet Configuration). Les plages sont vides
+      par défaut : rien n'arme tant qu'aucune plage ARM n'est réglée. Sans ANGLE ni HORIZON actif, le drone vole en
+      acro.</p>
+
+    <h2 id="carte">Une carte par mode</h2>
+    <p>Chaque mode a sa carte : à gauche son nom, une ligne d'aide et le bouton <b>+ Ajouter une plage</b> ; à droite
+      ses plages, une par ligne. Une plage montre :</p>
+    <ul>
+      <li>la liste de la voie (<b>AUX 1</b> à <b>AUX 12</b>) ;</li>
+      <li><b>Minimum</b> et <b>Maximum</b>, en µs, avec la valeur enregistrée en gris à côté ;</li>
+      <li>« voie : » suivi de la valeur de la voie en ce moment (« -- » sans radio) ;</li>
+      <li>le bouton <b>✕ Supprimer</b> ;</li>
+      <li>la règle de 900 à 2100 µs.</li>
+    </ul>
+    <p>Un mode sans plage affiche « Aucune plage : ce mode n'est jamais actif. ». La case <b>Masquer les modes sans
+      plage</b> les cache ; le navigateur retient ce choix.</p>
+
+    <h2 id="regle">La règle et le curseur</h2>
+    <p>La règle est graduée de 900 à 2100 µs (900, 1000, 1200, 1400, 1500, 1600, 1800, 2000, 2100). La bande jaune
+      montre la plage. Radio allumée, un <b>trait bleu</b> montre la position de la voie, en direct. Quand la voie est
+      dans une plage, la carte du mode s'éclaire et l'étiquette <b>ACTIF</b> apparaît à côté de son nom.</p>
+    <p>Vérifié sur KarRmen le 17/10/2026 (essai B9) : trait bleu et ACTIF suivent les interrupteurs.</p>
+
+    <h2 id="plages">Ajouter, supprimer</h2>
+    <ol class="etapes">
+      <li><b>+ Ajouter une plage</b> sous le nom du mode : une plage s'ajoute, sur AUX 1, de 1700 à 2100 µs.</li>
+      <li>Choisir la voie, puis régler Minimum et Maximum. Basculer l'interrupteur de la radio pour vérifier : le trait
+        bleu doit entrer dans la bande et le mode passer ACTIF.</li>
+      <li><b>Enregistrer dans la carte</b> pour garder les plages après un redémarrage.</li>
+    </ol>
+    <p><b>✕ Supprimer</b> libère la plage. Si les 10 plages sont prises, le logiciel le dit : en supprimer une
+      d'abord. Sous la liste, une note donne le nombre de plages libres.</p>
+
+    <h2 id="liste">Les modes XPro</h2>
+    <div class="tableau"><table>
+      <tr><th>Mode</th><th>Numéro</th><th>Ce qu'il fait</th></tr>
+      <tr><td><b>ARM</b></td><td>0</td><td>Arme les moteurs. Sans plage ARM, l'armement est refusé.</td></tr>
+      <tr><td><b>ANGLE</b></td><td>1</td><td>Auto-nivelé : le drone revient à plat manches au centre, inclinaison
+        bornée.</td></tr>
+      <tr><td><b>HORIZON</b></td><td>2</td><td>Auto-nivelé près du centre des manches, acro au bout des manches (flips
+        possibles).</td></tr>
+      <tr><td><b>ALTHOLD</b></td><td>3</td><td>Garde l'altitude au baromètre ; le manche des gaz fait monter ou
+        descendre.</td></tr>
+      <tr><td><b>LAUNCH CONTROL</b></td><td>49</td><td>Départ de course : moteurs tenus jusqu'à l'élan des gaz, puis
+        vol normal.</td></tr>
+      <tr><td><b>SPEEDER</b></td><td>120</td><td>Fonction TrueGlide : transition du stationnaire à la croisière
+        inclinée, seulement en mode ANGLE (onglet <a href="speeder.html">Speeder</a>).</td></tr>
+      <tr><td><b>FPV ANGLE MIX</b></td><td>121</td><td>Roulis et lacet tournés de l'angle de la caméra
+        (<code>fpv_mix_degrees</code>) : vol en acro, image à plat (onglet <a href="camera.html">Caméra</a>).</td></tr>
+    </table></div>
+    <p>Les numéros sont ceux de Betaflight pour les cinq premiers ; 120 et 121 sont propres à XPro.</p>
+
+    <h2 id="karrmen">Les plages de KarRmen</h2>
+    <p>Relevées sous Betaflight 2025.12.2 (<code>diff all</code> du 14/10/2026) et reprises dans XPro :</p>
+    <div class="tableau"><table>
+      <tr><th>Mode</th><th>Voie</th><th>Plage (µs)</th></tr>
+      <tr><td>ARM</td><td>AUX2 (voie 6)</td><td>1925 à 2100</td></tr>
+      <tr><td>ANGLE</td><td>AUX3 (voie 7)</td><td>900 à 1075</td></tr>
+      <tr><td>HORIZON</td><td>AUX3 (voie 7)</td><td>1400 à 1600</td></tr>
+      <tr><td>ALTHOLD</td><td>AUX4 (voie 8)</td><td>1900 à 2100</td></tr>
+      <tr><td>LAUNCH CONTROL</td><td>AUX1 (voie 5)</td><td>1900 à 2100</td></tr>
+    </table></div>
+    <p>AUX3 a trois positions : bas = ANGLE, milieu = HORIZON, haut = acro (aucun mode).</p>
+
+    <h2 id="aux">La commande aux</h2>
+    <p>Les plages se règlent aussi dans l'onglet Ligne de commande, au format de Betaflight :</p>
+    <p><code>aux n mode voie début fin 0 0</code></p>
+    <ul>
+      <li><code>n</code> : numéro de la plage, de 0 à 9 ;</li>
+      <li><code>mode</code> : numéro du mode (tableau plus haut) ;</li>
+      <li><code>voie</code> : 0 = AUX1 (voie 5), 1 = AUX2, etc. ;</li>
+      <li><code>début</code>, <code>fin</code> : en µs.</li>
+    </ul>
+    <p>Les plages de KarRmen, puis <code>save</code> pour les garder :</p>
+    <div class="encart"><code>aux 0 0 1 1925 2100 0 0</code><br>
+      <code>aux 1 1 2 900 1075 0 0</code><br>
+      <code>aux 2 2 2 1400 1600 0 0</code><br>
+      <code>aux 3 3 3 1900 2100 0 0</code><br>
+      <code>aux 4 49 0 1900 2100 0 0</code><br>
+      <code>save</code></div>
+    <p><code>aux</code> seul liste les plages. Chaque plage est aussi faite de quatre réglages :
+      <code>aux_N_mode</code> (−1 = vide), <code>aux_N_channel</code>, <code>aux_N_min</code>, <code>aux_N_max</code>.
+      Les lignes <code>aux</code> d'un <code>diff all</code> de Betaflight se collent telles quelles.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

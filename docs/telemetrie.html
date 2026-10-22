@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Télémétrie radio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html" aria-current="page">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#activer">Activer la télémétrie</a></li>
+      <li><a href="#capteurs">Ce qu'XPro envoie</a></li>
+      <li><a href="#radio">La voir sur la radio</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Télémétrie radio</h1>
+    <p class="chapeau">L'onglet <b>Télémétrie radio</b> (groupe Fonctions TrueGlide) règle les mesures que la carte
+      renvoie à la radio : tension, courant, attitude, mode de vol, altitude… La radio peut les afficher ou déclencher
+      une alarme.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/telemetrie.png" alt="Onglet Télémétrie radio : réglages, marche à suivre sur la radio et tableau des capteurs envoyés"><img class="t-clair" src="../assets/img/onglets/telemetrie-clair.png" alt="Onglet Télémétrie radio : réglages, marche à suivre sur la radio et tableau des capteurs envoyés">
+      <figcaption>Capture faite avec une fausse carte : réglages et colonne « Envoyé » de cette carte d'essai.</figcaption>
+    </figure>
+
+    <h2 id="activer">Activer la télémétrie</h2>
+    <ul>
+      <li><b>Télémétrie (feature TELEMETRY)</b> (<code>telemetry</code>) : OFF par défaut, ON sur KarRmen.</li>
+      <li><b>Température des ESC toutes les 2 s (TrueGlide)</b> (<code>crsf_tlm_esc_temp</code>) : OFF par défaut. Elle
+        demande aussi la télémétrie DShot étendue (<code>dshot_edt</code> ON, onglet <a href="moteurs.html">Moteurs</a>)
+        et des ESC qui envoient leur température.</li>
+    </ul>
+    <p>Le récepteur ExpressLRS renvoie ces mesures à la radio par la liaison <b>CRSF</b> de l'UART2, une trame toutes
+      les 25 ms. Une donnée inconnue (batterie absente, pas de baromètre) n'est jamais envoyée : elle n'apparaît pas sur
+      la radio plutôt que de montrer un faux chiffre.</p>
+
+    <h2 id="capteurs">Ce qu'XPro envoie</h2>
+    <p>Le cadre <b>Capteurs envoyés</b> liste les capteurs sous leur nom sur la radio. La colonne <b>Envoyé</b> retire
+      un capteur de la télémétrie (« non » = réglage <code>telemetry_disabled_*</code> sur ON, comme dans
+      Betaflight).</p>
+    <div class="tableau"><table>
+      <tr><th>Nom sur la radio</th><th>Mesure</th><th>Envoyé par défaut</th></tr>
+      <tr><td><b>RxBt</b></td><td>tension de la batterie (V)</td><td>oui</td></tr>
+      <tr><td><b>Curr</b></td><td>courant (A)</td><td>oui</td></tr>
+      <tr><td><b>Capa</b></td><td>mAh consommés</td><td>non</td></tr>
+      <tr><td><b>Bat%</b></td><td>batterie restante (%), d'après <code>bat_capacity</code></td><td>oui</td></tr>
+      <tr><td><b>Ptch</b></td><td>tangage (°)</td><td>oui</td></tr>
+      <tr><td><b>Roll</b></td><td>roulis (°)</td><td>oui</td></tr>
+      <tr><td><b>Yaw</b></td><td>cap (°, relatif : pas de boussole)</td><td>oui</td></tr>
+      <tr><td><b>FM</b></td><td>mode de vol (ACRO, ANGL, HOR, AIR, SPEEDER ; * = désarmé)</td><td>oui</td></tr>
+      <tr><td><b>Alt</b></td><td>altitude du baromètre (m, 0 à l'armement)</td><td>oui</td></tr>
+      <tr><td><b>VSpd</b></td><td>vitesse verticale (m/s)</td><td>oui</td></tr>
+      <tr><td><b>Tmp1…Tmp4</b></td><td>température des ESC</td><td>non (<code>crsf_tlm_esc_temp</code> et <code>dshot_edt</code> sur ON)</td></tr>
+    </table></div>
+    <p>Depuis la 0.8.4, la batterie restante part de la charge estimée au branchement (tension au repos d'un élément),
+      moins les mAh consommés. Les capteurs 1RSS, RQly, RSNR, TPWR… viennent du récepteur lui-même, pas de la
+      carte.</p>
+
+    <h2 id="radio">La voir sur la radio</h2>
+    <ol class="etapes">
+      <li>Télémétrie sur <b>ON</b> dans l'onglet, puis <b>Enregistrer dans la carte</b>.</li>
+      <li>Brancher la batterie, allumer la radio : la liaison doit être active.</li>
+      <li>Sur la radio (EdgeTX) : touche <kbd>MDL</kbd>, page <b>Télémétrie</b>, puis seulement <b>Découvrir les nouveaux
+        capteurs</b>. Attendre 10 s, puis <b>Arrêter</b>.</li>
+      <li>Les capteurs du tableau s'ajoutent à la liste de la radio ; ceux qui y étaient déjà restent, avec leurs
+        réglages et leurs alarmes.</li>
+      <li>Les afficher sur un écran de télémétrie, ou leur mettre une alarme (par exemple RxBt sous 14 V).</li>
+    </ol>
+    <div class="encart"><b>Découvrir</b> n'efface rien. Ne pas utiliser <b>Supprimer tous les capteurs</b> : c'est
+      inutile ici.</div>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

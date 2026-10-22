@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Menu des lunettes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html" aria-current="page">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#ouvrir">Ouvrir le menu</a></li>
+      <li><a href="#choisir">Choisir les profils</a></li>
+      <li><a href="#enregistrer">Enregistrer ou quitter</a></li>
+      <li><a href="#securite">Sécurités</a></li>
+      <li><a href="#status">Dans status</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Menu des lunettes</h1>
+    <p class="chapeau">Depuis le firmware 0.8.4, le menu <b>XPRO : PROFILS</b> s'affiche dans les lunettes et change le
+      profil PID et le profil de taux sur le terrain, aux manches, sans PC. Il sert à passer d'un réglage à l'autre
+      préparé à l'avance (par exemple avec un <a href="pid.html#presets">preset</a>).</p>
+    <div class="encart">Le menu a été vérifié sur PC. Son essai sur KarRmen, hélices retirées, est la partie V2-1 de
+      l'essai V2.</div>
+
+    <h2 id="ouvrir">Ouvrir le menu</h2>
+    <p>Drone <b>désarmé</b>, radio active, tenir pendant <b>1 seconde</b> :</p>
+    <ul>
+      <li>manche gauche : <b>gaz au milieu</b>, <b>lacet à gauche</b> ;</li>
+      <li>manche droit : <b>tangage en haut</b>.</li>
+    </ul>
+    <figure>
+      <img src="../assets/img/doc-menu-geste.png" alt="Geste d'ouverture : manche gauche au milieu et à gauche, manche droit en haut, drone désarmé, 1 seconde">
+      <figcaption>Le geste d'ouverture, dessin de la fiche de l'essai V2.</figcaption>
+    </figure>
+    <p>Les lunettes affichent alors l'écran <b>XPRO : PROFILS</b>. Lâcher les manches : ils doivent revenir au centre
+      avant le premier mouvement dans le menu.</p>
+
+    <h2 id="choisir">Choisir les profils</h2>
+    <figure>
+      <img src="../assets/img/doc-menu-ecran.png" alt="Écran XPRO : PROFILS : lignes PID, TAUX, ENREGISTRER ET QUITTER, QUITTER SANS CHANGER">
+      <figcaption>L'écran du menu, image de la fiche de l'essai V2. La ligne choisie a « &gt; » devant ; ici le profil
+        PID 3, nommé 15053S, et le profil de taux 2.</figcaption>
+    </figure>
+    <div class="tableau"><table>
+      <tr><th>Manche</th><th>Effet</th></tr>
+      <tr><td><b>Tangage</b> en haut / en bas</td><td>Ligne précédente / suivante</td></tr>
+      <tr><td><b>Roulis</b> à droite / à gauche</td><td>Sur PID ou TAUX : profil suivant / précédent (de 1 à 6, puis
+        retour au début). Sur les deux dernières lignes : roulis à droite pour valider.</td></tr>
+    </table></div>
+    <p>Un mouvement par poussée : remettre le manche au centre avant le suivant. Le nom du profil s'affiche à côté de
+      son numéro quand il en a un. Le bas de l'écran rappelle « TANGAGE : LIGNE   ROULIS : CHOISIR ».</p>
+
+    <h2 id="enregistrer">Enregistrer ou quitter</h2>
+    <ul>
+      <li><b>ENREGISTRER ET QUITTER</b> (roulis à droite) : les deux profils choisis deviennent actifs et sont
+        enregistrés dans la carte. Le message <b>ENREGISTRE : PID n, TAUX n</b> reste affiché 2 secondes, puis le menu
+        se ferme.</li>
+      <li><b>QUITTER SANS CHANGER</b> (roulis à droite) : le menu se ferme, rien ne change.</li>
+    </ul>
+    <figure>
+      <img src="../assets/img/doc-menu-enregistre.png" alt="Message ENREGISTRE : PID 3, TAUX 2 sous le titre XPRO : PROFILS">
+      <figcaption>Après ENREGISTRER ET QUITTER : le message reste 2 secondes (image de la fiche de l'essai V2).</figcaption>
+    </figure>
+
+    <h2 id="securite">Sécurités</h2>
+    <ul>
+      <li>Tant que le menu est ouvert, l'armement est <b>refusé</b>, avec la raison <code>MENU OSD</code>.</li>
+      <li>Le menu se ferme tout de suite si la <b>radio est perdue</b> ou si le drone est armé ; il ne s'ouvre que drone
+        désarmé.</li>
+    </ul>
+
+    <h2 id="status">Dans status</h2>
+    <p>La commande <code>status</code> de la <a href="cli.html">Ligne de commande</a> a une ligne « menu des lunettes » :
+      menu ouvert ou fermé, nombre d'ouvertures et nombre d'enregistrements depuis le démarrage.</p>
+    <p><code>menu des lunettes (gaz au milieu, lacet a gauche, tangage en haut 1 s) : ferme, ouvertures 0, enregistrements 0</code></p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

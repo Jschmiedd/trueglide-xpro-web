@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Blackbox</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html" aria-current="page">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#etat">État du journal</a></li>
+      <li><a href="#boutons">Télécharger, voir, effacer</a></li>
+      <li><a href="#reglages">Réglages</a></li>
+      <li><a href="#contenu">Contenu du journal</a></li>
+      <li><a href="#csv">Conversion en CSV</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Blackbox (journal de vol)</h1>
+    <p class="chapeau">L'onglet <b>Blackbox</b> (groupe Analyse) gère le journal de vol enregistré dans la flash de la
+      carte : son état, son téléchargement en fichier <code>.bin</code>, son ouverture dans le visualiseur et son
+      effacement.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/blackbox.png" alt="Onglet Blackbox : état du journal, boutons Actualiser, Télécharger (.bin), Voir dans le visualiseur, Effacer le journal, réglages du journal"><img class="t-clair" src="../assets/img/onglets/blackbox-clair.png" alt="Onglet Blackbox : état du journal, boutons Actualiser, Télécharger (.bin), Voir dans le visualiseur, Effacer le journal, réglages du journal">
+      <figcaption>Capture faite avec une fausse carte : elle répond « ABSENT (aucune flash ne repond sur SPI3) ». Sur une
+        vraie carte, ce cadre donne l'état du journal.</figcaption>
+    </figure>
+
+    <h2 id="etat">État du journal</h2>
+    <p>Le cadre <b>Journal de vol</b> affiche la réponse de la commande <code>journal</code> ; <b>Actualiser</b> la
+      relit. Le journal peut être prêt, en cours d'effacement, plein, coupé (<code>blackbox_device</code> = NONE) ou
+      absent (aucune flash ne répond). La commande <code>status</code> donne aussi la place libre en secondes de vol.</p>
+    <p>Si la flash commence par un <b>ancien journal d'un autre firmware</b> (Betaflight), l'onglet le signale : il prend
+      de la place et le journal d'XPro se remplit vite. Le télécharger d'abord pour le garder, puis effacer le
+      journal.</p>
+    <div class="encart">Le journal n'enregistre que <b>drone armé</b>. Effacer le journal avant un essai important : à
+      l'essai B8, la flash était pleine d'un ancien journal de Betaflight et rien n'a été enregistré.</div>
+
+    <h2 id="boutons">Télécharger, voir, effacer</h2>
+    <ul>
+      <li><b>Télécharger (.bin)</b> : lit le journal par blocs de 4 Ko (pourcentage affiché) et l'enregistre sous
+        <code>journal_xpro_&lt;date&gt;.bin</code>.</li>
+      <li><b>Voir dans le visualiseur</b> (0.8.4) : lit le journal de la carte et l'ouvre directement dans l'onglet
+        <b>Visualiseur Blackbox</b>. Voir <a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a> pour
+        régler l'échelle des courbes.</li>
+      <li><b>Effacer le journal</b> : après confirmation, efface tout le journal de la carte. Le télécharger
+        d'abord.</li>
+    </ul>
+
+    <h2 id="reglages">Réglages</h2>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Choix</th><th>Défaut</th></tr>
+      <tr><td><b>Journal de vol</b> (<code>blackbox_device</code>)</td><td>NONE, SPIFLASH (flash de la carte, SPI3)</td><td>SPIFLASH</td></tr>
+      <tr><td><b>Part des boucles PID enregistrées</b> (<code>blackbox_sample_rate</code>)</td><td>1/1, 1/2, 1/4, 1/8, 1/16 ; 1 000 mesures par seconde au plus</td><td>1/4</td></tr>
+    </table></div>
+    <p>Avec la boucle PID à 4 kHz (réglage par défaut), 1/4 donne 1 000 mesures par seconde. Les réglages se gardent
+      avec <b>Enregistrer dans la carte</b>, comme dans les autres onglets.</p>
+
+    <h2 id="contenu">Contenu du journal</h2>
+    <p>Un journal minimal, au format propre à XPro (décrit dans <code>firmware/noyau/journal.h</code>). Chaque
+      armement commence un vol, avec un en-tête : fréquence des mesures et de la boucle PID, profils PID et de taux,
+      pôles des moteurs, props out, AIRMODE, version du firmware. Puis, à chaque mesure :</p>
+    <ul>
+      <li>temps, état (armé, ANGLE, HORIZON, AIRMODE, liaison perdue, mixeur saturé) ;</li>
+      <li>gyroscope brut et filtré, consigne, P, I, D et F, sur les trois axes ;</li>
+      <li>commande DShot et vitesse (tr/min) des 4 moteurs ;</li>
+      <li>voies roulis, tangage, gaz, lacet ;</li>
+      <li>tension et courant de la batterie.</li>
+    </ul>
+    <p>Une vitesse, une tension ou un courant inconnus sont enregistrés comme inconnus, pas comme un chiffre. Sur
+      KarRmen (essai B9, firmware 0.8.3) : 4 armements enregistrés, aucune mesure perdue à 1 000 mesures par
+      seconde.</p>
+
+    <h2 id="csv">Conversion en CSV</h2>
+    <p>Le fichier <code>.bin</code> se convertit en tableau CSV (une ligne par mesure) avec :</p>
+    <p><code>python3 docs/outils/lire_journal.py journal.bin [sortie.csv]</code></p>
+    <p>La colonne <code>vol</code> compte les vols ; une valeur inconnue reste vide. Un ancien journal d'un autre format
+      au début de la flash est sauté.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

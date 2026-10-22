@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Onglet Installation</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html" aria-current="page">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#vue">La vue 3D</a></li>
+      <li><a href="#choix">Choisir la vue</a></li>
+      <li><a href="#axes">Recentrer les axes</a></li>
+      <li><a href="#cap">Le cap et Cap à 0</a></li>
+      <li><a href="#acc">Accélération totale</a></li>
+      <li><a href="#calibrage">Calibrage</a></li>
+      <li><a href="#verifier">Vérifier le sens</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Onglet Installation</h1>
+    <p class="chapeau">L'onglet <b>Installation</b> montre le drone en 3D, incliné comme la carte de vol. On y vérifie
+      que la carte est bien orientée, puis on calibre l'accéléromètre, drone à plat.</p>
+    <p>C'est le premier onglet du groupe « Installation du drone ». Le cadre <b>Mise en route</b> du Tableau de bord
+      donne l'ordre à suivre : Installation, Ports, Configuration, Récepteur, Modes, Alimentation et batterie, Moteurs,
+      Failsafe, puis les fonctions TrueGlide.</p>
+
+    <h2 id="vue">La vue 3D</h2>
+    <p>Le cadre <b>Inclinaison de la carte</b> dessine le drone : moteurs numérotés de 1 à 4, flèche et mot
+      <b>AVANT</b> sur le nez. Sous la vue : <b>Roulis</b>, <b>Tangage</b>, <b>Lacet (cap)</b>, les boutons de la vue
+      et l'<b>Accélération totale</b>.</p>
+    <p>L'attitude est estimée <b>par la carte</b> (firmware 0.1.4 et suivants), 1000 fois par seconde, avec le
+      gyroscope et l'accéléromètre, dans le repère de la carte. Le logiciel l'affiche 10 fois par seconde. Avec un
+      firmware plus ancien, la page calcule l'inclinaison avec l'accéléromètre seul, sans cap.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-installation-vue.png" alt="Onglet Installation : drone en 3D vu de trois quarts, valeurs de roulis, tangage, cap et accélération, boutons de la vue"><img class="t-clair" src="../assets/img/doc-installation-vue-clair.png" alt="Onglet Installation : drone en 3D vu de trois quarts, valeurs de roulis, tangage, cap et accélération, boutons de la vue">
+      <figcaption>Vue 3/4. Capture faite sans carte réelle : « En attente des mesures… » et des valeurs « -- ». Une
+        valeur que le logiciel n'a pas reçue s'affiche toujours « -- ».</figcaption>
+    </figure>
+
+    <h2 id="choix">Choisir la vue</h2>
+    <p>Trois boutons sous <b>Vue du modèle</b> :</p>
+    <div class="tableau"><table>
+      <tr><th>Bouton</th><th>Le drone est vu…</th></tr>
+      <tr><td><b>3/4</b></td><td>de derrière, un peu sur le côté et au-dessus (vue par défaut).</td></tr>
+      <tr><td><b>Arrière (Betaflight)</b></td><td>de derrière, presque à l'horizontale, comme on le pilote : un roulis
+        à droite fait descendre le côté droit, à droite de l'écran.</td></tr>
+      <tr><td><b>Face</b></td><td>de face, nez vers l'écran.</td></tr>
+    </table></div>
+    <p>Le navigateur retient la vue choisie. Le même choix existe dans l'onglet Récepteur.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/installation-arriere.png" alt="Vue Arrière : le drone vu de derrière, presque à l'horizontale, moteurs 1 à 4 et mot AVANT"><img class="t-clair" src="../assets/img/installation-arriere-clair.png" alt="Vue Arrière : le drone vu de derrière, presque à l'horizontale, moteurs 1 à 4 et mot AVANT">
+      <figcaption>Vue <b>Arrière (Betaflight)</b> : moteurs 3 et 1 à l'arrière, au premier plan ; 4 et 2 à l'avant.</figcaption>
+    </figure>
+
+    <h2 id="axes">Recentrer les axes</h2>
+    <ul>
+      <li><b>Recentrer les axes</b> : la position actuelle devient 0 / 0 / 0 (roulis, tangage, cap).</li>
+      <li><b>Axes d'origine</b> : revient aux angles mesurés par la carte.</li>
+    </ul>
+    <p>Ces deux boutons ne changent que l'affichage. La carte n'est pas modifiée. Pour corriger l'horizon en vol, il
+      faut calibrer l'accéléromètre (plus bas).</p>
+
+    <h2 id="cap">Le cap et Cap à 0</h2>
+    <p>La carte n'a pas de boussole : le cap est <b>relatif</b>. Il vaut 0 quand le gyroscope vient d'être calibré
+      (au démarrage, carte immobile), ou quand on clique <b>Cap à 0</b>. Il dérive lentement.</p>
+    <p>Cette dérive vient surtout de la température : le décalage du gyroscope, mesuré à froid au démarrage, change
+      quand la carte chauffe. Le réglage <code>gyro_cal_tracking</code> (onglet Configuration, ON par défaut) ajuste le
+      décalage pendant les secondes où la carte est immobile.</p>
+
+    <h2 id="acc">Accélération totale</h2>
+    <p>La force mesurée par l'accéléromètre, en g, tous axes réunis. Carte immobile, elle reste près de 1 g, quelle
+      que soit l'inclinaison. Au banc, le 13/10/2026, la carte au repos donnait 1,004 g.</p>
+
+    <h2 id="calibrage">Calibrage</h2>
+    <p>Le cadre <b>Calibrage</b> donne l'état de la carte :</p>
+    <ul>
+      <li><b>Accéléromètre</b> : fait ou pas fait ;</li>
+      <li><b>Gyroscope</b> : calibré au démarrage, ou « EN ATTENTE » tant que la carte bouge ;</li>
+      <li><b>Orientation</b> : rotation du capteur sur la carte (270° dans le sens horaire sur la SpeedyBee F405 Mini) ;</li>
+      <li><b>Réglages</b> : enregistrés dans la carte, avec le numéro de l'enregistrement.</li>
+    </ul>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-installation-calibrage.png" alt="Cadre Calibrage : accéléromètre pas fait, gyroscope en attente, orientation appliquée, réglages enregistrés, bouton Calibrer l'accéléromètre"><img class="t-clair" src="../assets/img/doc-installation-calibrage-clair.png" alt="Cadre Calibrage : accéléromètre pas fait, gyroscope en attente, orientation appliquée, réglages enregistrés, bouton Calibrer l'accéléromètre">
+      <figcaption>Capture sans carte réelle : accéléromètre « PAS FAIT », gyroscope « EN ATTENTE ».</figcaption>
+    </figure>
+    <ol class="etapes">
+      <li>Poser le drone <b>à plat</b> sur une table.</li>
+      <li>Ne plus le toucher.</li>
+      <li>Cliquer <b>Calibrer l'accéléromètre</b>. La mesure dure 1 seconde.</li>
+    </ol>
+    <p>Si la carte bouge ou n'est pas à plat, le calibrage est refusé et rien ne change. Au banc, carte tenue à la main,
+      la carte a répondu « REFUSE : la carte a bouge. Rien n'a change. ». Le résultat est enregistré dans la carte et
+      gardé après un flash, sauf avec l'option « Effacement complet » de l'onglet Flasher. La commande
+      <code>calib_acc</code> de la ligne de commande fait la même chose.</p>
+    <div class="encart">Le calibrage reste dans la carte où il a été fait. Après une restauration de Betaflight, les
+      réglages XPro sont perdus : refaire le calibrage.</div>
+
+    <h2 id="verifier">Vérifier le sens</h2>
+    <ol class="etapes">
+      <li>Lever le nez du drone : la vue 3D doit lever le nez.</li>
+      <li>Pencher le drone à droite : la vue 3D doit pencher à droite.</li>
+      <li>Drone à plat, le tourner d'un quart de tour vers la droite : le cap passe à environ +90°, la vue tourne dans
+        le même sens. Le remettre : le cap revient près de 0.</li>
+    </ol>
+    <p>Si la vue part dans un autre sens, l'orientation du gyroscope est fausse : réglage <b>Orientation du
+      gyroscope</b> (<code>gyro_align</code>) dans l'onglet Configuration. Sur KarRmen, juste après le flash de la 0.3.1,
+      la vue à plat donnait roulis 0,0° et tangage 0,5°.</p>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

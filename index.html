@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>TrueGlide XPro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  /* Accueil : bandeau d'ouverture sur fond graphite (les deux thèmes), puis sections de lecture */
+  .ouverture { background: #121212; color: #ececea; border-bottom: 3px solid #c6f700; }
+  .ouverture .large { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: center; padding-block: 56px 48px; }
+  .ouverture .logo { width: min(560px, 100%); display: block; margin-bottom: 22px; }
+  .ouverture h1 { font-size: clamp(30px, 4.4vw, 46px); margin: 0 0 14px; color: #ffffff; }
+  .ouverture p { color: #b9bbb4; font-size: 18px; max-width: 34em; margin: 0 0 22px; }
+  .ouverture .boutons { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ouverture .btn { color: #ececea; border-color: #3a3b37; }
+  .ouverture .btn.plein { background: #c6f700; border-color: #c6f700; color: #121212; }
+  .ouverture figure { margin: 0; }
+  .ouverture figure img { border-radius: 10px; border: 1px solid #2f302d; display: block; }
+  .ouverture figcaption { font-size: 13px; color: #8d8f88; margin-top: 8px; }
+  .etat { display: flex; gap: 10px 26px; flex-wrap: wrap; margin-top: 26px; font: 500 14px var(--mono); color: #c6f700; }
+  .etat span::before { content: "■ "; color: #5d6e14; }
+
+  section.bloc { padding-block: 56px 8px; }
+  section.bloc > .large > h2 { font-size: 32px; margin: 0 0 6px; }
+  .sous { color: var(--doux); margin: 0 0 26px; max-width: 46em; }
+  .fonctions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .fonction { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 18px 18px 14px; min-width: 0; }
+  .fonction h3 { font-size: 20px; margin: 0 0 6px; }
+  .fonction p { margin: 0 0 10px; color: var(--doux); font-size: 15px; }
+  .fonction .chiffre { font: 500 13.5px var(--mono); color: var(--accent); }
+
+  .ecrans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .ecrans figure { margin: 0; min-width: 0; }
+  .ecrans img { border-radius: 10px; border: 1px solid var(--bord); display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+  .ecrans figcaption { margin-top: 8px; font-size: 14.5px; color: var(--doux); }
+  .ecrans figcaption b { color: var(--texte); }
+
+  .telecharger { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+  .carte-dl { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 20px; min-width: 0; }
+  .carte-dl h3 { margin: 0 0 4px; font-size: 22px; }
+  .carte-dl .version { font: 500 14px var(--mono); color: var(--accent); overflow-wrap: anywhere; }
+  .carte-dl ul { padding-left: 18px; margin: 10px 0 0; color: var(--doux); }
+
+  .chronologie { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--bord); }
+  .chronologie li { position: relative; padding: 4px 0 18px 22px; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; }
+  .chronologie li::before { content: ""; position: absolute; left: -7px; top: 10px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+  .chronologie li.a-venir::before { background: var(--fond); border: 2px solid var(--accent); }
+  .chronologie time { font: 500 14px var(--mono); color: var(--tres-doux); padding-top: 2px; }
+  .chronologie b { display: block; }
+  .chronologie span { color: var(--doux); font-size: 15px; }
+
+  .docs-liens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .docs-liens a { display: block; background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 16px 18px; text-decoration: none; color: var(--texte); }
+  .docs-liens a:hover { border-color: var(--accent); }
+  .docs-liens a span { display: block; color: var(--doux); font-size: 14.5px; margin-top: 4px; }
+
+  @media (max-width: 900px) {
+    .ouverture .large, .telecharger, .ecrans, .docs-liens { grid-template-columns: minmax(0, 1fr); }
+    .fonctions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .fonctions { grid-template-columns: minmax(0, 1fr); }
+    .chronologie li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  }
+</style>
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="index.html"><img src="assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="index.html" aria-current="page">Accueil</a>
+      <a href="docs/index.html">Documentation</a>
+      <a href="#telecharger">Télécharger</a>
+      <a href="#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ouverture">
+  <div class="large">
+    <div>
+      <img class="logo" src="assets/img/logo-sombre.png" alt="TrueGlide XPro, Control &amp; Fly">
+      <h1>Le firmware de vol et son logiciel, écrits de zéro pour vos drones FPV.</h1>
+      <p>XPro fait voler une SpeedyBee F405 Mini : régulation à 4 kHz, moteurs en DShot bidirectionnel, OSD HD dans les
+        lunettes Walksnail, réglages repris tels quels d'un diff de Betaflight. Le logiciel s'ouvre dans Chrome, sans
+        installation, et flashe la carte en un clic.</p>
+      <div class="boutons">
+        <a class="btn plein" href="#telecharger">Téléchargement bientôt disponible</a>
+        <a class="btn" href="docs/index.html">Documentation</a>
+      </div>
+      <div class="etat"><span>Version 0.8.4</span><span>Premier vol le 18/10/2026</span><span>KarRmen, Bando 5″ 4S</span></div>
+    </div>
+    <figure>
+      <img data-fixe src="assets/img/bbe-vue.png" alt="Visualiseur Blackbox du logiciel XPro avec le premier vol de KarRmen">
+      <figcaption>Le premier vol de KarRmen dans le Visualiseur Blackbox du logiciel.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<main>
+  <section class="bloc" id="fonctions">
+    <div class="large">
+      <h2>Ce que fait XPro</h2>
+      <p class="sous">Chaque chiffre ci-dessous a été mesuré sur la carte de KarRmen, au banc ou en vol.</p>
+      <div class="fonctions">
+        <div class="fonction"><h3>Régulation</h3><p>Gyroscope ICM-42688-P lu à chaque interruption, PID à 4 kHz, filtres dynamiques et filtre RPM sur 3 harmoniques.</p><div class="chiffre">8 000 mesures/s · boucle ≤ 99 µs</div></div>
+        <div class="fonction"><h3>Moteurs</h3><p>DShot300 bidirectionnel : la vitesse de chaque moteur revient à chaque trame, et sert au filtre RPM et au journal.</p><div class="chiffre">4 000 trames/s · 0 trame sautée</div></div>
+        <div class="fonction"><h3>Réglages Betaflight</h3><p>Un diff all de Betaflight se colle dans la ligne de commande : chaque réglage est géré, ou accepté avec la raison pour laquelle il est sans effet.</p><div class="chiffre">592 réglages reconnus · 0 refus</div></div>
+        <div class="fonction"><h3>OSD et lunettes</h3><p>OSD HD Walksnail aux places de Betaflight, statistiques de fin de vol, enregistrement lancé à l'armement, et menu des profils aux manches.</p><div class="chiffre">grille 53 × 20 · MSP DisplayPort</div></div>
+        <div class="fonction"><h3>Journal de vol</h3><p>Gyroscope brut et filtré, consignes, P, I, D, F, moteurs, vitesses, voies, tension et courant, dans la flash de la carte.</p><div class="chiffre">1 000 mesures/s · aucune perdue</div></div>
+        <div class="fonction"><h3>Fonctions TrueGlide</h3><p>Mode SPEEDER (transition stationnaire vers croisière), power_guard, relance d'un moteur, télémétrie de secours.</p><div class="chiffre">croisière jusqu'à 80°</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="logiciel">
+    <div class="large">
+      <h2>Le logiciel</h2>
+      <p class="sous">Toutes les pages de réglage de Betaflight, mises en ordre pour être lues d'un coup d'œil, et des outils en plus.</p>
+      <div class="ecrans">
+        <figure><img class="t-sombre" src="assets/img/installation-arriere.png" alt="Onglet Installation, vue arrière du drone en 3D"><img class="t-clair" src="assets/img/installation-arriere-clair.png" alt="Onglet Installation, vue arrière du drone en 3D"><figcaption><b>Installation</b> : le drone en 3D suit la carte. Vue 3/4, arrière comme Betaflight, ou de face.</figcaption></figure>
+        <figure><img class="t-sombre" src="assets/img/bbe-exemple.png" alt="Visualiseur Blackbox, échelles réglées entre deux marqueurs"><img class="t-clair" src="assets/img/bbe-exemple-clair.png" alt="Visualiseur Blackbox, échelles réglées entre deux marqueurs"><figcaption><b>Visualiseur Blackbox</b> : courbes du journal, échelles Min / Max réglables, marqueurs I / O, espaces de travail.</figcaption></figure>
+        <figure><img src="assets/img/menu-lunettes.png" alt="Menu XPro : PROFILS affiché dans les lunettes"><figcaption><b>Menu des lunettes</b> : profil PID et profil de taux choisis aux manches, sur le terrain, sans PC.</figcaption></figure>
+        <figure><img class="t-sombre" src="assets/img/speeder.png" alt="Onglet Speeder, dessin du speeder V4V au stationnaire et en croisière"><img class="t-clair" src="assets/img/speeder-clair.png" alt="Onglet Speeder, dessin du speeder V4V au stationnaire et en croisière"><figcaption><b>Speeder</b> : l'inclinaison de croisière, la transition et les gaz, sur le modèle 3D du V4V.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="telecharger">
+    <div class="large">
+      <h2>Télécharger</h2>
+      <p class="sous"><b>Bientôt disponible.</b> Le téléchargement ouvrira après les essais en vol en cours. Un seul fichier
+        contiendra le logiciel et le firmware de la version ; il s'ouvre dans Chrome ou Edge sur un ordinateur (accès USB
+        par Web Serial).</p>
+      <div class="telecharger">
+        <div class="carte-dl">
+          <h3>Logiciel XPro</h3>
+          <div class="version">TrueGlide-XPro.html · 0.8.4</div>
+          <ul>
+            <li>Ouvrir le fichier, brancher la carte en USB, <b>Connexion</b>.</li>
+            <li><b>Flasher le firmware</b> : le firmware 0.8.4 est déjà dans le fichier.</li>
+            <li>Avant le premier flash : <b>Sauvegarde complète</b> de la carte, pour revenir à Betaflight à tout moment.</li>
+          </ul>
+        </div>
+        <div class="carte-dl">
+          <h3>Firmware</h3>
+          <div class="version">trueglide_0.8.4_STM32F405_SPEEDYBEEF405MINI.hex</div>
+          <ul>
+            <li>Carte prise en charge : SpeedyBee F405 Mini (STM32F405, ICM-42688-P, baromètre DPS310 / SPL06).</li>
+            <li>Récepteur CRSF (ExpressLRS), ESC en DShot300 bidirectionnel, émetteur vidéo Walksnail en MSP.</li>
+            <li>Version de banc et de premiers vols : chaque version passe un essai écrit avant de voler.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="essais">
+    <div class="large">
+      <h2>Essais</h2>
+      <p class="sous">Chaque version est essayée sur KarRmen avec une fiche, et chaque résultat est gardé dans le journal des essais.</p>
+      <ol class="chronologie">
+        <li><time>13/10/2026</time><div><b>Premier firmware XPro sur la carte</b><span>Flash depuis le logiciel, USB, gyroscope, attitude dans la vue 3D.</span></div></li>
+        <li><time>14/10/2026</time><div><b>Radio, batterie, OSD</b><span>Récepteur CRSF à 308 trames/s, batterie 4S reconnue, premier OSD XPro dans les lunettes.</span></div></li>
+        <li><time>15/10/2026</time><div><b>Moteurs</b><span>DShot bidirectionnel : les 4 ESC répondent, aucun codage faux.</span></div></li>
+        <li><time>17/10/2026</time><div><b>Boucle rapide sous 125 µs</b><span>99 µs au plus, charge 46,7 %, enregistrement des lunettes lancé à l'armement.</span></div></li>
+        <li><time>18/10/2026</time><div><b>Premier vol</b><span>Stationnaire stable en mode ANGLE, sans oscillation, moteurs froids.</span></div></li>
+        <li class="a-venir"><time>à venir</time><div><b>V2 : vol dehors</b><span>Menu des lunettes, échelles du PID mesurées sur les vols Betaflight, vol de 30 s.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="bloc" id="documentation">
+    <div class="large">
+      <h2>Documentation</h2>
+      <p class="sous">Les modes d'emploi du logiciel, avec des captures prises sur les vrais vols.</p>
+      <div class="docs-liens">
+        <a href="docs/mise-en-route.html"><b>Mise en route</b><span>De Betaflight à XPro, pas à pas : sauvegarde, flash, réglages, banc, premier vol.</span></a>
+<a href="docs/tableau-de-bord.html"><b>Tableau de bord</b><span>L'état de la carte dès la connexion.</span></a>
+<a href="docs/visualiseur.html"><b>Visualiseur Blackbox</b><span>Les courbes d'un vol, sans autre programme.</span></a>
+<a href="docs/visualiseur-minmax.html"><b>Visualiseur Blackbox : Min / Max des courbes</b><span>Régler l'échelle de chaque courbe : dialogue, menu du clic droit, mode étendu, espaces de travail.</span></a>
+        <a href="docs/index.html"><b>Toute la documentation</b><span>Liste des pages et ce qui arrive ensuite.</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

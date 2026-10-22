@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Moteurs et mixeur</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html" aria-current="page">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#sens">Sens de rotation : props in ou props out</a></li>
+      <li><a href="#mixeur">Table du mixeur</a></li>
+      <li><a href="#test">Test des moteurs</a></li>
+      <li><a href="#reglages">Fonctions ESC et moteurs</a></li>
+      <li><a href="#dshot">DShot300 bidirectionnel</a></li>
+      <li><a href="#ralenti">Ralenti</a></li>
+      <li><a href="#kv">Contrôle du KV</a></li>
+      <li><a href="#perso">Mixeur personnalisé</a></li>
+      <li><a href="#banc">Armement sur banc</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Moteurs</h1>
+    <p class="chapeau">L'onglet <b>Moteurs</b> montre le sens de rotation que la carte commande, la table du mixeur et la
+      vitesse de chaque moteur. Il sert aussi à faire tourner les moteurs un par un au banc, et à régler le DShot, le
+      ralenti et le KV.</p>
+    <div class="encart"><b>Hélices retirées</b> pour tout essai de cet onglet : test des moteurs, contrôle du KV, armement
+      sur banc.</div>
+
+    <h2 id="sens">Sens de rotation : props in ou props out</h2>
+    <p>Le cadre <b>Mixeur : Quad X</b> commence par le sens programmé dans la carte, lu dans
+      <code>yaw_motors_reversed</code> :</p>
+    <ul>
+      <li><b>Props in</b> (<code>yaw_motors_reversed = OFF</code>, défaut) : moteurs 1 et 4 horaires, 2 et 3
+        anti-horaires, vus de dessus.</li>
+      <li><b>Props out</b> (<code>yaw_motors_reversed = ON</code>, réglage de KarRmen) : tous les sens inversés.</li>
+    </ul>
+    <p>Les boutons <b>Props out (KarRmen)</b> et <b>Props in</b> changent ce réglage. L'ESC ne renvoie pas le sens de
+      rotation : il se vérifie <b>à l'œil</b>, en faisant tourner chaque moteur avec le test plus bas.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-moteurs-sens.png" alt="Vue de dessus du drone : moteurs numérotés, flèches de rotation et table du mixeur en props out"><img class="t-clair" src="../assets/img/doc-moteurs-sens-clair.png" alt="Vue de dessus du drone : moteurs numérotés, flèches de rotation et table du mixeur en props out">
+      <figcaption>Fausse carte réglée en props out. Vu de dessus, avant en haut : 1 arrière droit, 2 avant droit, 3
+        arrière gauche, 4 avant gauche. Les flèches montrent le sens commandé ; elles doivent tourner comme les vrais
+        moteurs. Sans mesure en direct, la sortie de chaque moteur reste à « -- % ».</figcaption>
+    </figure>
+
+    <h2 id="mixeur">Table du mixeur</h2>
+    <p>Sous le dessin, la table dit, pour chaque moteur, s'il accélère (+) ou ralentit (−) pour trois commandes :
+      <b>Roulis à droite</b>, <b>Nez en haut</b> et <b>Lacet à droite</b>. En Quad X :</p>
+    <div class="tableau"><table>
+      <tr><th>Moteur</th><th>Place</th><th>Roulis à droite</th><th>Nez en haut</th><th>Lacet à droite (props in)</th><th>Lacet à droite (props out)</th></tr>
+      <tr><td>1</td><td>arrière droit</td><td>−</td><td>−</td><td>−</td><td>+</td></tr>
+      <tr><td>2</td><td>avant droit</td><td>−</td><td>+</td><td>+</td><td>−</td></tr>
+      <tr><td>3</td><td>arrière gauche</td><td>+</td><td>−</td><td>+</td><td>−</td></tr>
+      <tr><td>4</td><td>avant gauche</td><td>+</td><td>+</td><td>−</td><td>+</td></tr>
+    </table></div>
+    <p>Les sorties M1 à M4 de la carte commandent les moteurs 1 à 4, dans un ordre fixe.</p>
+
+    <h2 id="test">Test des moteurs</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-moteurs-test.png" alt="Cadre Moteurs : barres de sortie, avertissement hélices retirées, case d'activation, curseurs 1 à 4 et Tous, bouton ARRÊT, case d'armement sur banc"><img class="t-clair" src="../assets/img/doc-moteurs-test-clair.png" alt="Cadre Moteurs : barres de sortie, avertissement hélices retirées, case d'activation, curseurs 1 à 4 et Tous, bouton ARRÊT, case d'armement sur banc">
+      <figcaption>Cadre <b>Moteurs</b> de la fausse carte : test coupé, aucune mesure (« -- % », « -- tr/min »).</figcaption>
+    </figure>
+    <ol class="etapes">
+      <li><b>Retirer les 4 hélices.</b> Brancher la batterie : les ESC ne sont alimentés que par elle.</li>
+      <li>Cocher <b>J'ai retiré les 4 hélices : activer le test</b>. Les curseurs se débloquent.</li>
+      <li>Monter un curseur (moteurs <b>1</b> à <b>4</b>) ou <b>Tous</b>. Chaque curseur va de 0 à <b>25 % au plus</b>.</li>
+      <li><b>ARRÊT (tous à 0)</b> remet tous les moteurs à zéro.</li>
+    </ol>
+    <p>Tout s'arrête si le logiciel n'envoie plus d'ordre pendant 1 seconde : onglet quitté, câble débranché, page
+      fermée. Test coupé, la carte envoie « arrêt » aux ESC en permanence. Le test est refusé drone armé, et l'armement
+      est refusé pendant le test.</p>
+    <p>Au-dessus, chaque moteur a une barre avec sa sortie en % et sa vitesse en tr/min. Le cadre <b>Graphique en
+      direct</b> trace, au choix, le gyroscope (°/s), la vitesse des moteurs (tr/min) ou leurs sorties (%), sur les
+      10 dernières secondes.</p>
+    <div class="encart">Mesure de KarRmen (essai B5, firmware 0.6.0, hélices retirées) : les 4 moteurs à 5 % tournaient à
+      4 437, 4 474, 4 303 et 4 608 tr/min (moins de 7 % d'écart), avec 1,0 à 3,2 % d'erreurs DShot.</div>
+
+    <h2 id="reglages">Fonctions ESC et moteurs</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-moteurs-reglages.png" alt="Cadre Fonctions ESC et moteurs : sens inversé, DShot bidirectionnel, pôles, ralenti armé, KV, télémétrie DShot étendue"><img class="t-clair" src="../assets/img/doc-moteurs-reglages-clair.png" alt="Cadre Fonctions ESC et moteurs : sens inversé, DShot bidirectionnel, pôles, ralenti armé, KV, télémétrie DShot étendue">
+      <figcaption>Valeurs de la fausse carte (props out et DShot bidirectionnel ON, comme KarRmen). À côté de chaque
+        case, en gris : la valeur enregistrée dans la carte.</figcaption>
+    </figure>
+    <div class="tableau"><table>
+      <tr><th>Réglage</th><th>Rôle</th><th>Défaut</th></tr>
+      <tr><td><b>Sens des moteurs inversé</b> <code>yaw_motors_reversed</code></td><td>Props out quand ON.</td><td>OFF</td></tr>
+      <tr><td><b>DShot bidirectionnel</b> <code>dshot_bidir</code></td><td>La carte lit la vitesse des moteurs (ESC Bluejay ou BLHeli_32).</td><td>OFF (ON sur KarRmen)</td></tr>
+      <tr><td><b>Pôles des moteurs</b> <code>motor_poles</code></td><td>Nombre d'aimants de la cloche ; sert à calculer les tr/min.</td><td>14</td></tr>
+      <tr><td><b>Ralenti armé</b> <code>dshot_idle_value</code></td><td>Sortie des moteurs armés, gaz en bas, en 0,01 %.</td><td>550 (5,5 %)</td></tr>
+      <tr><td><b>KV des moteurs</b> <code>motor_kv</code></td><td>Sert au contrôle du KV et aux calculs du speeder.</td><td>1960</td></tr>
+      <tr><td><b>Télémétrie DShot étendue</b> <code>dshot_edt</code></td><td>Température, tension et courant de l'ESC, s'il les envoie.</td><td>OFF</td></tr>
+    </table></div>
+
+    <h2 id="dshot">DShot300 bidirectionnel</h2>
+    <p>Les moteurs sont commandés en <b>DShot300</b>. C'est le seul protocole possible avec le DShot bidirectionnel sur
+      F405 ; il n'y a pas d'autre choix.</p>
+    <p>En bidirectionnel, chaque ESC répond à chaque trame avec la période électrique de son moteur. La carte en tire la
+      vitesse : tr/min = 120 000 000 ÷ (période × pôles). <code>status</code> donne, par moteur, la vitesse, les
+      erreurs de la dernière seconde en %, et le nombre de réponses valides, absentes, au codage faux et au contrôle
+      faux. Sans réponse valide depuis 100 ms, la vitesse s'affiche « -- ».</p>
+    <p><code>dshot_bidir</code> n'agit qu'au démarrage : l'ESC reconnaît le signal inversé à sa mise sous tension. Après
+      un changement : <b>Enregistrer dans la carte</b>, redémarrer la carte, puis rebrancher la batterie.</p>
+
+    <h2 id="ralenti">Ralenti</h2>
+    <p>Armé, gaz en bas, les moteurs tournent au ralenti <code>dshot_idle_value</code> : 5,5 % par défaut. La commande
+      <code>motor_idle</code> de Betaflight est acceptée comme autre nom de ce réglage. Le ralenti dynamique
+      (<code>dyn_idle_*</code>) se règle dans l'onglet <a href="pid.html">Réglages de PID</a> ; il demande le DShot
+      bidirectionnel.</p>
+    <div class="encart">Mesure de KarRmen (essai B9, firmware 0.8.3, hélices retirées) : au ralenti armé, les 4 moteurs
+      tournaient entre environ 4 500 et 5 800 tr/min.</div>
+
+    <h2 id="kv">Contrôle du KV</h2>
+    <p>Le contrôle du KV est dans l'onglet <b>Assistant de réglage</b>, cadre <b>Contrôle du KV des moteurs (MO9)</b>.
+      <b>Hélices retirées</b>, batterie branchée, drone désarmé :</p>
+    <ol class="etapes">
+      <li>Saisir le KV des moteurs dans <code>motor_kv</code> (cadre Fonctions ESC et moteurs).</li>
+      <li>Cliquer <b>Lancer le contrôle (hélices retirées)</b> : les 4 moteurs tournent à 20 % pendant 3 secondes.</li>
+      <li>La page compare la vitesse mesurée au KV saisi : KV mesuré ≈ tr/min ÷ (tension × 0,20).</li>
+    </ol>
+    <p>Sans charge, l'estimation est approchée : seul un écart de plus de 30 % est signalé. La page ne change jamais la
+      valeur saisie. Le contrôle demande le DShot bidirectionnel.</p>
+
+    <h2 id="perso">Mixeur personnalisé</h2>
+    <p>Pour un châssis qui n'est pas un X régulier (speeder à long fuselage, moteurs avant et arrière à des distances
+      différentes, centre de gravité décalé), le réglage <b>Mixeur</b> (<code>mixer_custom</code>) passe de
+      <b>Quad X</b> à <b>Personnalisé (mmix)</b>. Chaque moteur reçoit alors quatre coefficients, en millièmes :
+      gaz, roulis, tangage, lacet. En personnalisé, <code>yaw_motors_reversed</code> est ignoré.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-moteurs-mixeur.png" alt="Cadre Mixeur personnalisé : position et rotation de chaque moteur, centre de gravité, lignes mmix calculées"><img class="t-clair" src="../assets/img/doc-moteurs-mixeur-clair.png" alt="Cadre Mixeur personnalisé : position et rotation de chaque moteur, centre de gravité, lignes mmix calculées">
+      <figcaption>Calculateur du mixeur personnalisé avec ses valeurs de départ (X régulier de 87 mm, centre de gravité
+        au centre) : il retrouve la table du Quad X.</figcaption>
+    </figure>
+    <ol class="etapes">
+      <li>Mesurer chaque moteur depuis le centre de la carte : <b>x</b> (mm, + à droite) et <b>y</b> (mm, + vers
+        l'avant).</li>
+      <li>Choisir le <b>Montage</b> (dessus, tractif ; dessous, pusher) et la <b>Rotation vue côté hélice</b>. La page
+        en déduit le sens vu de dessus.</li>
+      <li>Donner le décalage du centre de gravité (devant et à droite de la carte). Le calcul du centre de gravité est
+        dans l'onglet <a href="speeder.html">Speeder</a>.</li>
+      <li>Lire les lignes <code>mmix</code> calculées, puis <b>Envoyer à la carte et enregistrer</b>. <b>Revenir au
+        Quad X</b> annule.</li>
+    </ol>
+    <p>Le calcul refuse une disposition impossible : il faut deux moteurs horaires et deux anti-horaires en diagonale,
+      et un centre de gravité à l'intérieur des moteurs. La colonne gaz vaut 1 pour tous si le centre de gravité est au
+      milieu ; sinon les moteurs loin du centre de gravité reçoivent moins.</p>
+    <p>En ligne de commande : <code>mmix n gaz roulis tangage lacet</code> (format de Betaflight), puis
+      <code>mixer CUSTOM</code> ou <code>mixer QUADX</code>. Après un changement, vérifier le sens et la table dans cet
+      onglet, hélices retirées.</p>
+
+    <h2 id="banc">Armement sur banc</h2>
+    <p>Comme Betaflight, la carte refuse d'armer tant que le logiciel est connecté : les lunettes affichent la raison
+      <b>LOGICIEL CONNECTE</b>. Pour un essai au banc, la case <b>Autoriser l'armement avec le logiciel connecté (essai au
+      banc, hélices retirées)</b> lève ce refus jusqu'à la déconnexion. Elle n'est jamais enregistrée dans la carte. En
+      ligne de commande : <code>armement_banc on</code>.</p>
+    <div class="encart">Armer sur le banc fait tourner les moteurs au ralenti, puis selon les gaz de la radio :
+      <b>hélices retirées</b>, toujours.</div>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

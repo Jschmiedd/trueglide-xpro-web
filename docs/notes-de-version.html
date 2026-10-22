@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Notes de version</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html" aria-current="page">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#v084">0.8.4</a></li>
+      <li><a href="#v083">0.8.3</a></li>
+      <li><a href="#v082">0.8.2</a></li>
+      <li><a href="#v081">0.8.1</a></li>
+      <li><a href="#v080">0.8.0</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Notes de version</h1>
+    <p class="chapeau">Ce qui change dans le firmware et le logiciel XPro, de la 0.8.0 à la 0.8.4. Chaque version se
+      termine par un seul essai sur KarRmen ; on ne passe à la suivante qu'avec l'essai réussi.</p>
+    <p>Les versions 0.8.x sont des versions de banc (« 0.8.4-banc » dans <code>version</code>). Les mesures citées sont
+      celles de KarRmen.</p>
+
+    <h2 id="v084">0.8.4 : suites du premier vol</h2>
+    <p>Firmware écrit le 18/10/2026. Essai prévu : V2 (menu des lunettes hélices retirées, puis vol dehors en ANGLE).
+      3 715 vérifications sur PC.</p>
+    <h3>Firmware</h3>
+    <ul>
+      <li><b>Échelles du PID mesurées sur les vols Betaflight de KarRmen</b> : le I du lacet vaut maintenant 2,5 fois
+        celui du roulis par point ; le mode ANGLE donne 0,072 °/s par degré et par point (<code>angle_p_gain</code> 50 :
+        3,6 °/s par degré, au lieu de 5,0). P, I, D du roulis et du tangage et le mixeur étaient déjà identiques.</li>
+      <li><b>Batterie restante</b> (<code>BAT %</code> de l'OSD et de la télémétrie radio) : la charge est estimée au
+        branchement d'après la tension au repos d'un élément, moins les mAh consommés. Le temps restant estimé en tient
+        compte. Au vol V1, une batterie à 3,72 V par élément affichait <code>BAT 99 %</code> ; elle affiche maintenant
+        environ 18 %.</li>
+      <li><b>Menu des lunettes</b> : choisir le profil PID et le profil de taux sans PC. Drone désarmé : gaz au milieu,
+        lacet à gauche, tangage en haut pendant 1 s ouvre l'écran « XPRO : PROFILS ». Le tangage choisit la ligne, le
+        roulis le profil. « ENREGISTRER ET QUITTER » rend les deux profils actifs et les enregistre. L'armement est
+        refusé tant que le menu est ouvert (raison <code>MENU OSD</code>) ; le menu se ferme si la radio est perdue.
+        <code>status</code> a une ligne « menu des lunettes ».</li>
+    </ul>
+    <figure>
+      <img src="../assets/img/menu-lunettes.png" alt="Écran XPRO : PROFILS dans les lunettes : lignes PID, TAUX, ENREGISTRER ET QUITTER, QUITTER SANS CHANGER">
+      <figcaption>L'écran « XPRO : PROFILS » : profil PID 3 « 15053S », profil de taux 2. En bas, le rappel des
+        manches : tangage pour la ligne, roulis pour choisir.</figcaption>
+    </figure>
+    <h3>Logiciel</h3>
+    <ul>
+      <li><b>Vues 3D</b> des onglets Installation et Récepteur : au choix <b>3/4</b>, <b>Arrière (Betaflight)</b>
+        (derrière le drone, presque à l'horizontale) et <b>Face</b> (nez vers l'écran). Le choix est retenu par le
+        navigateur.</li>
+      <li><b>Visualiseur Blackbox</b> (groupe Analyse) : les courbes du journal de vol, vol par vol. Voir
+        <a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a>.</li>
+      <li><b>Speeder</b> : dessins de l'onglet refaits avec le modèle 3D du speeder V4V de Johann.</li>
+      <li><b>Menu des lunettes</b> : le firmware ci-dessus ; voir <a href="menu-lunettes.html">Menu des lunettes</a>.</li>
+    </ul>
+    <figure>
+      <img class="t-sombre" src="../assets/img/installation-arriere.png" alt="Vue 3D Arrière : le drone vu de derrière, presque à l'horizontale, moteurs numérotés"><img class="t-clair" src="../assets/img/installation-arriere-clair.png" alt="Vue 3D Arrière : le drone vu de derrière, presque à l'horizontale, moteurs numérotés">
+      <figcaption>Vue <b>Arrière (Betaflight)</b> : le drone vu de derrière, avant au fond, moteurs 1 à 4 numérotés.</figcaption>
+    </figure>
+
+    <h2 id="v083">0.8.3 : boucle rapide sous 125 µs</h2>
+    <p>Écrite le 17/10/2026. Essai B9 réussi le 17/10, puis <b>premier vol V1 réussi</b> le 18/10 : stationnaire
+      stable en ANGLE.</p>
+    <ul>
+      <li>Les réponses des ESC (vitesse des moteurs) sont décodées dans une tâche de priorité basse, que la boucle rapide
+        peut interrompre. Le décodage est plus court : 4 échantillons à la fois, seulement les moteurs qui changent.
+        La boucle rapide dépassait 125 µs (177 µs en B8).</li>
+      <li><code>status</code> donne le temps de chaque partie de la boucle rapide : gyroscope, régulation, réponses des
+        ESC.</li>
+      <li>L'armement est signalé à l'émetteur vidéo : les lunettes lancent leur enregistrement à l'armement.</li>
+      <li>Le courant affiché n'est jamais négatif ; la mesure brute reste dans <code>status</code>.</li>
+      <li>Logiciel : onglets Modes, Ports, Configuration, OSD et Télémétrie mis en page comme Betaflight ; dessins
+        Caméra et Speeder nommés (avant, arrière, caméra) ; modes numérotés à partir de 1.</li>
+    </ul>
+    <p>Mesuré en B9, sur USB seul : boucle rapide la plus longue <b>99 µs</b>, charge <b>46,7 %</b> (53,8 % en 0.8.2
+      dans les mêmes conditions). Temps par partie : gyroscope 15,5 µs, régulation 61,2 µs, réponses des ESC 14,0 µs.</p>
+
+    <h2 id="v082">0.8.2</h2>
+    <p>Essai B8, fait le 17/10/2026.</p>
+    <ul>
+      <li>Gyroscope lu en continu (rafale de 14 octets, interruptions suspendues moins de 10 µs, débordement vérifié :
+        mesure rejetée) : moins de charge pour la boucle rapide.</li>
+      <li>Mixeur personnalisé : <code>mixer CUSTOM</code> / <code>mixer QUADX</code> et <code>mmix n gaz roulis tangage
+        lacet</code>, au format de Betaflight. En personnalisé, <code>yaw_motors_reversed</code> est ignoré.</li>
+      <li>Logiciel : les réglages sont enfin envoyés (la fenêtre de confirmation, trop haute, cachait son bouton OK) ;
+        sens des moteurs affiché et réglable dans l'onglet Moteurs (<b>Props out</b> / <b>Props in</b>) ; calculateur du
+        mixeur personnalisé ; calculs du speeder ; presets.</li>
+    </ul>
+    <p>Mesuré sur USB seul : charge 53,8 % et boucle rapide 124 µs, contre 57,1 % et 128 µs en 0.8.1.</p>
+
+    <h2 id="v081">0.8.1 : corrections de l'essai B6</h2>
+    <p>Essai B7.</p>
+    <ul>
+      <li><b>DShot</b> : les réponses des ESC sont décodées en un seul passage pour les 4 moteurs, après l'envoi de la
+        trame (deux tampons de capture). Une capture pas finie est arrêtée (<code>captures coupees</code> dans
+        <code>status</code>) : la trame part toujours. En 0.8.0, une trame sur deux était sautée.</li>
+      <li><b>Charge du processeur</b> : filtre RPM recalculé pour un moteur par pas (chaque moteur 1 000 fois par
+        seconde), coupe-bande en une division.</li>
+      <li><b>Armement</b> refusé tant que le logiciel est connecté (<code>LOGICIEL CONNECTE</code>), sauf
+        <code>armement_banc on</code> (onglet Moteurs, jamais enregistré). Altitude du baromètre remise à 0 à chaque
+        armement.</li>
+      <li><b>Journal</b> : un ancien journal d'un autre firmware au début de la mémoire est signalé ; <code>status</code>
+        donne la place libre en secondes de vol.</li>
+      <li><b>Ports</b> : <code>port_N_function</code> (AUCUNE, MSP, RECEPTEUR, VIDEO_HD) et <code>port_N_baudrate</code>
+        pour UART1 à UART6, commande <code>serial</code> de Betaflight ; pris en compte au redémarrage.</li>
+      <li><b>Modes</b> : 10 plages ; <code>aux</code> accepte SPEEDER (120) et FPV ANGLE MIX (121,
+        <code>fpv_mix_degrees</code>).</li>
+      <li><b>SPEEDER</b> : <code>speeder_throttle_comp</code> (gaz divisés par cos A, au plus × 1,5) ; « SPEEDER » à
+        l'OSD et à la radio.</li>
+      <li>Commandes : <code>flux moteurs</code>, <code>moteurs a b c d</code>, <code>serial</code> ; une ligne qui
+        commence par <code>#</code> est un commentaire.</li>
+    </ul>
+
+    <h2 id="v080">0.8.0 : tout ce que KarRmen utilise sous Betaflight</h2>
+    <p>Les 592 réglages du dump all de KarRmen ont été comparés un par un : chacun est soit <b>géré</b>, soit
+      <b>accepté et signalé « sans effet »</b> avec sa raison. Un diff all de Betaflight collé dans la ligne de commande
+      passe sans faux refus. 3 657 vérifications sur PC.</p>
+    <ul>
+      <li><b>Vol</b> : launch control, sortie de crash, anti-emballement au décollage, sortie de vrille en lacet, TPA
+        bas, maintien du F du lacet, réglages d'HORIZON, accélération des consignes bornée, ralenti dynamique D,
+        compensation de la baisse de tension, correction des gaz en virage, réglage simplifié
+        (<code>simplified_tuning apply</code>).</li>
+      <li><b>Armement et failsafe</b> : armement aux manches, désarmement automatique, failsafe AUTO-LAND ou DROP,
+        coupure immédiate si les gaz étaient en bas.</li>
+      <li><b>ALTHOLD</b> : baromètre de la carte (DPS310/SPL06 ou BMP280, détecté au démarrage), régulation de
+        l'altitude.</li>
+      <li><b>OSD complet</b> : les 78 éléments de Betaflight à leur place réglable, profils OSD 1 à 3, minuteurs,
+        alarmes, écran des statistiques après le vol, alertes TrueGlide. Sans GPS, boussole, VTX commandé ni horloge,
+        ces éléments affichent « -- ».</li>
+      <li><b>Télémétrie CRSF vers la radio</b> et <b>télémétrie DShot étendue</b> des ESC.</li>
+      <li><b>Fonctions TrueGlide</b> : power_guard, relance d'un moteur calé, télémétrie de secours, mode SPEEDER,
+        température des ESC vers la radio.</li>
+      <li><b>Sans effet, avec raison</b> : GPS et GPS Rescue, bandeau LED, OSD analogique, mode 3D, crash flip, caméra,
+        table VTX, réglages matériels fixes, options du journal.</li>
+      <li>Logiciel : tous les onglets branchés, sauf GPS, Plan de vol et Sécurité navigation (produit TRUENAV).</li>
+    </ul>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>

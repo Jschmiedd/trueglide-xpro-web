@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Réglages de PID</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<header class="entete">
+  <div class="large">
+    <a class="marque" href="../index.html"><img src="../assets/img/embleme.png" alt="">TRUEGLIDE <span>XPRO</span></a>
+    <nav aria-label="Site">
+      <a href="../index.html">Accueil</a>
+      <a href="index.html" aria-current="page">Documentation</a>
+      <a href="../index.html#telecharger">Télécharger</a>
+      <a href="../index.html#essais">Essais</a>
+    </nav>
+  </div>
+</header>
+
+<div class="large doc">
+  <aside>
+    <h2>Premiers pas</h2>
+    <ul>
+      <li><a href="index.html">Toute la documentation</a></li>
+      <li><a href="mise-en-route.html">Mise en route</a></li>
+      <li><a href="tableau-de-bord.html">Tableau de bord</a></li>
+      <li><a href="flasher.html">Flasher le firmware</a></li>
+      <li><a href="notes-de-version.html">Notes de version</a></li>
+    </ul>
+    <h2>Installation du drone</h2>
+    <ul>
+      <li><a href="installation.html">Installation</a></li>
+      <li><a href="ports.html">Ports</a></li>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="recepteur.html">Récepteur</a></li>
+      <li><a href="modes.html">Modes</a></li>
+      <li><a href="alimentation.html">Alimentation et batterie</a></li>
+      <li><a href="moteurs.html">Moteurs</a></li>
+      <li><a href="failsafe.html">Failsafe</a></li>
+    </ul>
+    <h2>Fonctions TrueGlide</h2>
+    <ul>
+      <li><a href="protections.html">Protections</a></li>
+      <li><a href="speeder.html">Speeder</a></li>
+      <li><a href="camera.html">Caméra</a></li>
+      <li><a href="telemetrie.html">Télémétrie radio</a></li>
+    </ul>
+    <h2>Réglage du vol</h2>
+    <ul>
+      <li><a href="pid.html" aria-current="page">Réglages de PID et presets</a></li>
+      <li><a href="assistant.html">Assistant de réglage</a></li>
+    </ul>
+    <h2>Vidéo</h2>
+    <ul>
+      <li><a href="osd.html">OSD</a></li>
+      <li><a href="menu-lunettes.html">Menu des lunettes</a></li>
+      <li><a href="vtx.html">Émetteur vidéo</a></li>
+    </ul>
+    <h2>Analyse</h2>
+    <ul>
+      <li><a href="capteurs.html">Capteurs</a></li>
+      <li><a href="blackbox.html">Blackbox (journal de vol)</a></li>
+      <li><a href="visualiseur.html">Visualiseur Blackbox</a></li>
+      <li><a href="visualiseur-minmax.html">Visualiseur Blackbox : Min / Max</a></li>
+    </ul>
+    <h2>Outils</h2>
+    <ul>
+      <li><a href="cli.html">Ligne de commande</a></li>
+      <li><a href="rapport-de-banc.html">Rapport de banc</a></li>
+      <li><a href="memo.html">Mémo</a></li>
+    </ul>
+    <h2>Sur cette page</h2>
+    <ul>
+      <li><a href="#profils">Profils PID et de taux</a></li>
+      <li><a href="#valeurs">Valeur enregistrée, revenir</a></li>
+      <li><a href="#sous">Les trois sous-onglets</a></li>
+      <li><a href="#taux">Taux</a></li>
+      <li><a href="#presets">Presets</a></li>
+      <li><a href="#karrmen">Réglages de KarRmen</a></li>
+      <li><a href="#echelles">Échelles du PID</a></li>
+      <li><a href="#assistant">Assistant de réglage</a></li>
+    </ul>
+  </aside>
+
+  <article>
+    <h1>Réglages de PID et presets</h1>
+    <p class="chapeau">L'onglet <b>Réglages de PID</b> (groupe Réglage du vol) lit et change les PID, les taux et les
+      filtres de la carte. Chaque valeur changée agit tout de suite ; elle n'est gardée qu'après <b>Enregistrer dans la
+      carte</b>. Un preset garde un réglage complet dans un fichier.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-pid-haut.png" alt="Haut de l'onglet Réglages de PID : sous-onglets, boutons, profil PID actif, tableau des PID et anticipation"><img class="t-clair" src="../assets/img/doc-pid-haut-clair.png" alt="Haut de l'onglet Réglages de PID : sous-onglets, boutons, profil PID actif, tableau des PID et anticipation">
+      <figcaption>Haut de l'onglet, sous-onglet <b>PID du profil</b>. Capture faite avec une fausse carte : les chiffres
+        sont ceux de cette carte d'essai, pas ceux de KarRmen. À droite de chaque case blanche, la case grise donne la
+        valeur enregistrée.</figcaption>
+    </figure>
+
+    <h2 id="profils">Profils PID et de taux</h2>
+    <p>La carte garde <b>6 profils PID</b> et <b>6 profils de taux</b>. En haut du sous-onglet <b>PID du profil</b>, la
+      liste <b>Profil PID actif</b> choisit le profil affiché et utilisé ; le profil de taux se choisit de la même façon
+      en haut du sous-onglet <b>Taux</b>. Chaque profil a un nom de 8 lettres au plus (<code>profile_name</code>,
+      <code>rateprofile_name</code>).</p>
+    <p>Sur le terrain, sans PC, le <a href="menu-lunettes.html">menu des lunettes</a> change aussi les deux profils
+      (firmware 0.8.4).</p>
+
+    <h2 id="valeurs">Valeur enregistrée, revenir</h2>
+    <ul>
+      <li>La <b>case grise</b> à côté de chaque réglage est la valeur enregistrée dans la carte (dernier
+        « Enregistrer »).</li>
+      <li>Une valeur changée est envoyée tout de suite à la carte (drone désarmé de préférence). Tant qu'elle diffère de
+        la valeur enregistrée, elle est encadrée en orange avec un bouton <b>revenir</b>, qui remet la valeur
+        enregistrée.</li>
+      <li><b>Tout revenir</b> liste les réglages changés, demande confirmation, puis les remet tous à leur valeur
+        enregistrée.</li>
+      <li><b>Enregistrer dans la carte</b> garde les valeurs actuelles (commande <code>save</code>, refusée drone
+        armé).</li>
+      <li><b>Lire la carte</b> relit toutes les valeurs.</li>
+    </ul>
+    <p>Rien n'est perdu pendant les essais : un redémarrage reprend les valeurs enregistrées. La ligne sous les boutons
+      dit combien de réglages diffèrent de la valeur enregistrée.</p>
+
+    <h2 id="sous">Les trois sous-onglets</h2>
+    <h3>PID du profil</h3>
+    <ul>
+      <li><b>PID du profil</b> : tableau P, I, D, D max et F par axe (roulis, tangage, lacet), avec un graphe en barres
+        des P, I, D et D max.</li>
+      <li><b>Curseurs (réglage simplifié)</b> : mode OFF, RP ou RPY et huit curseurs (1,00 = défaut). Les PID du tableau
+        ne changent qu'au clic sur <b>Appliquer les curseurs aux PID</b> (RP : roulis et tangage ; RPY : aussi le
+        lacet ; OFF : rien).</li>
+      <li><b>Angle et horizon</b> : force et inclinaison maximale du mode ANGLE, réglages de HORIZON.</li>
+      <li><b>Gain des PID selon les gaz</b> : courbe du TPA et du TPA bas, calculée depuis les réglages lus.</li>
+      <li>À droite : anticipation (feedforward), TPA, I-term, anti-gravité, D max, gaz et moteurs, ralenti dynamique ;
+        repliés en bas : launch control, sortie de crash, limites et lacet.</li>
+    </ul>
+    <h3>Taux</h3>
+    <p>Type de taux (<b>BETAFLIGHT</b> ou <b>ACTUAL</b>), puis par axe : <b>Sensibilité au centre</b>, <b>Taux max</b>,
+      <b>Expo</b>, <b>Limite (°/s)</b>. Le graphe <b>Courbes des taux</b> donne la vitesse demandée selon la course du
+      manche, avec pour chaque axe la vitesse à fond et à mi-course. À droite : réglages des gaz et <b>Courbe des
+      gaz</b>.</p>
+    <h3>Filtres</h3>
+    <p>Gyroscope (passe-bas, coupe-bandes fixes, coupe-bandes dynamiques, filtre RPM) et terme D (passe-bas, coupe-bande,
+      passe-bas du P du lacet). Deux graphes donnent la part du signal qui traverse les filtres passe-bas et les
+      coupe-bandes fixes selon la fréquence du bruit ; les coupe-bandes qui suivent le bruit (RPM, dynamiques) ne sont
+      pas dessinés, car ils bougent avec les moteurs.</p>
+    <div class="encart">Les graphes sont calculés depuis les réglages lus dans la carte, avec les formules du firmware.
+      Tant qu'un réglage n'est pas connu (carte non connectée), le graphe est remplacé par « Courbe : connecter la
+      carte. » : jamais une courbe fausse.</div>
+
+    <h2 id="taux">Taux</h2>
+    <p>Défaut d'XPro : <code>rates_type</code> ACTUAL, sensibilité au centre 7, taux max 67, expo 0, sur les trois axes.
+      En ACTUAL, ces deux nombres comptent en dizaines de °/s : <b>70 °/s de pente au centre, 670 °/s manche à fond</b>,
+      comme le défaut de Betaflight.</p>
+    <div class="tableau"><table>
+      <tr><th>Manche (du centre au bout)</th><th>25 %</th><th>50 %</th><th>75 %</th><th>100 %</th></tr>
+      <tr><td>Vitesse demandée, défaut ACTUAL</td><td>55 °/s</td><td>185 °/s</td><td>390 °/s</td><td>670 °/s</td></tr>
+    </table></div>
+    <p>La formule ACTUAL d'XPro a été comparée aux consignes enregistrées par Betaflight dans les vols de KarRmen
+      (taux ACTUAL 16/50/15, 16/50/20 et 15/40/15) : <b>écart médian de 0,6 à 2,4 °/s</b>, sur des consignes jusqu'à
+      411 °/s. Les plus grands écarts (6 à 30 °/s) viennent du lissage des manches de Betaflight, appliqué avant
+      l'enregistrement de la consigne.</p>
+    <p>Sous Betaflight, KarRmen vole à 500 / 500 / 400 °/s avec un centre à 160 / 160 / 150 °/s : avec les taux par
+      défaut, XPro est deux fois plus doux au centre des manches. Pour retrouver les taux de Betaflight, les régler ici
+      ou charger un preset.</p>
+
+    <h2 id="presets">Presets</h2>
+    <p>Le cadre <b>Presets (pré-réglages)</b>, en bas de l'onglet, garde un réglage complet dans un fichier texte, pour le
+      partager ou le remettre en deux clics. Le fichier contient les lignes <code>set</code> du profil PID et du profil
+      de taux actifs (PID, filtres, anticipation, taux…), puis <code>save</code>.</p>
+    <ol class="etapes">
+      <li><b>Enregistrer le profil actuel dans un fichier</b> : télécharge <code>preset_xpro_profil…_date.txt</code>
+        (carte connectée).</li>
+      <li><b>Choisir un fichier preset</b> : ouvre un fichier <code>.txt</code>. Son nom et son nombre de lignes
+        s'affichent ; les lignes se lisent en dépliant le cadre.</li>
+      <li><b>Appliquer le preset à la carte</b> : après confirmation, envoie les lignes une par une. La carte répète
+        chaque valeur ; le logiciel vérifie qu'elle a pris la valeur envoyée et liste sous « PAS PRIS » ce qu'elle a
+        refusé. Il signale aussi un enregistrement non confirmé.</li>
+    </ol>
+    <p>Un preset de Betaflight (lignes <code>set</code>) se charge aussi : ce qu'XPro n'a pas est signalé « sans
+      effet ».</p>
+
+    <h2 id="karrmen">Réglages de KarRmen</h2>
+    <p>Le cadre <b>Réglages de KarRmen à coller</b> contient tous les réglages de KarRmen sous Betaflight (dump all du
+      14/10/2026 : 79 valeurs différentes des défauts d'XPro) : filtres, AIRMODE, télémétrie, props out, noms, OSD aux
+      places de KarRmen, ALTHOLD, plages des interrupteurs, profil PID 1 « LAUNCH », profil PID 3 « 15053S », profil de
+      taux 1 « LAUNCH ». <b>Voir les lignes envoyées</b> les montre ; <b>Appliquer à la carte</b> les envoie avec les
+      mêmes vérifications qu'un preset.</p>
+    <p>Les taux des autres profils de KarRmen ne sont pas dans le dump relevé : le profil de taux 2 (actif) garde les
+      défauts (670 °/s). Un <code>diff all</code> complet de Betaflight peut aussi être collé dans la
+      <a href="cli.html">Ligne de commande</a>.</p>
+
+    <h2 id="echelles">Échelles du PID</h2>
+    <p>Les mêmes chiffres de PID donnent-ils la même force de correction qu'avec Betaflight ? La réponse est
+      <b>mesurée</b> sur les journaux Blackbox de KarRmen sous Betaflight (2025.12.2 et 4.4.2, 37 vols ou essais), sans
+      lire le code de Betaflight. Unité commune : sortie du PID en unités de Betaflight (XPro × 1000).</p>
+    <div class="tableau"><table>
+      <tr><th>Terme</th><th>Betaflight, mesuré sur KarRmen</th><th>XPro</th><th>Verdict</th></tr>
+      <tr><td>P roulis / tangage</td><td>0,032 × écart (°/s) par point</td><td>0,032</td><td>identique</td></tr>
+      <tr><td>P lacet</td><td>0,030 à 0,032</td><td>0,032</td><td>identique</td></tr>
+      <tr><td>I roulis / tangage</td><td>0,24 à 0,28 par seconde</td><td>0,244</td><td>identique</td></tr>
+      <tr><td>I lacet</td><td>0,61 à 0,62 par seconde</td><td>0.8.3 : 0,244 ; 0.8.4 : × 2,5</td><td>corrigé en 0.8.4</td></tr>
+      <tr><td>D roulis / tangage (gaz bas, sous le TPA)</td><td>4,4 à 5,3 × 10<sup>−4</sup> × accélération (°/s²)</td><td>5,3 × 10<sup>−4</sup></td><td>identique</td></tr>
+      <tr><td>Mixeur (moteur − moyenne)</td><td>0,96 à 0,99 × somme / 1000, hors saturation</td><td>1 × somme</td><td>identique</td></tr>
+      <tr><td>Mode ANGLE (manche au centre)</td><td>3,6 °/s par degré pour <code>angle_p_gain</code> 50</td><td>0.8.3 : 5,0 ; 0.8.4 : 3,6 (0,072 par point)</td><td>corrigé en 0.8.4</td></tr>
+      <tr><td>Feedforward</td><td>non vérifié</td><td>—</td><td>à mesurer</td></tr>
+    </table></div>
+    <p>Depuis la 0.8.4, l'I du lacet vaut 2,5 fois celui du roulis par point, et le mode ANGLE 0,072 °/s par degré et
+      par point (au lieu de 0,1). P, I et D du roulis et du tangage et le mixeur étaient déjà identiques.</p>
+
+    <h2 id="assistant">Assistant de réglage</h2>
+    <p>L'onglet <b>Assistant de réglage</b> (même groupe) contient pour l'instant le <b>contrôle du KV des moteurs</b>.
+      Hélices retirées, batterie branchée, drone désarmé : <b>Lancer le contrôle (hélices retirées)</b> fait tourner les
+      4 moteurs à 20 % pendant 3 s, puis compare la vitesse mesurée (DShot bidirectionnel) au KV saisi
+      (<code>motor_kv</code>) : KV mesuré ≈ tr/min ÷ (tension × 0,20).</p>
+    <p>Sans charge, l'estimation est approchée : seul un écart de plus de 30 % est signalé. La page ne change jamais la
+      valeur saisie. Sans tension, sans vitesses ou sans <code>motor_kv</code> lisible, elle dit pourquoi le contrôle
+      est impossible.</p>
+    <figure>
+      <img class="t-sombre" src="../assets/img/onglets/assistant.png" alt="Onglet Assistant de réglage : avertissement hélices retirées et cadre Contrôle du KV des moteurs"><img class="t-clair" src="../assets/img/onglets/assistant-clair.png" alt="Onglet Assistant de réglage : avertissement hélices retirées et cadre Contrôle du KV des moteurs">
+      <figcaption>Onglet Assistant de réglage, avant le contrôle (résultat « -- »).</figcaption>
+    </figure>
+  </article>
+</div>
+
+<footer class="pied">
+  <div class="large">
+    <span>TrueGlide XPro · Talk True FPV</span>
+    <span>Écrit de zéro : aucun code de Betaflight ni de TrueGlide n'est repris.</span>
+  </div>
+</footer>
+</body>
+</html>
