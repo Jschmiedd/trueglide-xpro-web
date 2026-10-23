@@ -122,7 +122,7 @@
     <p>Une mesure inconnue ou trop ancienne s'affiche <code>--</code>, jamais un chiffre.</p>
 
     <h2 id="commandes">Les commandes</h2>
-    <p>Liste relevée dans le firmware 0.8.4. <code>help</code> (ou <code>aide</code>) l'affiche dans la carte. Il n'y
+    <p>Liste relevée dans le firmware 0.8.6. <code>help</code> (ou <code>aide</code>) l'affiche dans la carte. Il n'y
       a pas de commande <code>dump</code> : <code>diff all</code> donne tous les réglages.</p>
 
     <h3>État et mesures</h3>
@@ -194,6 +194,8 @@
         la carte bouge.</td></tr>
       <tr><td><code>beep</code></td><td>Essai du buzzer.</td></tr>
       <tr><td><code>pinio 1 on</code> | <code>off</code></td><td>Essai : PINIO 1 au niveau armé ou désarmé.</td></tr>
+      <tr><td><code>esc_pont</code></td><td>0.8.6 : pont vers les ESC, pour les régler avec XPro ESC Configurator à
+        travers la carte de vol ; la carte redémarre à la fin. Pas encore essayé avec de vrais ESC.</td></tr>
       <tr><td><code>bl</code></td><td>Redémarrage en mode DFU, pour flasher.</td></tr>
       <tr><td><code>reboot</code></td><td>Redémarrage.</td></tr>
       <tr><td><code>test_chien_de_garde</code></td><td>Bloque le firmware exprès : la carte doit redémarrer seule en moins

@@ -164,7 +164,7 @@
 
     <h2 id="capacite">Capacité et BAT %</h2>
     <p><code>bat_capacity</code> donne la capacité de la batterie en mAh (0 = inconnue, défaut). KarRmen vole avec
-      1 550 mAh.</p>
+      une 4S 1 300 mAh (Tattu R-Line).</p>
     <p>Depuis la 0.8.4, <b>BAT %</b> (batterie restante, dans les lunettes et à la radio) se calcule en deux temps :</p>
     <ol class="etapes">
       <li>Au branchement, une fois les éléments comptés, la carte estime la charge de départ d'après la tension au repos
@@ -176,9 +176,11 @@
       estimé tient compte de cette charge de départ.</p>
     <p>Sans courant mesuré ou sans <code>bat_capacity</code>, BAT % n'est pas calculé : les lunettes affichent
       « -- ».</p>
-    <p><code>bat_capacity</code> est un seul réglage pour toutes les batteries : la tension ne permet pas de distinguer une
-      4S 1300 mAh d'une 4S 1550 mAh. Avec plusieurs capacités, régler la plus petite : BAT % baisse alors trop vite avec
-      la grande batterie, jamais trop lentement.</p>
+    <p>La tension ne permet pas de distinguer une 4S 1300 mAh d'une 4S 1550 mAh. Depuis la 0.8.6, le cadre
+      <b>Batterie et alarmes</b> a deux capacités de plus, <code>bat_capacity_2</code> et <code>bat_capacity_3</code>
+      (0 = aucune, défaut), et <code>bat_capacity_choice</code> (batterie utilisée, 1 à 3). La batterie se choisit
+      sans PC, ligne <b>BAT</b> du <a href="menu-lunettes.html#batterie">menu des lunettes</a>. Sans batterie 2 ni 3,
+      rien ne change. Avec un firmware plus ancien, ces cases affichent « -- ».</p>
 
     <h2 id="profils">Profil PID selon la batterie</h2>
     <p>Comme <code>auto_profile_cell_count</code> sous Betaflight : chaque profil PID peut être lié à un nombre
@@ -199,8 +201,9 @@
 
     <h2 id="karrmen">Réglages de KarRmen à coller</h2>
     <p>Le cadre <b>Réglages de KarRmen à coller</b> reprend les trois réglages batterie que KarRmen avait changés sous
-      Betaflight (<code>diff all</code> du 14/10/2026) et le choix du profil selon la batterie :</p>
-    <pre><code>set bat_capacity = 1550
+      Betaflight (<code>diff all</code> du 14/10/2026) et le choix du profil selon la batterie. La capacité est celle de
+      la batterie de ses vols, la 4S 1300 mAh (le <code>diff all</code> de Betaflight avait 1550) :</p>
+    <pre><code>set bat_capacity = 1300
 set vbat_min_cell_voltage = 350
 set vbat_warning_cell_voltage = 370
 profile 2

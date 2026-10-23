@@ -77,6 +77,7 @@
     <ul>
       <li><a href="#ouvrir">Ouvrir le menu</a></li>
       <li><a href="#choisir">Choisir les profils</a></li>
+      <li><a href="#batterie">Ligne BAT (0.8.6)</a></li>
       <li><a href="#enregistrer">Enregistrer ou quitter</a></li>
       <li><a href="#securite">Sécurités</a></li>
       <li><a href="#status">Dans status</a></li>
@@ -119,10 +120,21 @@
     <p>Un mouvement par poussée : remettre le manche au centre avant le suivant. Le nom du profil s'affiche à côté de
       son numéro quand il en a un. Le bas de l'écran rappelle « TANGAGE : LIGNE   ROULIS : CHOISIR ».</p>
 
+    <h2 id="batterie">Ligne BAT (0.8.6)</h2>
+    <p>Quand une batterie 2 ou 3 est réglée (onglet <a href="alimentation.html#capacite">Alimentation et batterie</a>),
+      une ligne <b>BAT</b> apparaît sous TAUX : numéro de la batterie et sa capacité. Le roulis passe d'une batterie à
+      l'autre ; ENREGISTRER la rend active pour BAT % et le temps restant. Sans batterie 2 ni 3, la ligne n'est pas
+      affichée et le menu reste celui de la 0.8.4.</p>
+    <figure>
+      <img src="../assets/img/doc-menu-bat.png" alt="Écran XPRO : PROFILS avec la ligne BAT < 1 1300MAH > sous TAUX">
+      <figcaption>Image tirée du code de l'OSD du firmware 0.8.6 : la batterie 1 (1 300 mAh) est choisie.</figcaption>
+    </figure>
+
     <h2 id="enregistrer">Enregistrer ou quitter</h2>
     <ul>
       <li><b>ENREGISTRER ET QUITTER</b> (roulis à droite) : les deux profils choisis deviennent actifs et sont
-        enregistrés dans la carte. Le message <b>ENREGISTRE : PID n, TAUX n</b> reste affiché 2 secondes, puis le menu
+        enregistrés dans la carte. Le message <b>ENREGISTRE : PID n, TAUX n</b> (suivi de <b>BAT n</b> quand la ligne BAT
+        est affichée) reste affiché 2 secondes, puis le menu
         se ferme.</li>
       <li><b>QUITTER SANS CHANGER</b> (roulis à droite) : le menu se ferme, rien ne change.</li>
     </ul>

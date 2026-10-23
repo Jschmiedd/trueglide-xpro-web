@@ -75,6 +75,7 @@
     </ul>
     <h2>Sur cette page</h2>
     <ul>
+      <li><a href="#v086">0.8.6</a></li>
       <li><a href="#v085">0.8.5</a></li>
       <li><a href="#v084">0.8.4</a></li>
       <li><a href="#v083">0.8.3</a></li>
@@ -86,14 +87,40 @@
 
   <article>
     <h1>Notes de version</h1>
-    <p class="chapeau">Ce qui change dans le firmware et le logiciel XPro, de la 0.8.0 à la 0.8.5. Chaque version se
+    <p class="chapeau">Ce qui change dans le firmware et le logiciel XPro, de la 0.8.0 à la 0.8.6. Chaque version se
       termine par un seul essai sur KarRmen ; on ne passe à la suivante qu'avec l'essai réussi.</p>
     <p>Les versions 0.8.x sont des versions de banc (« 0.8.4-banc » dans <code>version</code>). Les mesures citées sont
       celles de KarRmen.</p>
 
+    <h2 id="v086">0.8.6 : batterie dans les lunettes, balayage de fréquences</h2>
+    <p>Firmware écrit le 23/10/2026, intégré au logiciel. Il contient la 0.8.5, qui n'est pas essayée à part : essais
+      prévus sur KarRmen, V1b (premier vol refait en 4S 1300), V2 (menu des lunettes, vol en ANGLE), puis V3 (batterie
+      choisie dans les lunettes, balayage). 3 798 vérifications sur PC, plus 172 pour la liaison des ESC. Rien encore
+      en vol.</p>
+    <h3>Firmware</h3>
+    <ul>
+      <li><b>Batterie choisie dans le menu des lunettes</b> : deux capacités de plus (<code>bat_capacity_2</code>,
+        <code>bat_capacity_3</code>) pour des batteries de même nombre d'éléments, et la ligne
+        <a href="menu-lunettes.html#batterie">BAT</a> du menu. Sans batterie 2 ni 3, rien ne change.</li>
+      <li><b>Balayage de fréquences</b> : mode <a href="modes.html">CHIRP</a> (122), axe par axe, arrêté dès qu'un manche
+        bouge ; réglages <code>chirp_*</code> (amplitude par axe, 0,5 à 60 Hz, 15 s par axe) ; message dans les
+        lunettes et marque dans le journal.</li>
+      <li><b>Pont des ESC</b> : commande <a href="cli.html"><code>esc_pont</code></a>, pour régler les ESC à travers la
+        carte de vol avec XPro ESC Configurator.</li>
+    </ul>
+    <h3>Logiciel</h3>
+    <ul>
+      <li><a href="assistant.html">Assistant de réglage</a> : sous-onglet Balayage (CHIRP) et analyse de la réponse en
+        fréquence ; PID selon l'inertie (provisoire) ; conseil de fréquence PWM des ESC ; <code>diff all</code> collé ou
+        lu sur la carte, avec l'état d'origine relevé au premier branchement ; reprise d'un drone ou d'une étude du
+        calculateur TalkTrue XRig ; export des mesures d'un vol pour le calculateur.</li>
+      <li>Onglet <a href="alimentation.html#capacite">Alimentation et batterie</a> : batteries 2 et 3, batterie
+        utilisée. Lignes de KarRmen : capacité 1 300 mAh, celle de la 4S de ses vols.</li>
+      <li>Onglet <a href="osd.html#apercu">OSD</a> : image de fond au choix derrière l'aperçu.</li>
+    </ul>
+
     <h2 id="v085">0.8.5 : profil choisi selon la batterie</h2>
-    <p>Firmware écrit le 23/10/2026. Essai prévu : V1b (premier vol refait en 4S 1300), puis V2. 3 719 vérifications
-      sur PC.</p>
+    <p>Firmware écrit le 23/10/2026, compris dans la 0.8.6 (pas d'essai à part). 3 719 vérifications sur PC.</p>
     <p>Au vol V1, KarRmen a volé sa 4S sur le profil 3S « 15053S ». La carte choisit bien le profil PID selon le nombre
       d'éléments (<code>auto_profile_cell_count</code>, comme Betaflight), mais aucun profil n'était réglé pour la 4S.</p>
     <h3>Firmware</h3>

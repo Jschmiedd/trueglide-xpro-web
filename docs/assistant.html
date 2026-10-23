@@ -79,6 +79,9 @@
       <li><a href="#reglage">Réglage proposé</a></li>
       <li><a href="#vol">Analyser un vol</a></li>
       <li><a href="#kv">Contrôle du KV</a></li>
+      <li><a href="#chirp">Balayage (CHIRP)</a></li>
+      <li><a href="#diff">Analyser ma configuration</a></li>
+      <li><a href="#calculateur">Calculateur XRig</a></li>
     </ul>
   </aside>
 
@@ -106,6 +109,16 @@
       <b>Reporter dans la fiche du drone</b> (partie Analyser un vol) remplace l'estimation par le régime mesuré au
       stationnaire. Sur KarRmen, l'estimation donnait 19 900 tr/min, le premier vol en a mesuré 14 220. L'<b>entraxe</b> sert à
       l'accélération de rotation : les taux proposés sont ramenés à ce que le drone peut suivre en 0,15 s.</p>
+    <p>Depuis la 0.8.6 :</p>
+    <ul>
+      <li><b>PID selon l'inertie</b> (option de la fiche) : quand la répartition des composants est connue, l'inertie de
+        roulis est comparée à celle d'un 5 pouces et le curseur maître est ajusté (entre 0,7 et 1,4 fois). Réglage
+        <b>provisoire</b>, marqué comme tel : il sera réglé avec des vols de grands drones.</li>
+      <li><b>ESC : fréquence PWM</b> : un conseil selon l'hélice et le KV, à régler dans l'ESC lui-même ; jamais un
+        réglage de la carte de vol.</li>
+      <li>Chaque champ dit d'où vient sa valeur (saisie, fiche, calculateur, mesurée en vol) ; une valeur inconnue reste
+        « à saisir ».</li>
+    </ul>
 
     <h2 id="reglage">Réglage proposé</h2>
     <figure>
@@ -156,11 +169,48 @@
     </ul>
     <p>Le bruit des moteurs au-dessus de 500 Hz se replie dans le journal (1 000 mesures par seconde) : l'analyse en
       tient compte et ne le prend pas pour une résonance.</p>
+    <p><b>Exporter le retour pour le calculateur (.json)</b> (0.8.6) : garde les mesures du vol (pôles, régime au
+      stationnaire, résonances, bande passante après un balayage) pour les reprendre dans le calculateur. Une mesure
+      absente reste vide : jamais une estimation.</p>
 
     <h2 id="kv">Contrôle du KV</h2>
     <p><b>Hélices retirées</b>, batterie branchée, drone désarmé : <b>Lancer le contrôle</b> fait tourner les 4 moteurs à
       20 % pendant 3 s, puis compare la vitesse mesurée au KV saisi (<code>motor_kv</code>) : KV estimé ≈ tr/min ÷
       (tension × 0,20). Seul un écart net (plus de 30 %) est signalé ; la page ne change jamais <code>motor_kv</code>.</p>
+
+    <h2 id="chirp">Balayage (CHIRP)</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-assistant-chirp.png" alt="Sous-onglet Balayage (CHIRP) : mode d'emploi et réglages du balayage"><img class="t-clair" src="../assets/img/doc-assistant-chirp-clair.png" alt="Sous-onglet Balayage (CHIRP) : mode d'emploi et réglages du balayage">
+      <figcaption>Mode d'emploi et réglages du balayage (capture avec une fausse carte).</figcaption>
+    </figure>
+    <p>Firmware 0.8.6 : le mode <b>CHIRP</b> (à mettre sur un interrupteur, onglet <a href="modes.html">Modes</a>) fait
+      osciller le drone de plus en plus vite, un axe après l'autre (roulis, tangage, lacet), pendant un stationnaire
+      stable manches au centre. Par défaut : de 0,5 à 60 Hz en 15 s par axe. Les lunettes affichent
+      <code>CHIRP ROULIS</code>, puis <code>CHIRP TANGAGE</code> et <code>CHIRP LACET</code>.</p>
+    <ul>
+      <li><b>Bouger un manche</b> arrête le balayage tout de suite ; il ne reprend qu'après avoir coupé puis remis
+        l'interrupteur.</li>
+      <li>Ensuite, ouvrir le journal dans <b>Analyser un vol</b> : la réponse en fréquence de chaque axe donne la bande
+        passante, le dépassement et le retard, avec les corrections proposées.</li>
+      <li>Pas encore essayé en vol : c'est l'essai V3 de KarRmen.</li>
+    </ul>
+
+    <h2 id="diff">Analyser ma configuration</h2>
+    <p>Depuis la 0.8.6, l'assistant compare le réglage proposé à un <code>diff all</code> : <b>Comparer avec un diff all
+      collé</b> (copié depuis Betaflight ou XPro, carte non branchée) ou <b>Lire le diff all de la carte</b>. Il donne
+      les écarts et les commandes à coller, avec le profil actif du diff.</p>
+    <p>Au premier branchement d'une carte, son <b>état d'origine</b> est relevé et gardé dans le navigateur
+      (<b>Voir l'état d'origine</b>, <b>Remplacer l'état d'origine</b>) : l'assistant montre ensuite ce qui a changé depuis,
+      réglage par réglage, avant de proposer quoi que ce soit.</p>
+
+    <h2 id="calculateur">Calculateur XRig</h2>
+    <p>Deux boutons de la fiche reprennent un fichier exporté par le calculateur TalkTrue XRig (0.8.6) :</p>
+    <ul>
+      <li><b>Reprendre un drone XRig (.json)</b> : la configuration du drone (composants, masse, entraxe, répartition
+        des composants, d'où l'inertie autour du centre de gravité).</li>
+      <li><b>Données d'une étude</b> : la configuration plus les résultats de l'étude (poussée, vitesse, S·Cx et Cx).</li>
+    </ul>
+    <p>Chaque valeur reprise est marquée « calculateur » et reste corrigeable à la main.</p>
   </article>
 </div>
 
