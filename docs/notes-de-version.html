@@ -75,6 +75,7 @@
     </ul>
     <h2>Sur cette page</h2>
     <ul>
+      <li><a href="#v085">0.8.5</a></li>
       <li><a href="#v084">0.8.4</a></li>
       <li><a href="#v083">0.8.3</a></li>
       <li><a href="#v082">0.8.2</a></li>
@@ -85,10 +86,29 @@
 
   <article>
     <h1>Notes de version</h1>
-    <p class="chapeau">Ce qui change dans le firmware et le logiciel XPro, de la 0.8.0 à la 0.8.4. Chaque version se
+    <p class="chapeau">Ce qui change dans le firmware et le logiciel XPro, de la 0.8.0 à la 0.8.5. Chaque version se
       termine par un seul essai sur KarRmen ; on ne passe à la suivante qu'avec l'essai réussi.</p>
     <p>Les versions 0.8.x sont des versions de banc (« 0.8.4-banc » dans <code>version</code>). Les mesures citées sont
       celles de KarRmen.</p>
+
+    <h2 id="v085">0.8.5 : profil choisi selon la batterie</h2>
+    <p>Firmware écrit le 23/10/2026. Essai prévu : V1b (premier vol refait en 4S 1300), puis V2. 3 719 vérifications
+      sur PC.</p>
+    <p>Au vol V1, KarRmen a volé sa 4S sur le profil 3S « 15053S ». La carte choisit bien le profil PID selon le nombre
+      d'éléments (<code>auto_profile_cell_count</code>, comme Betaflight), mais aucun profil n'était réglé pour la 4S.</p>
+    <h3>Firmware</h3>
+    <ul>
+      <li><b>Avertissement</b> : drone désarmé, si le profil PID actif est réglé pour un autre nombre d'éléments que la
+        batterie branchée, les lunettes affichent <code>BAT 4S PROFIL 3S</code> et <code>status</code> le dit à la ligne
+        batterie. L'armement reste possible. Sans profil lié à une batterie (défaut), rien ne change.</li>
+    </ul>
+    <h3>Logiciel</h3>
+    <ul>
+      <li>Onglet <a href="alimentation.html#profils">Alimentation et batterie</a> : tableau des 6 profils PID (nom,
+        batterie qui le choisit, doublons signalés), capacité, alarmes et mesure de la tension et du courant.</li>
+      <li>Lignes de KarRmen : profil 2 « 15054S » choisi en 4S, profil 3 « 15053S » en 3S.</li>
+      <li>Thème clair : les lignes à coller étaient illisibles (texte foncé sur fond noir) ; corrigé.</li>
+    </ul>
 
     <h2 id="v084">0.8.4 : suites du premier vol</h2>
     <p>Firmware écrit le 18/10/2026. Essai prévu : V2 (menu des lunettes hélices retirées, puis vol dehors en ANGLE).
