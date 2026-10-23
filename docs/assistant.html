@@ -75,36 +75,90 @@
     </ul>
     <h2>Sur cette page</h2>
     <ul>
+      <li><a href="#fiche">Mon drone</a></li>
+      <li><a href="#reglage">Réglage proposé</a></li>
+      <li><a href="#vol">Analyser un vol</a></li>
       <li><a href="#kv">Contrôle du KV</a></li>
-      <li><a href="#lire">Lire le résultat</a></li>
     </ul>
   </aside>
 
   <article>
     <h1>Assistant de réglage</h1>
-    <p class="chapeau">L'onglet <b>Assistant de réglage</b> (groupe Réglage du vol) vérifie des réglages à partir de
-      mesures faites sur le drone. Il contient pour l'instant le <b>contrôle du KV des moteurs</b>.</p>
+    <p class="chapeau">L'onglet <b>Assistant de réglage</b> (groupe Réglage du vol) calcule un réglage de départ à partir
+      de la fiche du drone, l'applique à la carte, puis analyse le journal d'un vol pour proposer des corrections. Tout
+      se calcule dans le logiciel : rien de plus n'est chargé dans la carte.</p>
+    <p class="encart">Réglages calculés pour aider, sans garantie : vérifier chaque valeur, essais <b>hélices
+      retirées</b> d'abord, puis premier vol prudent. Chaque valeur dit si elle vient de la fiche, si elle est calculée,
+      estimée, mesurée dans un vol, ou un choix de départ d'XPro.</p>
+
+    <h2 id="fiche">Mon drone</h2>
     <figure>
-      <img class="t-sombre" src="../assets/img/onglets/assistant.png" alt="Onglet Assistant de réglage : avertissement hélices retirées, contrôle du KV des moteurs"><img class="t-clair" src="../assets/img/onglets/assistant-clair.png" alt="Onglet Assistant de réglage : avertissement hélices retirées, contrôle du KV des moteurs">
-      <figcaption>L'avertissement rappelle les conditions de l'essai.</figcaption>
+      <img class="t-sombre" src="../assets/img/doc-assistant-fiche.png" alt="Fiche d'un drone de 10,5 pouces en 8S et ce qu'en tire l'assistant"><img class="t-clair" src="../assets/img/doc-assistant-fiche-clair.png" alt="Fiche d'un drone de 10,5 pouces en 8S et ce qu'en tire l'assistant">
+      <figcaption>Exemple : drone de 10,5 pouces, 8S, 700 KV, 5 kg, 600 mm d'entraxe (capture avec une fausse carte).</figcaption>
     </figure>
+    <p>On saisit l'hélice (diamètre, pas, pales), les moteurs (KV, nombre d'aimants), la batterie, la masse en vol,
+      l'<b>entraxe</b>, le calibre des ESC, et si on la connaît la poussée maximale d'un moteur (fiche du moteur). Puis
+      le châssis (Quad X, pusher, Hexa X, X8 coaxial), sa rigidité, le style de vol et le firmware des ESC. La fiche est
+      gardée dans le navigateur. Une valeur hors limites est refusée avec la raison, jamais corrigée en silence.</p>
+    <p>À droite, ce que la fiche donne : rapport poussée / poids, régime des moteurs au plein gaz et au stationnaire
+      (donc la fréquence du bruit principal des moteurs), ralenti conseillé. Ces chiffres sont <b>estimés</b> (la
+      poussée à ±30 % tant que celle de la fiche du moteur n'est pas donnée) et marqués comme tels. L'<b>entraxe</b> sert à
+      l'accélération de rotation : les taux proposés sont ramenés à ce que le drone peut suivre en 0,15 s.</p>
 
-    <h2 id="kv">Contrôle du KV des moteurs</h2>
-    <p><b>Hélices retirées</b>, batterie branchée, drone désarmé, carte reliée en USB.</p>
-    <ol>
-      <li>Cliquer <b>Lancer le contrôle (hélices retirées)</b> et confirmer.</li>
-      <li>Les 4 moteurs tournent à 20 % pendant 3 secondes (test des moteurs), puis s'arrêtent.</li>
-      <li>La page lit la tension de la batterie et la vitesse de chaque moteur (DShot bidirectionnel) et calcule
-        <b>KV estimé ≈ tr/min ÷ (tension × 0,20)</b>, à comparer au KV saisi (<code>motor_kv</code>).</li>
-    </ol>
-    <p>Il faut le DShot bidirectionnel actif (onglet <a href="moteurs.html">Moteurs</a>) et des ESC alimentés ; sinon la
-      page dit ce qui manque au lieu d'afficher un chiffre.</p>
+    <h2 id="reglage">Réglage proposé</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-assistant-reglage.png" alt="Tableau du réglage proposé : réglage, valeur de la carte, valeur proposée, nature, raison"><img class="t-clair" src="../assets/img/doc-assistant-reglage-clair.png" alt="Tableau du réglage proposé : réglage, valeur de la carte, valeur proposée, nature, raison">
+      <figcaption>Chaque ligne : la valeur de la carte, la valeur proposée, sa nature et sa raison ; les écarts sont cochés.</figcaption>
+    </figure>
+    <ul>
+      <li><b>Moteurs</b> : KV et nombre d'aimants de la fiche ; DShot bidirectionnel si l'ESC le permet (Bluejay,
+        AM32, BLHeli_32).</li>
+      <li><b>Filtre RPM et ralenti</b> : ralenti à 6 % de la poussée du stationnaire, filtre RPM actif dès ce ralenti
+        (fréquence minimale juste en dessous).</li>
+      <li><b>Filtres</b> : les coupures du gyroscope et du terme D suivent le régime des moteurs (plus bas pour une
+        grande hélice, plus haut pour un petit drone), plus fort pour un châssis souple.</li>
+      <li><b>PID</b> : par le réglage simplifié du firmware, curseur maître à 80 % des défauts XPro (faits pour un
+        5 pouces), à 70 % pour une hélice bien plus grande. C'est un départ prudent : l'analyse du premier vol dit
+        ensuite s'il faut monter ou baisser.</li>
+      <li><b>Grandes hélices</b> (9 pouces et plus) : réponse constante jusqu'à la fin de la batterie
+        (<code>vbat_sag_compensation</code>), toute la plage des moteurs pour la régulation, I-term relax plus
+        bas.</li>
+      <li><b>Protections</b> : anti-surchauffe à 100 °C d'ESC, relance d'un moteur décroché, télémétrie de secours,
+        limite de courant à 80 % du calibre total des ESC (avec un capteur de courant).</li>
+      <li><b>Taux</b> selon le style de vol : proposés <b>décochés</b>, car c'est une affaire de goût.</li>
+    </ul>
+    <p><b>Lire la carte</b> remplit la colonne Carte. <b>Appliquer la sélection</b> envoie les lignes cochées (carte
+      désarmée) : elles agissent tout de suite mais ne restent qu'après <b>Enregistrer dans la carte</b> ; d'ici là,
+      « revenir » reste possible dans les onglets de réglage. <b>Copier les commandes</b> donne les mêmes lignes pour la
+      <a href="cli.html">ligne de commande</a>. Un réglage que la carte refuse est affiché avec la raison.</p>
 
-    <h2 id="lire">Lire le résultat</h2>
-    <p>Sans hélice, le moteur tourne un peu moins vite que KV × tension : l'estimation est <b>approchée</b>. Seul un
-      écart net (plus de 30 %) est signalé : « ÉCART NET : vérifier le KV des moteurs ». Un écart pareil vient souvent
-      d'un KV mal saisi (moteur 1950 KV saisi 2550, par exemple). La page ne change jamais <code>motor_kv</code> :
-      corriger la valeur à la main si besoin, puis enregistrer.</p>
+    <h2 id="vol">Analyser un vol</h2>
+    <figure>
+      <img class="t-sombre" src="../assets/img/doc-assistant-vol.png" alt="Analyse du journal du premier vol de KarRmen : constats, bruit du gyroscope"><img class="t-clair" src="../assets/img/doc-assistant-vol-clair.png" alt="Analyse du journal du premier vol de KarRmen : constats, bruit du gyroscope">
+      <figcaption>Journal du premier vol de KarRmen (18/10/2026, vol 9) : 14 pôles confirmés, rien d'anormal.</figcaption>
+    </figure>
+    <p>Ouvrir un journal (.bin) ou lire celui de la carte, choisir le vol (le plus long est pris d'abord). Pour une
+      analyse utile : 20 s de vol au moins, avec des changements de gaz et des mouvements francs aux manches.
+      L'analyse donne :</p>
+    <ul>
+      <li><b>Résonance du châssis</b> : une vibration qui garde la même fréquence quel que soit le régime des moteurs
+        (au moins 6 s de vol, régimes différents d'au moins 25 %). Un coupe-bande fixe est proposé, à poser seulement
+        si un deuxième vol la retrouve. C'est le point délicat des grands drones.</li>
+      <li><b>Nombre de pôles</b> : le bruit des moteurs doit tomber sur leur vitesse ; sinon <code>motor_poles</code>
+        est faux et la bonne valeur est proposée.</li>
+      <li><b>Saturation</b> : part du temps où un moteur est au maximum.</li>
+      <li><b>Décrochage d'un moteur</b> et <b>télémétrie figée</b>.</li>
+      <li><b>Oscillation lente</b> (2 à 25 Hz), signalée seulement au-delà d'un demi-degré.</li>
+      <li><b>Réponse aux manches</b> : réponse à un échelon estimée en roulis et en tangage, temps de montée et
+        dépassement, avec le conseil qui va avec.</li>
+    </ul>
+    <p>Le bruit des moteurs au-dessus de 500 Hz se replie dans le journal (1 000 mesures par seconde) : l'analyse en
+      tient compte et ne le prend pas pour une résonance.</p>
+
+    <h2 id="kv">Contrôle du KV</h2>
+    <p><b>Hélices retirées</b>, batterie branchée, drone désarmé : <b>Lancer le contrôle</b> fait tourner les 4 moteurs à
+      20 % pendant 3 s, puis compare la vitesse mesurée au KV saisi (<code>motor_kv</code>) : KV estimé ≈ tr/min ÷
+      (tension × 0,20). Seul un écart net (plus de 30 %) est signalé ; la page ne change jamais <code>motor_kv</code>.</p>
   </article>
 </div>
 
