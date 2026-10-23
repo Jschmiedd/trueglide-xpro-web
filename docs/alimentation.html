@@ -80,6 +80,7 @@
       <li><a href="#seuils">Seuils et alarmes</a></li>
       <li><a href="#courant">Capteur de courant</a></li>
       <li><a href="#capacite">Capacité et BAT %</a></li>
+      <li><a href="#profils">Profil PID selon la batterie</a></li>
       <li><a href="#karrmen">Réglages de KarRmen à coller</a></li>
       <li><a href="#bips">Les bips</a></li>
     </ul>
@@ -88,12 +89,14 @@
   <article>
     <h1>Alimentation et batterie</h1>
     <p class="chapeau">L'onglet <b>Alimentation et batterie</b> montre ce que la carte mesure sur la batterie : tension,
-      nombre d'éléments, tension par élément, courant et consommation. Il règle aussi les bips du buzzer. Une valeur que
+      nombre d'éléments, tension par élément, courant et consommation. Il règle aussi la capacité, les alarmes, la mesure,
+      le profil PID choisi selon la batterie (3S, 4S…) et les bips du buzzer. Une valeur que
       la carte ne connaît pas s'affiche « -- » : jamais un chiffre inventé.</p>
     <figure>
-      <img class="t-sombre" src="../assets/img/onglets/alimentation.png" alt="Onglet Alimentation et batterie : cadres Batterie, Réglages de KarRmen à coller et Buzzer"><img class="t-clair" src="../assets/img/onglets/alimentation-clair.png" alt="Onglet Alimentation et batterie : cadres Batterie, Réglages de KarRmen à coller et Buzzer">
+      <img class="t-sombre" src="../assets/img/onglets/alimentation.png" alt="Onglet Alimentation et batterie : mesures, réglages de KarRmen, buzzer, profils selon la batterie, alarmes et mesure"><img class="t-clair" src="../assets/img/onglets/alimentation-clair.png" alt="Onglet Alimentation et batterie : mesures, réglages de KarRmen, buzzer, profils selon la batterie, alarmes et mesure">
       <figcaption>Capture faite avec une fausse carte, sans batterie : l'état est « Pas de mesure » et toutes les
-        valeurs restent à « -- ». Les bips sont ceux que la fausse carte renvoie (tous actifs).</figcaption>
+        valeurs restent à « -- ». Les bips sont ceux que la fausse carte renvoie (tous actifs). Les profils et les
+        réglages sont ceux de KarRmen.</figcaption>
     </figure>
 
     <h2 id="mesures">Les mesures</h2>
@@ -173,14 +176,40 @@
       estimé tient compte de cette charge de départ.</p>
     <p>Sans courant mesuré ou sans <code>bat_capacity</code>, BAT % n'est pas calculé : les lunettes affichent
       « -- ».</p>
+    <p><code>bat_capacity</code> est un seul réglage pour toutes les batteries : la tension ne permet pas de distinguer une
+      4S 1300 mAh d'une 4S 1550 mAh. Avec plusieurs capacités, régler la plus petite : BAT % baisse alors trop vite avec
+      la grande batterie, jamais trop lentement.</p>
+
+    <h2 id="profils">Profil PID selon la batterie</h2>
+    <p>Comme <code>auto_profile_cell_count</code> sous Betaflight : chaque profil PID peut être lié à un nombre
+      d'éléments. Drone <b>désarmé</b>, quand la carte a compté les éléments de la batterie branchée, elle passe seule sur
+      le premier profil réglé pour ce nombre. Armé, le profil ne change jamais.</p>
+    <p>Le cadre <b>Profil PID choisi selon la batterie</b> liste les 6 profils avec leur nom et la batterie qui les
+      choisit (« aucune » = profil choisi seulement à la main). Ce sont des réglages par profil : le logiciel passe sur
+      chaque profil pour les lire ou les changer, puis revient au profil actif. Deux profils avec le même nombre
+      d'éléments sont signalés : seul le premier serait choisi.</p>
+    <div class="tableau"><table>
+      <tr><th>KarRmen</th><th>Nom</th><th>Batterie</th></tr>
+      <tr><td>Profil PID 2</td><td>15054S</td><td>4S (Tattu R-Line 1300 et 1550, Funfly 1550)</td></tr>
+      <tr><td>Profil PID 3</td><td>15053S</td><td>3S (Tattu R-Line 1550)</td></tr>
+    </table></div>
 
     <h2 id="karrmen">Réglages de KarRmen à coller</h2>
     <p>Le cadre <b>Réglages de KarRmen à coller</b> reprend les trois réglages batterie que KarRmen avait changés sous
-      Betaflight (<code>diff all</code> du 14/10/2026) :</p>
+      Betaflight (<code>diff all</code> du 14/10/2026) et le choix du profil selon la batterie :</p>
     <pre><code>set bat_capacity = 1550
 set vbat_min_cell_voltage = 350
 set vbat_warning_cell_voltage = 370
+profile 2
+set profile_name = 15053S
+set auto_profile_cell_count = 3
+profile 1
+set profile_name = 15054S
+set auto_profile_cell_count = 4
+profile 2
 save</code></pre>
+    <p><code>profile 1</code> = profil PID 2 (numérotation de Betaflight, à partir de 0). Les PID du profil « 15054S » de
+      Betaflight ne sont pas dans les relevés : ce profil garde les défauts XPro, comme « 15053S ».</p>
     <p><b>Appliquer à la carte</b> les envoie. <b>Essai du buzzer</b> fait biper la carte.</p>
 
     <h2 id="bips">Les bips</h2>
