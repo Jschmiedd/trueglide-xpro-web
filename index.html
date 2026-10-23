@@ -57,6 +57,21 @@
   .docs-liens a:hover { border-color: var(--accent); }
   .docs-liens a span { display: block; color: var(--doux); font-size: 14.5px; margin-top: 4px; }
 
+  .tableau-cmp { overflow-x: auto; border: 1px solid var(--bord); border-radius: 10px; background: var(--carte); }
+  table.cmp { border-collapse: collapse; width: 100%; font-size: 15px; }
+  table.cmp th, table.cmp td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--bord); vertical-align: top; }
+  table.cmp tbody tr:last-child td { border-bottom: 0; }
+  table.cmp th { font: 600 13px var(--corps); text-transform: uppercase; letter-spacing: 0.06em; color: var(--tres-doux); }
+  table.cmp td b { display: block; }
+  table.cmp td span { display: block; color: var(--doux); font-size: 14px; margin-top: 2px; }
+  table.cmp td.oui, table.cmp td.non { white-space: nowrap; font: 500 14px var(--mono); }
+  table.cmp td.oui { color: var(--accent); }
+  table.cmp td.non { color: var(--tres-doux); }
+  .note-cmp { color: var(--tres-doux); font-size: 13.5px; margin: 10px 0 0; }
+  @media (max-width: 560px) {
+    table.cmp td.oui, table.cmp td.non { white-space: normal; }
+    table.cmp th, table.cmp td { padding: 10px; }
+  }
   @media (max-width: 900px) {
     .ouverture .large, .telecharger, .ecrans, .docs-liens { grid-template-columns: minmax(0, 1fr); }
     .fonctions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -85,9 +100,9 @@
     <div>
       <img class="logo" src="assets/img/logo-sombre.png" alt="TrueGlide XPro, Control &amp; Fly">
       <h1>Le firmware de vol et son logiciel, écrits de zéro pour vos drones FPV.</h1>
-      <p>XPro fait voler une SpeedyBee F405 Mini : régulation à 4 kHz, moteurs en DShot bidirectionnel, OSD HD dans les
-        lunettes Walksnail, réglages repris tels quels d'un diff de Betaflight. Le logiciel s'ouvre dans Chrome, sans
-        installation, et flashe la carte en un clic.</p>
+      <p>Tout ce qu'on attend d'un firmware de course et de freestyle (régulation à 4 kHz, filtre RPM, OSD HD
+        Walksnail), des protections que Betaflight n'a pas, et un réglage fin où chaque valeur se change en direct, à
+        côté de sa valeur enregistrée. Votre diff de Betaflight se reprend tel quel.</p>
       <div class="boutons">
         <a class="btn plein" href="#telecharger">Téléchargement bientôt disponible</a>
         <a class="btn" href="docs/index.html">Documentation</a>
@@ -105,14 +120,56 @@
   <section class="bloc" id="fonctions">
     <div class="large">
       <h2>Ce que fait XPro</h2>
-      <p class="sous">Chaque chiffre ci-dessous a été mesuré sur la carte de KarRmen, au banc ou en vol.</p>
+      <p class="sous">Chiffres mesurés sur la carte de KarRmen, au banc ou en vol, sauf quand la plage d'un réglage est indiquée.</p>
       <div class="fonctions">
         <div class="fonction"><h3>Régulation</h3><p>Gyroscope ICM-42688-P lu à chaque interruption, PID à 4 kHz, filtres dynamiques et filtre RPM sur 3 harmoniques.</p><div class="chiffre">8 000 mesures/s · boucle ≤ 99 µs</div></div>
         <div class="fonction"><h3>Moteurs</h3><p>DShot300 bidirectionnel : la vitesse de chaque moteur revient à chaque trame, et sert au filtre RPM et au journal.</p><div class="chiffre">4 000 trames/s · 0 trame sautée</div></div>
         <div class="fonction"><h3>Réglages Betaflight</h3><p>Un diff all de Betaflight se colle dans la ligne de commande : chaque réglage est géré, ou accepté avec la raison pour laquelle il est sans effet.</p><div class="chiffre">592 réglages reconnus · 0 refus</div></div>
         <div class="fonction"><h3>OSD et lunettes</h3><p>OSD HD Walksnail aux places de Betaflight, statistiques de fin de vol, enregistrement lancé à l'armement, et menu des profils aux manches.</p><div class="chiffre">grille 53 × 20 · MSP DisplayPort</div></div>
         <div class="fonction"><h3>Journal de vol</h3><p>Gyroscope brut et filtré, consignes, P, I, D, F, moteurs, vitesses, voies, tension et courant, dans la flash de la carte.</p><div class="chiffre">1 000 mesures/s · aucune perdue</div></div>
-        <div class="fonction"><h3>Fonctions TrueGlide</h3><p>Mode SPEEDER (transition stationnaire vers croisière), power_guard, relance d'un moteur, télémétrie de secours.</p><div class="chiffre">croisière jusqu'à 80°</div></div>
+        <div class="fonction"><h3>Fonctions TrueGlide</h3><p>Mode SPEEDER (transition stationnaire vers croisière), power_guard, relance d'un moteur, télémétrie de secours.</p><div class="chiffre">réglage : croisière de 10 à 80°</div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="bloc" id="en-plus">
+    <div class="large">
+      <h2>Ce que XPro fait en plus</h2>
+      <p class="sous">Comparé à Betaflight 2025.12, le firmware de référence (celui de KarRmen avant XPro). Toutes les
+        fonctions en plus sont coupées par défaut : rien ne change tant que vous ne les réglez pas.</p>
+      <div class="tableau-cmp">
+        <table class="cmp">
+          <thead><tr><th>Fonction</th><th>XPro</th><th>Betaflight</th></tr></thead>
+          <tbody>
+            <tr><td><b>Gaz limités quand un ESC chauffe</b><span>Au-delà de la température réglée, les gaz collectifs baissent d'autant plus vite que l'ESC dépasse le seuil ; les corrections de la régulation restent entières. « ESC HOT nn% » dans les lunettes.</span></td><td class="oui">oui</td><td class="non">alerte seulement</td></tr>
+            <tr><td><b>Gaz limités au-delà d'un courant</b><span>Protège batterie et câbles ; jamais sous un plancher réglé (50 % par défaut). « AMP LIM nn% » dans les lunettes.</span></td><td class="oui">oui</td><td class="non">non</td></tr>
+            <tr><td><b>Relance d'un moteur calé en vol</b><span>Un moteur décroché est repéré en 10 ms en comparant sa vitesse à celle des autres, coupé 50 ms puis ramené en 100 ms. « M2 RESTART » dans les lunettes.</span></td><td class="oui">oui</td><td class="non">non</td></tr>
+            <tr><td><b>Mode SPEEDER</b><span>Passage du stationnaire au vol rapide sur un interrupteur : le drone penche jusqu'à l'inclinaison de croisière, à la vitesse réglée, puis revient.</span></td><td class="oui">oui</td><td class="non">non</td></tr>
+            <tr><td><b>Valeur enregistrée à côté de chaque réglage</b><span>Ce qui a changé est encadré, avec « revenir » sur chaque valeur et « Tout revenir » : on essaie sans risque de perdre son réglage.</span></td><td class="oui">oui</td><td class="non">non</td></tr>
+            <tr><td><b>Visualiseur Blackbox dans le logiciel</b><span>Le journal de la carte s'ouvre en un clic, avec échelles Min / Max, marqueurs et espaces de travail.</span></td><td class="oui">intégré</td><td class="non">application à part</td></tr>
+            <tr><td><b>Contrôle du KV des moteurs</b><span>Moteurs à 20 % pendant 3 s, hélices retirées : la vitesse mesurée est comparée au KV saisi, un écart net est signalé.</span></td><td class="oui">oui</td><td class="non">non</td></tr>
+            <tr><td><b>Rapport de banc en un clic</b><span>Version, état complet et 20 relevés du gyroscope dans un fichier, prêt à envoyer pour un diagnostic.</span></td><td class="oui">oui</td><td class="non">à copier à la main</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note-cmp">Comparaison faite sur les fonctions publiées de Betaflight 2025.12. Une valeur inconnue s'affiche
+        toujours « -- » dans XPro : jamais un chiffre supposé.</p>
+    </div>
+  </section>
+
+  <section class="bloc" id="reglage">
+    <div class="large">
+      <h2>Un réglage fin, sans rien perdre</h2>
+      <p class="sous">Toutes les pages de réglage de Betaflight, et une façon de régler pensée pour le terrain et pour
+        les essais.</p>
+      <div class="fonctions">
+        <div class="fonction"><h3>En direct, réversible</h3><p>Chaque valeur agit dès qu'on la change ; la valeur enregistrée reste affichée à côté, et rien n'est gardé avant « Enregistrer ».</p><div class="chiffre">revenir · tout revenir</div></div>
+        <div class="fonction"><h3>Profils sur le terrain</h3><p>Profils PID et profils de taux nommés, choisis dans le logiciel ou aux manches dans le menu des lunettes, sans PC.</p><div class="chiffre">6 profils PID · 6 profils de taux</div></div>
+        <div class="fonction"><h3>PID complets ou curseurs</h3><p>P, I, D, D max et F par axe, ou huit curseurs de réglage simplifié appliqués d'un clic ; anticipation, anti-gravité, TPA, ralenti dynamique.</p><div class="chiffre">roulis · tangage · lacet</div></div>
+        <div class="fonction"><h3>Courbes calculées</h3><p>Courbes des taux, du TPA et des filtres tracées depuis les réglages lus dans la carte, avec les formules du firmware ; sans carte, pas de courbe plutôt qu'une fausse.</p><div class="chiffre">taux · TPA · filtres</div></div>
+        <div class="fonction"><h3>Vos réglages Betaflight</h3><p>Un diff all se colle dans la ligne de commande ; les taux ACTUAL ont été comparés aux consignes enregistrées par Betaflight sur les vols de KarRmen.</p><div class="chiffre">592 réglages · écart médian 0,6 à 2,4 °/s</div></div>
+        <div class="fonction"><h3>Presets et journal</h3><p>Un réglage complet dans un fichier, à partager ou à remettre en deux clics ; le journal du vol pour vérifier ce que le réglage a changé.</p><div class="chiffre">journal : 1 000 mesures/s</div></div>
       </div>
     </div>
   </section>
